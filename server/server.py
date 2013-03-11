@@ -20,8 +20,6 @@ class Client(threading.Thread):
                 runnging = 0
 
 
-
-
 host = ''
 port = 10627
 
