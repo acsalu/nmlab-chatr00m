@@ -1,0 +1,318 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		905FB99A16F01BE80068B1CD /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 905FB99916F01BE80068B1CD /* Cocoa.framework */; };
+		905FB9A416F01BE80068B1CD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 905FB9A216F01BE80068B1CD /* InfoPlist.strings */; };
+		905FB9A616F01BE80068B1CD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 905FB9A516F01BE80068B1CD /* main.m */; };
+		905FB9AA16F01BE80068B1CD /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 905FB9A816F01BE80068B1CD /* Credits.rtf */; };
+		905FB9AD16F01BE80068B1CD /* CHAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 905FB9AC16F01BE80068B1CD /* CHAppDelegate.m */; };
+		905FB9B016F01BE80068B1CD /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 905FB9AE16F01BE80068B1CD /* MainMenu.xib */; };
+		905FB9B816F028740068B1CD /* CHCommunicationAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 905FB9B716F028740068B1CD /* CHCommunicationAgent.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		905FB99616F01BE80068B1CD /* chatr00m-client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "chatr00m-client.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		905FB99916F01BE80068B1CD /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		905FB99C16F01BE80068B1CD /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		905FB99D16F01BE80068B1CD /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		905FB99E16F01BE80068B1CD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		905FB9A116F01BE80068B1CD /* chatr00m-client-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "chatr00m-client-Info.plist"; sourceTree = "<group>"; };
+		905FB9A316F01BE80068B1CD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		905FB9A516F01BE80068B1CD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		905FB9A716F01BE80068B1CD /* chatr00m-client-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "chatr00m-client-Prefix.pch"; sourceTree = "<group>"; };
+		905FB9A916F01BE80068B1CD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		905FB9AB16F01BE80068B1CD /* CHAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CHAppDelegate.h; sourceTree = "<group>"; };
+		905FB9AC16F01BE80068B1CD /* CHAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CHAppDelegate.m; sourceTree = "<group>"; };
+		905FB9AF16F01BE80068B1CD /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		905FB9B616F028740068B1CD /* CHCommunicationAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHCommunicationAgent.h; sourceTree = "<group>"; };
+		905FB9B716F028740068B1CD /* CHCommunicationAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHCommunicationAgent.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		905FB99316F01BE80068B1CD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				905FB99A16F01BE80068B1CD /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		905FB98D16F01BE70068B1CD = {
+			isa = PBXGroup;
+			children = (
+				905FB99F16F01BE80068B1CD /* chatr00m-client */,
+				905FB99816F01BE80068B1CD /* Frameworks */,
+				905FB99716F01BE80068B1CD /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		905FB99716F01BE80068B1CD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				905FB99616F01BE80068B1CD /* chatr00m-client.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		905FB99816F01BE80068B1CD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				905FB99916F01BE80068B1CD /* Cocoa.framework */,
+				905FB99B16F01BE80068B1CD /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		905FB99B16F01BE80068B1CD /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				905FB99C16F01BE80068B1CD /* AppKit.framework */,
+				905FB99D16F01BE80068B1CD /* CoreData.framework */,
+				905FB99E16F01BE80068B1CD /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		905FB99F16F01BE80068B1CD /* chatr00m-client */ = {
+			isa = PBXGroup;
+			children = (
+				905FB9AB16F01BE80068B1CD /* CHAppDelegate.h */,
+				905FB9AC16F01BE80068B1CD /* CHAppDelegate.m */,
+				905FB9AE16F01BE80068B1CD /* MainMenu.xib */,
+				905FB9A016F01BE80068B1CD /* Supporting Files */,
+				905FB9B616F028740068B1CD /* CHCommunicationAgent.h */,
+				905FB9B716F028740068B1CD /* CHCommunicationAgent.m */,
+			);
+			path = "chatr00m-client";
+			sourceTree = "<group>";
+		};
+		905FB9A016F01BE80068B1CD /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				905FB9A116F01BE80068B1CD /* chatr00m-client-Info.plist */,
+				905FB9A216F01BE80068B1CD /* InfoPlist.strings */,
+				905FB9A516F01BE80068B1CD /* main.m */,
+				905FB9A716F01BE80068B1CD /* chatr00m-client-Prefix.pch */,
+				905FB9A816F01BE80068B1CD /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		905FB99516F01BE80068B1CD /* chatr00m-client */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 905FB9B316F01BE80068B1CD /* Build configuration list for PBXNativeTarget "chatr00m-client" */;
+			buildPhases = (
+				905FB99216F01BE80068B1CD /* Sources */,
+				905FB99316F01BE80068B1CD /* Frameworks */,
+				905FB99416F01BE80068B1CD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "chatr00m-client";
+			productName = "chatr00m-client";
+			productReference = 905FB99616F01BE80068B1CD /* chatr00m-client.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		905FB98E16F01BE70068B1CD /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = CH;
+				LastUpgradeCheck = 0460;
+				ORGANIZATIONNAME = com.nmlabg7;
+			};
+			buildConfigurationList = 905FB99116F01BE70068B1CD /* Build configuration list for PBXProject "chatr00m-client" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 905FB98D16F01BE70068B1CD;
+			productRefGroup = 905FB99716F01BE80068B1CD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				905FB99516F01BE80068B1CD /* chatr00m-client */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		905FB99416F01BE80068B1CD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				905FB9A416F01BE80068B1CD /* InfoPlist.strings in Resources */,
+				905FB9AA16F01BE80068B1CD /* Credits.rtf in Resources */,
+				905FB9B016F01BE80068B1CD /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		905FB99216F01BE80068B1CD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				905FB9A616F01BE80068B1CD /* main.m in Sources */,
+				905FB9AD16F01BE80068B1CD /* CHAppDelegate.m in Sources */,
+				905FB9B816F028740068B1CD /* CHCommunicationAgent.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		905FB9A216F01BE80068B1CD /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				905FB9A316F01BE80068B1CD /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		905FB9A816F01BE80068B1CD /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				905FB9A916F01BE80068B1CD /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		905FB9AE16F01BE80068B1CD /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				905FB9AF16F01BE80068B1CD /* en */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		905FB9B116F01BE80068B1CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		905FB9B216F01BE80068B1CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		905FB9B416F01BE80068B1CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "chatr00m-client/chatr00m-client-Prefix.pch";
+				INFOPLIST_FILE = "chatr00m-client/chatr00m-client-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		905FB9B516F01BE80068B1CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "chatr00m-client/chatr00m-client-Prefix.pch";
+				INFOPLIST_FILE = "chatr00m-client/chatr00m-client-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		905FB99116F01BE70068B1CD /* Build configuration list for PBXProject "chatr00m-client" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				905FB9B116F01BE80068B1CD /* Debug */,
+				905FB9B216F01BE80068B1CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		905FB9B316F01BE80068B1CD /* Build configuration list for PBXNativeTarget "chatr00m-client" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				905FB9B416F01BE80068B1CD /* Debug */,
+				905FB9B516F01BE80068B1CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 905FB98E16F01BE70068B1CD /* Project object */;
+}
