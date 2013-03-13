@@ -15,7 +15,7 @@
 @property (assign) IBOutlet NSWindow *window;
 @property (weak) IBOutlet NSTextField *messageTextField;
 @property (weak) CHCommunicationAgent* agent;
-@property (weak) IBOutlet NSTextField *messageBoard;
+@property (unsafe_unretained) IBOutlet NSTextView *messageBoard;
 
 - (IBAction)send:(id)sender;
 

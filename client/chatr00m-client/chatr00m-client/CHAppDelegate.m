@@ -34,7 +34,7 @@
 
 - (void)communicationAgent:(CHCommunicationAgent *)agent receiveMessage:(NSString *)message
 {
-    self.messageBoard.stringValue = [NSString stringWithFormat:@"%@\n%@", self.messageBoard.stringValue, message];
+     self.messageBoard.string = [NSString stringWithFormat:@"%@\n%@",  self.messageBoard.string, message];
 }
 
 
