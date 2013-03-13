@@ -13,6 +13,7 @@
 		905FB9AA16F01BE80068B1CD /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 905FB9A816F01BE80068B1CD /* Credits.rtf */; };
 		905FB9AD16F01BE80068B1CD /* CHAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 905FB9AC16F01BE80068B1CD /* CHAppDelegate.m */; };
 		905FB9B016F01BE80068B1CD /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 905FB9AE16F01BE80068B1CD /* MainMenu.xib */; };
+		905FB9B816F028740068B1CD /* CHCommunicationAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 905FB9B716F028740068B1CD /* CHCommunicationAgent.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,8 @@
 		905FB9AB16F01BE80068B1CD /* CHAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CHAppDelegate.h; sourceTree = "<group>"; };
 		905FB9AC16F01BE80068B1CD /* CHAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CHAppDelegate.m; sourceTree = "<group>"; };
 		905FB9AF16F01BE80068B1CD /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		905FB9B616F028740068B1CD /* CHCommunicationAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHCommunicationAgent.h; sourceTree = "<group>"; };
+		905FB9B716F028740068B1CD /* CHCommunicationAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHCommunicationAgent.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +89,8 @@
 				905FB9AC16F01BE80068B1CD /* CHAppDelegate.m */,
 				905FB9AE16F01BE80068B1CD /* MainMenu.xib */,
 				905FB9A016F01BE80068B1CD /* Supporting Files */,
+				905FB9B616F028740068B1CD /* CHCommunicationAgent.h */,
+				905FB9B716F028740068B1CD /* CHCommunicationAgent.m */,
 			);
 			path = "chatr00m-client";
 			sourceTree = "<group>";
@@ -169,6 +174,7 @@
 			files = (
 				905FB9A616F01BE80068B1CD /* main.m in Sources */,
 				905FB9AD16F01BE80068B1CD /* CHAppDelegate.m in Sources */,
+				905FB9B816F028740068B1CD /* CHCommunicationAgent.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,6 +310,7 @@
 				905FB9B516F01BE80068B1CD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
