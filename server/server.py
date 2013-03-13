@@ -24,6 +24,7 @@ class Client(threading.Thread):
             if data:
                 print(type(data))
                 print(self.addr[0]+ ": " + data.decode('UTF-8'))
+                self.conn.send((self.addr[0]+ ": " + data.decode('UTF-8')).encode('UTF-8'))
                 #print(self.addr[0]+ ": " + unicode(data, "ISO-8859-1"))
             #else:
             #    self.conn.close()
@@ -38,9 +39,13 @@ class Server:
 	def serve(self):
 		self.s.bind((HOST, PORT))
 		self.s.listen(1)
+		
+		clients = []
+		
+		
 		while True:
 			conn, addr = self.s.accept()
-			conn.send('今天'.encode('utf-8'))
+			conn.send('Welcome to server\n'.encode('utf-8'))
 			c = Client(conn, addr)
 			c.run()
 		conn.close()
