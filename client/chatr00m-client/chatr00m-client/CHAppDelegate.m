@@ -13,9 +13,29 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    // Insert code here to initialize your application
-    CHCommunicationAgent *agent = [CHCommunicationAgent sharedAgent];
-    [agent sendMessage:@"fuck your ass"];
+    self.agent = [CHCommunicationAgent sharedAgent];
+    self.agent.delegate = self;
+    [self.agent startReading];
+    
 }
+
+- (IBAction)send:(id)sender {
+    [self.agent sendMessage:self.messageTextField.stringValue];
+    self.messageTextField.stringValue = @"";
+}
+
+- (void)controlTextDidEndEditing:(NSNotification *)obj
+{
+    if ([[[obj userInfo] objectForKey:@"NSTextMovement"] intValue] == NSReturnTextMovement)
+    {
+        [self send:nil];
+    }
+}
+
+- (void)communicationAgent:(CHCommunicationAgent *)agent receiveMessage:(NSString *)message
+{
+    self.messageBoard.stringValue = [NSString stringWithFormat:@"%@\n%@", self.messageBoard.stringValue, message];
+}
+
 
 @end

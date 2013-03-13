@@ -7,9 +7,17 @@
 //
 
 #import <Cocoa/Cocoa.h>
+@class CHCommunicationAgent;
+@protocol CHCommunicationAgentDelegate;
 
-@interface CHAppDelegate : NSObject <NSApplicationDelegate>
+@interface CHAppDelegate : NSObject <NSApplicationDelegate, NSTextFieldDelegate, CHCommunicationAgentDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
+@property (weak) IBOutlet NSTextField *messageTextField;
+@property (weak) CHCommunicationAgent* agent;
+@property (weak) IBOutlet NSTextField *messageBoard;
+
+- (IBAction)send:(id)sender;
+
 
 @end
