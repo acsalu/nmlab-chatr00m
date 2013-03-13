@@ -8,12 +8,26 @@
 
 #import <Foundation/Foundation.h>
 
+@protocol CHCommunicationAgentDelegate;
+
+
 @interface CHCommunicationAgent : NSObject
 
 @property (nonatomic) int socket;
 
+@property (weak) id<CHCommunicationAgentDelegate> delegate;
+
 + (CHCommunicationAgent *)sharedAgent;
-- (void)sendMessage:(NSString *)msg;
+- (void)sendMessage:(NSString *)message;
+- (void)startReading;
 
 
 @end
+
+@protocol CHCommunicationAgentDelegate <NSObject>
+
+@required
+- (void)communicationAgent:(CHCommunicationAgent *)agent receiveMessage:(NSString *)message;
+
+@end
+
