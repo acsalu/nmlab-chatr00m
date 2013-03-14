@@ -18,6 +18,9 @@
 @property (unsafe_unretained) IBOutlet NSTextView *messageBoard;
 
 - (IBAction)send:(id)sender;
+- (IBAction)transferFile:(id)sender;
+- (IBAction)openCamera:(id)sender;
+- (IBAction)openMic:(id)sender;
 
 
 @end

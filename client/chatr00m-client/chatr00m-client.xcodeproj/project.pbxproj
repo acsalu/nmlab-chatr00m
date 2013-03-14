@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9017CDF016F1F49F005247A0 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9017CDEF16F1F49F005247A0 /* CoreAudio.framework */; };
 		905FB99A16F01BE80068B1CD /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 905FB99916F01BE80068B1CD /* Cocoa.framework */; };
 		905FB9A416F01BE80068B1CD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 905FB9A216F01BE80068B1CD /* InfoPlist.strings */; };
 		905FB9A616F01BE80068B1CD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 905FB9A516F01BE80068B1CD /* main.m */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9017CDEF16F1F49F005247A0 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		905FB99616F01BE80068B1CD /* chatr00m-client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "chatr00m-client.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		905FB99916F01BE80068B1CD /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		905FB99C16F01BE80068B1CD /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -39,6 +41,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9017CDF016F1F49F005247A0 /* CoreAudio.framework in Frameworks */,
 				905FB99A16F01BE80068B1CD /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -49,6 +52,7 @@
 		905FB98D16F01BE70068B1CD = {
 			isa = PBXGroup;
 			children = (
+				9017CDEF16F1F49F005247A0 /* CoreAudio.framework */,
 				905FB99F16F01BE80068B1CD /* chatr00m-client */,
 				905FB99816F01BE80068B1CD /* Frameworks */,
 				905FB99716F01BE80068B1CD /* Products */,
