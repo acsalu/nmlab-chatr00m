@@ -16,7 +16,7 @@
 {
     self.agent = [CHCommunicationAgent sharedAgent];
     self.agent.delegate = self;
-    [self.agent startReading];
+    //[self.agent startReading];
     
 }
 
