@@ -7,9 +7,12 @@ import threading
 import sys
 import codecs
 import signal
+import json
 
 HOST = ''
 PORT = 10627
+
+ACTION_TALK = 'TALK'
 
 class Client(threading.Thread):
     def __init__(self, conn, addr):
@@ -79,6 +82,7 @@ class Server:
                     # read client login name
                     #cname = receive(client).split('NAME: ')[1]
                     
+                    
                     self.clients += 1
                     client.send(('CLIENT: ' + str(address[0])).encode('utf-8'))
                     inputs.append(client)
@@ -99,12 +103,15 @@ class Server:
                     
                     try:
                         data = s.recv(1024)
-                        if data:    
-                            msg = self.getname(s) + ": " + data.decode('UTF-8')
-                            print("[" + self.getname(s) + "]: " + data.decode('UTF-8'))
-                            for o in self.outputs:
-                                if o != self.s:
-                                    o.send(msg.encode('UTF-8'))
+                        if data:
+                            print("[" + self.getname(s) + "] " + data.decode('UTF-8'))
+                            data = data.split(b'\0',1)[0]
+                            msg = json.loads(data.decode('UTF-8'))
+                            
+                            if msg['action'] == ACTION_TALK:
+                                for o in self.outputs:
+                                    if o != self.s:
+                                       o.send((self.getname(s) + ":" + msg['content']).encode('UTF-8'))
                         else:
                             print ('server: %d hung up' % s.fileno())
                             self.clients -= 1
@@ -129,6 +136,6 @@ class Server:
 
 
 if __name__ == '__main__':
-    PORT = int(input('PORT = '))
+    #PORT = int(input('PORT = '))
     server = Server()
     server.serve()
