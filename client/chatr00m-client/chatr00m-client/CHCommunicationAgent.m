@@ -14,6 +14,8 @@
 #import <netdb.h>
 #include <sys/types.h>
 #include <unistd.h>
+#import "JSONKit.h"
+
 
 #define MAX_BUF_SIZE 1024
 
@@ -78,8 +80,6 @@ void SocketDataCallBack (CFSocketRef sock,
         printf("data length = %ld\n", CFDataGetLength((CFDataRef)dataPtr)); 
         // handle your data here. This example prints to stderr.
         char *someBuf;
-        char stringOut[] = "%SUCCESS\n";
-        CFDataRef dataOut;
         if ((someBuf = malloc(dataSize+1)) != nil) {
             for (size_t i = 0; i < dataSize; ++i)
                 someBuf[i] = *(((const char*) CFDataGetBytePtr((CFDataRef) dataPtr)) + i);
@@ -110,7 +110,8 @@ void SocketDataCallBack (CFSocketRef sock,
 
 - (void)sendMessage:(NSString *)message
 {
-    const char *msg = [message UTF8String];
+    NSDictionary *dic = @{@"action":@"TALK", @"content": message};
+    const char *msg = [[dic JSONString] cStringUsingEncoding:NSUTF8StringEncoding];
     send(CFSocketGetNative(self.socket), msg, strlen(msg) + 1, 0);
 }
 
