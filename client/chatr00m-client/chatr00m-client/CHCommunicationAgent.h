@@ -7,13 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CFNetwork/CFNetwork.h>
+
+
 
 @protocol CHCommunicationAgentDelegate;
 
 
 @interface CHCommunicationAgent : NSObject
 
-@property (nonatomic) int socket;
+@property (nonatomic) CFSocketRef socket;
+
 
 @property (weak) id<CHCommunicationAgentDelegate> delegate;
 

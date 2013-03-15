@@ -15,9 +15,12 @@
 @property (assign) IBOutlet NSWindow *window;
 @property (weak) IBOutlet NSTextField *messageTextField;
 @property (weak) CHCommunicationAgent* agent;
-@property (weak) IBOutlet NSTextField *messageBoard;
+@property (unsafe_unretained) IBOutlet NSTextView *messageBoard;
 
 - (IBAction)send:(id)sender;
+- (IBAction)transferFile:(id)sender;
+- (IBAction)openCamera:(id)sender;
+- (IBAction)openMic:(id)sender;
 
 
 @end
