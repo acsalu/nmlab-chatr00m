@@ -16,9 +16,7 @@
 		905FB9AD16F01BE80068B1CD /* CHAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 905FB9AC16F01BE80068B1CD /* CHAppDelegate.m */; };
 		905FB9B016F01BE80068B1CD /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 905FB9AE16F01BE80068B1CD /* MainMenu.xib */; };
 		905FB9B816F028740068B1CD /* CHCommunicationAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 905FB9B716F028740068B1CD /* CHCommunicationAgent.m */; };
-		9074484916F3485C005D2EF3 /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 9074484516F3485C005D2EF3 /* CHANGELOG.md */; };
-		9074484A16F3485C005D2EF3 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 9074484716F3485C005D2EF3 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		9074484B16F3485C005D2EF3 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 9074484816F3485C005D2EF3 /* README.md */; };
+		90E1C45D16F47EBE0074C32C /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E1C45816F47C380074C32C /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,10 +37,8 @@
 		905FB9AF16F01BE80068B1CD /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		905FB9B616F028740068B1CD /* CHCommunicationAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHCommunicationAgent.h; sourceTree = "<group>"; };
 		905FB9B716F028740068B1CD /* CHCommunicationAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHCommunicationAgent.m; sourceTree = "<group>"; };
-		9074484516F3485C005D2EF3 /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CHANGELOG.md; sourceTree = "<group>"; };
-		9074484616F3485C005D2EF3 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
-		9074484716F3485C005D2EF3 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
-		9074484816F3485C005D2EF3 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		90E1C45716F47C380074C32C /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
+		90E1C45816F47C380074C32C /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,7 +75,7 @@
 		905FB99816F01BE80068B1CD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				9074484416F3485C005D2EF3 /* JSONKit */,
+				90E1C45516F47C380074C32C /* JSONKit */,
 				9017CDF116F1F6D0005247A0 /* CFNetwork.framework */,
 				9017CDEF16F1F49F005247A0 /* CoreAudio.framework */,
 				905FB99916F01BE80068B1CD /* Cocoa.framework */,
@@ -123,13 +119,11 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		9074484416F3485C005D2EF3 /* JSONKit */ = {
+		90E1C45516F47C380074C32C /* JSONKit */ = {
 			isa = PBXGroup;
 			children = (
-				9074484516F3485C005D2EF3 /* CHANGELOG.md */,
-				9074484616F3485C005D2EF3 /* JSONKit.h */,
-				9074484716F3485C005D2EF3 /* JSONKit.m */,
-				9074484816F3485C005D2EF3 /* README.md */,
+				90E1C45716F47C380074C32C /* JSONKit.h */,
+				90E1C45816F47C380074C32C /* JSONKit.m */,
 			);
 			path = JSONKit;
 			sourceTree = "<group>";
@@ -189,8 +183,6 @@
 				905FB9A416F01BE80068B1CD /* InfoPlist.strings in Resources */,
 				905FB9AA16F01BE80068B1CD /* Credits.rtf in Resources */,
 				905FB9B016F01BE80068B1CD /* MainMenu.xib in Resources */,
-				9074484916F3485C005D2EF3 /* CHANGELOG.md in Resources */,
-				9074484B16F3485C005D2EF3 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -201,10 +193,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				90E1C45D16F47EBE0074C32C /* JSONKit.m in Sources */,
 				905FB9A616F01BE80068B1CD /* main.m in Sources */,
 				905FB9AD16F01BE80068B1CD /* CHAppDelegate.m in Sources */,
 				905FB9B816F028740068B1CD /* CHCommunicationAgent.m in Sources */,
-				9074484A16F3485C005D2EF3 /* JSONKit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
