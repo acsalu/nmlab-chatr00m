@@ -22,6 +22,7 @@
 - (IBAction)transferFile:(id)sender;
 - (IBAction)openCamera:(id)sender;
 - (IBAction)openMic:(id)sender;
+- (IBAction)changeProfilePic:(NSImageView *)sender;
 
 
 @end

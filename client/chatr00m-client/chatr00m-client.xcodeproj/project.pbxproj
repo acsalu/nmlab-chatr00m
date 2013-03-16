@@ -17,6 +17,10 @@
 		905FB9B016F01BE80068B1CD /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 905FB9AE16F01BE80068B1CD /* MainMenu.xib */; };
 		905FB9B816F028740068B1CD /* CHCommunicationAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 905FB9B716F028740068B1CD /* CHCommunicationAgent.m */; };
 		90E1C45D16F47EBE0074C32C /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E1C45816F47C380074C32C /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		90E1C46016F499140074C32C /* AcsaLu.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 90E1C45F16F499140074C32C /* AcsaLu.jpg */; };
+		90E1C46416F4A3AD0074C32C /* CHProfilePicCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E1C46316F4A3AD0074C32C /* CHProfilePicCell.m */; };
+		90E1C46716F4A95F0074C32C /* NSOpenPanel+CHOpenPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E1C46616F4A95F0074C32C /* NSOpenPanel+CHOpenPanel.m */; };
+		90E1C46A16F4B40B0074C32C /* CHUsernameTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E1C46916F4B40B0074C32C /* CHUsernameTextField.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +43,13 @@
 		905FB9B716F028740068B1CD /* CHCommunicationAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHCommunicationAgent.m; sourceTree = "<group>"; };
 		90E1C45716F47C380074C32C /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		90E1C45816F47C380074C32C /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
+		90E1C45F16F499140074C32C /* AcsaLu.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = AcsaLu.jpg; sourceTree = "<group>"; };
+		90E1C46216F4A3AD0074C32C /* CHProfilePicCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHProfilePicCell.h; sourceTree = "<group>"; };
+		90E1C46316F4A3AD0074C32C /* CHProfilePicCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHProfilePicCell.m; sourceTree = "<group>"; };
+		90E1C46516F4A95F0074C32C /* NSOpenPanel+CHOpenPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSOpenPanel+CHOpenPanel.h"; sourceTree = "<group>"; };
+		90E1C46616F4A95F0074C32C /* NSOpenPanel+CHOpenPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSOpenPanel+CHOpenPanel.m"; sourceTree = "<group>"; };
+		90E1C46816F4B40B0074C32C /* CHUsernameTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHUsernameTextField.h; sourceTree = "<group>"; };
+		90E1C46916F4B40B0074C32C /* CHUsernameTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHUsernameTextField.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,12 +108,14 @@
 		905FB99F16F01BE80068B1CD /* chatr00m-client */ = {
 			isa = PBXGroup;
 			children = (
+				90E1C45E16F499090074C32C /* resources */,
 				905FB9AB16F01BE80068B1CD /* CHAppDelegate.h */,
 				905FB9AC16F01BE80068B1CD /* CHAppDelegate.m */,
 				905FB9AE16F01BE80068B1CD /* MainMenu.xib */,
 				905FB9A016F01BE80068B1CD /* Supporting Files */,
 				905FB9B616F028740068B1CD /* CHCommunicationAgent.h */,
 				905FB9B716F028740068B1CD /* CHCommunicationAgent.m */,
+				90E1C46116F4A3610074C32C /* View */,
 			);
 			path = "chatr00m-client";
 			sourceTree = "<group>";
@@ -126,6 +139,27 @@
 				90E1C45816F47C380074C32C /* JSONKit.m */,
 			);
 			path = JSONKit;
+			sourceTree = "<group>";
+		};
+		90E1C45E16F499090074C32C /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				90E1C45F16F499140074C32C /* AcsaLu.jpg */,
+			);
+			name = resources;
+			sourceTree = "<group>";
+		};
+		90E1C46116F4A3610074C32C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				90E1C46216F4A3AD0074C32C /* CHProfilePicCell.h */,
+				90E1C46316F4A3AD0074C32C /* CHProfilePicCell.m */,
+				90E1C46516F4A95F0074C32C /* NSOpenPanel+CHOpenPanel.h */,
+				90E1C46816F4B40B0074C32C /* CHUsernameTextField.h */,
+				90E1C46916F4B40B0074C32C /* CHUsernameTextField.m */,
+				90E1C46616F4A95F0074C32C /* NSOpenPanel+CHOpenPanel.m */,
+			);
+			name = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -183,6 +217,7 @@
 				905FB9A416F01BE80068B1CD /* InfoPlist.strings in Resources */,
 				905FB9AA16F01BE80068B1CD /* Credits.rtf in Resources */,
 				905FB9B016F01BE80068B1CD /* MainMenu.xib in Resources */,
+				90E1C46016F499140074C32C /* AcsaLu.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -197,6 +232,9 @@
 				905FB9A616F01BE80068B1CD /* main.m in Sources */,
 				905FB9AD16F01BE80068B1CD /* CHAppDelegate.m in Sources */,
 				905FB9B816F028740068B1CD /* CHCommunicationAgent.m in Sources */,
+				90E1C46416F4A3AD0074C32C /* CHProfilePicCell.m in Sources */,
+				90E1C46716F4A95F0074C32C /* NSOpenPanel+CHOpenPanel.m in Sources */,
+				90E1C46A16F4B40B0074C32C /* CHUsernameTextField.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -18,12 +18,11 @@
 
 @property (nonatomic) CFSocketRef socket;
 
-
 @property (weak) id<CHCommunicationAgentDelegate> delegate;
 
 + (CHCommunicationAgent *)sharedAgent;
 - (void)sendMessage:(NSString *)message;
-- (void)startReading;
+- (void)sendFile:(NSData *)data;
 
 
 @end

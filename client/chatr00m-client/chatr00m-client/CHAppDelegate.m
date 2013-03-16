@@ -43,6 +43,10 @@
 - (IBAction)openMic:(id)sender {
 }
 
+- (IBAction)changeProfilePic:(NSImageView *)sender {
+    NSLog(@"changeProfilePic");
+}
+
 - (void)controlTextDidEndEditing:(NSNotification *)obj
 {
     if ([[[obj userInfo] objectForKey:@"NSTextMovement"] intValue] == NSReturnTextMovement)

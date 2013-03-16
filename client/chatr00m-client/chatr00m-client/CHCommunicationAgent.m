@@ -68,6 +68,27 @@ __strong id agent;
     return __communicationAgent;
 }
 
+
+- (void)sendFile:(NSData *)data
+{
+    struct sockaddr_in addr;
+    
+    memset(&addr, 0, sizeof(addr));
+    addr.sin_len = sizeof(struct sockaddr_in);
+    addr.sin_family = AF_INET;
+    addr.sin_addr.s_addr = inet_addr("140.112.18.220");
+    addr.sin_port = htons(10627);
+    
+    CFDataRef address = CFDataCreate(kCFAllocatorDefault, (const UInt8*)&addr, sizeof(addr));
+    NSDictionary *dic = @{@"action":@"CHANGE_PIC", @"content": data};
+    const char *msg = [[dic JSONString] cStringUsingEncoding:NSUTF8StringEncoding];
+    //send(CFSocketGetNative(self.socket), msg, strlen(msg) + 1, 0);
+    
+    if (CFSocketSendData(self.socket, address, CFDataCreate(NULL, [data bytes], [data length]), 0)) {
+        NSLog(@"file transfer sucks");
+    }
+}
+
 void SocketDataCallBack (CFSocketRef sock,
                          CFSocketCallBackType type,
                          CFDataRef theAddr,
@@ -102,10 +123,7 @@ void SocketDataCallBack (CFSocketRef sock,
     //CFSocketInvalidate(sock);
     //CFRelease(sock);
 
-    printf("data length = %ld\n", CFDataGetLength((CFDataRef)dataPtr));
-    //NSString *message = [[NSString alloc] initWithBytes:dataPtr length:CFDataGetLength((CFDataRef)dataPtr) encoding:NSUTF8StringEncoding];
-    //NSLog(@"%@", [NSString stringWithCString:(const char *)dataPtr encoding:NSUTF8StringEncoding]);
-    
+    //printf("data length = %ld\n", CFDataGetLength((CFDataRef)dataPtr));
 }
 
 - (void)sendMessage:(NSString *)message
