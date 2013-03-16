@@ -53,15 +53,19 @@
 
 - (void)communicationAgent:(CHCommunicationAgent *)agent receiveMessage:(NSString *)message
 {
-//    NSRange end = NSMakeRange(self.messageBoard.string.length, 0);
-//    end.location += message.length;
-//    if (NSMaxY([self.messageBoard visibleRect]) == NSMaxY([self.messageBoard bounds])) {
-//        self.messageBoard.string = [NSString stringWithFormat:@"%@\n%@",  self.messageBoard.string, message];
-//        [self.messageBoard scrollRangeToVisible:end];
-//    } else {
-        self.messageBoard.string = [NSString stringWithFormat:@"%@\n%@",  self.messageBoard.string, message];
-//    }
- 
+    self.messageBoard.string = [NSString stringWithFormat:@"%@\n%@",  self.messageBoard.string, message];
+    
+    NSPoint newScrollOrigin;
+    
+    // assume that the scrollview is an existing variable
+    if ([[self.scrollView documentView] isFlipped]) {
+        newScrollOrigin=NSMakePoint(0.0,NSMaxY([[self.scrollView documentView] frame])
+                                    -NSHeight([[self.scrollView contentView] bounds]));
+    } else {
+        newScrollOrigin=NSMakePoint(0.0,0.0);
+    }
+    
+    [[self.scrollView documentView] scrollPoint:newScrollOrigin];
 }
 
 

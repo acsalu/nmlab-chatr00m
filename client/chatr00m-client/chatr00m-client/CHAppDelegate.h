@@ -16,6 +16,7 @@
 @property (weak) IBOutlet NSTextField *messageTextField;
 @property (weak) CHCommunicationAgent* agent;
 @property (unsafe_unretained) IBOutlet NSTextView *messageBoard;
+@property (weak) IBOutlet NSScrollView *scrollView;
 
 - (IBAction)send:(id)sender;
 - (IBAction)transferFile:(id)sender;
