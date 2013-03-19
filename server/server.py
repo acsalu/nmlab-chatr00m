@@ -3,8 +3,6 @@
 import socket
 import select
 import sys
-import threading
-import sys
 import codecs
 import signal
 import json
@@ -15,27 +13,6 @@ PORT = 10627
 ACTION_TALK = 'TALK'
 ACTION_NEWROOM = 'NEWROOM'
 ACTION_SETUSERNAME = 'SETUSERNAME'
-
-class Client(threading.Thread):
-    def __init__(self, conn, addr):
-        print("client from " + addr[0] + " is connected...")
-        self.conn = conn
-        self.addr = addr
-        self.size = 1024
-
-    def run(self):
-        running = 1
-        while running:
-            data = self.conn.recv(self.size)
-            if data:
-                print(type(data))
-                print(self.addr[0]+ ": " + data.decode('UTF-8'))
-                self.conn.send((self.addr[0]+ ": " + data.decode('UTF-8')).encode('UTF-8'))
-                #print(self.addr[0]+ ": " + unicode(data, "ISO-8859-1"))
-            #else:
-            #    self.conn.close()
-            #    runnging = 0
-
 
 class Server:
     def __init__(self):
@@ -50,9 +27,9 @@ class Server:
         self.rooms = {}
         self.roomNum = 0
         
-        
         signal.signal(signal.SIGINT, self.sighandler)
         
+
     def sighandler(self, signum, frame):
         #Close the server
         print ("\nShutting down server...")
@@ -170,6 +147,5 @@ class Room:
        return self.clients
 
 if __name__ == '__main__':
-    #PORT = int(input('PORT = '))
     server = Server()
     server.serve()
