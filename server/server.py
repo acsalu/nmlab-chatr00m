@@ -11,8 +11,11 @@ HOST = ''
 PORT = 10627
 
 ACTION_TALK = 'TALK'
+<<<<<<< HEAD
 ACTION_NEWROOM = 'NEWROOM'
 ACTION_SETUSERNAME = 'SETUSERNAME'
+=======
+>>>>>>> 98e83022582295b964b8645e1816186e8d6d113e
 
 class Server:
     def __init__(self):
@@ -24,8 +27,11 @@ class Server:
         self.s.bind((HOST, PORT))
         print ("Start listen to port " + str(PORT))
         self.s.listen(1)
+<<<<<<< HEAD
         self.rooms = {}
         self.roomNum = 0
+=======
+>>>>>>> 98e83022582295b964b8645e1816186e8d6d113e
         
         signal.signal(signal.SIGINT, self.sighandler)
         
