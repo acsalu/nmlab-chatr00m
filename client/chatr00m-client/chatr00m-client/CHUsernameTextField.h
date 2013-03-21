@@ -7,6 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "CHCommunicationAgent.h"
 
 @interface CHUsernameTextField : NSTextField
 

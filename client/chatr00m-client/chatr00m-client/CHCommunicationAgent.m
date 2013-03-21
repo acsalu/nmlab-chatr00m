@@ -133,4 +133,24 @@ void SocketDataCallBack (CFSocketRef sock,
     send(CFSocketGetNative(self.socket), msg, strlen(msg) + 1, 0);
 }
 
+- (void)setUserName:(NSString *)name
+{
+    NSDictionary *dic = @{@"action":@"SETUSERNAME", @"content": name};
+    const char *msg = [[dic JSONString] cStringUsingEncoding:NSUTF8StringEncoding];
+    send(CFSocketGetNative(self.socket), msg, strlen(msg) + 1, 0);
+    //NSLog(@"SetName");
+}
+
+- (void)newRoom:(NSString *)roomName
+{
+    NSDictionary *dic = @{@"action":@"NEWROOM", @"content":roomName};
+    const char *msg = [[dic JSONString] cStringUsingEncoding:NSUTF8StringEncoding];
+    send(CFSocketGetNative(self.socket), msg, strlen(msg) + 1, 0);
+}
+
+- (void)setPicture:(NSImage *)picture
+{
+    
+}
+
 @end

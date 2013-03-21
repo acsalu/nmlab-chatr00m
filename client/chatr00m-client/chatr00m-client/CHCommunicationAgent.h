@@ -23,6 +23,11 @@
 + (CHCommunicationAgent *)sharedAgent;
 - (void)sendMessage:(NSString *)message;
 - (void)sendFile:(NSData *)data;
+- (void)setUserName:(NSString *)name;
+- (void)newRoom:(NSString *)roomName;
+- (void)enterRoom:(NSString *)roomName;
+- (void)leaveRoom:(NSString *)roomName;
+- (void)setPicture:(NSImage *)picture;
 
 
 @end
