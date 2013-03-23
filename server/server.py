@@ -20,8 +20,6 @@ ACTION_ENTERROOM = "ENTERROOM"
 ACTION_LEAVEROOM = "LEAVEROOM"
 
 
-
-
 class Server:
     def __init__(self):
         self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -99,6 +97,16 @@ class Server:
                                 r = self.room_list[data["content"]["room_id"]]
                                 r.put_message((self.client_map[s].get_name() + " : ")+(data["content"]["message"]))
                                 
+
+                                r = self.room_list[data["content"]["room_id"]]
+                                print (data["content"]["message"])
+                                content = data["content"]
+                                broadcast_msg = {"action" :ACTION_TALK, 
+                                                 "content":{"room_id":content["room_id"],
+                                                            "name":self.client_map[s].get_name(),
+                                                            "message":content["message"]}}
+                                r.put_message(json.dump(broadcast_msg))
+
                             elif data["action"] == ACTION_SETUSERNAME:
                                 pass
                                 c = self.client_map[s]
@@ -119,7 +127,8 @@ class Server:
 
                                 broadcast_msg = {"action" :ACTION_NEWROOM, 
                                                  "content":{"room_id"  :new_room.get_id(), 
-                                                            "room_name":new_room.get_name()}}
+                                                            "room_name":new_room.get_name()}
+                                                            "room_type":new_room.type}
 
                                 # [Duty of client side]:create new room in client side
                                 lobby.put_message(json.dump(broadcast_msg))
