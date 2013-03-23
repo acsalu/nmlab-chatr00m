@@ -146,7 +146,15 @@ class Server:
                             if msg["action"] == ACTION_TALK:
                                 r = self.room_list[int(msg["content"]["room_id"])]
                                 print (msg["content"]["message"])
-                                r.put_message((self.client_map[s].get_name() + " : ")+(msg["content"]["message"]))
+                                content = msg["content"]
+                                name = self.client_map[s].get_name()
+                                jsonstr = json.dumps({
+                                    "action":ACTION_TALK, 
+                                    "content":{
+                                        "room_id":content["room_id"], "name":name, "message":content["message"]}
+                                    })
+                                r.put_message(jsonstr)
+                                #r.put_message((self.client_map[s].get_name() + " : ")+(msg["content"]["message"]))
                                 
                             elif msg["action"] == ACTION_SETUSERNAME:
                                 pass
