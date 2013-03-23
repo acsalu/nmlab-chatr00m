@@ -3,72 +3,58 @@
 import socket
 import select
 import sys
-import threading
-import sys
 import codecs
 import signal
 import json
+import queue
+from room import *
+from client import *
 
-HOST = ''
+HOST = ""
 PORT = 10627
 
-ACTION_TALK = 'TALK'
-
-class Client(threading.Thread):
-    def __init__(self, conn, addr):
-        print("client from " + addr[0] + " is connected...")
-        self.conn = conn
-        self.addr = addr
-        self.size = 1024
-
-    def run(self):
-        running = 1
-        while running:
-            data = self.conn.recv(self.size)
-            if data:
-                print(type(data))
-                print(self.addr[0]+ ": " + data.decode('UTF-8'))
-                self.conn.send((self.addr[0]+ ": " + data.decode('UTF-8')).encode('UTF-8'))
-                #print(self.addr[0]+ ": " + unicode(data, "ISO-8859-1"))
-            #else:
-            #    self.conn.close()
-            #    runnging = 0
+ACTION_TALK = "TALK"
+ACTION_SETUSERNAME = "SETUP_USERNAME"
+ACTION_NEWROOM = "NEW_ROOM"
+ACTION_ENTERROOM = "ENTER_ROOM"
+ACTION_LEAVEROOM = "LEAVE_ROOM"
 
 
 class Server:
     def __init__(self):
         self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        self.clients = 0
-        self.clientmap = {}
-        self.outputs = []
         self.s.bind((HOST, PORT))
         print ("Start listen to port " + str(PORT))
         self.s.listen(1)
-        
-        
         signal.signal(signal.SIGINT, self.sighandler)
         
+        self.client_num = 0
+        self.next_room_id = 0
+        self.client_map = {}
+        
+        # key   : int (0 is lobby) 
+        # value : list of sockets
+        self.room_list = {}
+        self.room_list[0] = Room(0, "Lobby", ROOM_TYPE_PUBLIC)
+        self.next_room_id += 1
+
     def sighandler(self, signum, frame):
         #Close the server
         print ("\nShutting down server...")
-        for o in self.outputs:
+        for o in outputs:
             o.close()
         self.s.close()    
     
-    def getname(self, client):
-        info = self.clientmap[client]
-        host, name = info[0][0], info[1]
-        return '@'.join((name, host))
-    
     def serve(self):
         inputs = [self.s, sys.stdin]
-        self.outputs = []
+        outputs = []
         running = 1
+        lobby = self.room_list[0]
     
         while running:
             try:
-                inputready,outputready,exceptready = select.select(inputs, self.outputs, [])
+                inputready,outputready,exceptready = select.select(inputs, outputs, [])
             except select.error as e:
                 break
             except socket.error as e:
@@ -77,65 +63,130 @@ class Server:
             for s in inputready:
                 if s == self.s:
                     # handle server socket
-                    client, address = self.s.accept()
-                    print ("server: Got connection %d from %s" % (client.fileno(), address))
+                    new_socket, address = self.s.accept()
+                    print ("server: Got connection %d from %s" % (new_socket.fileno(), address))
                     # read client login name
-                    #cname = receive(client).split('NAME: ')[1]
+                    # cname = receive(client).split("NAME: ")[1]
                     
+                    self.client_num += 1
+                    # new_socket.send(("CLIENT: " + str(address[0])).encode("utf-8"))
                     
-                    self.clients += 1
-                    client.send(('CLIENT: ' + str(address[0])).encode('utf-8'))
-                    inputs.append(client)
-                    cname = address[0]
-                    self.clientmap[client] = (address, cname)
-                    
-                    for o in self.outputs:
-                        o.send(("\n(Connected: New client %d from %s)" % (self.clients, self.getname(client))).encode('utf-8'))
-                    
-                    self.outputs.append(client)
-                    
+                    inputs.append(new_socket)
+                    self.client_map[new_socket] = Client(address, address[0])
+
+                    # should broadcast new client info (client_id, name, ...)
+                    # lobby.put_message(("\n(Connected: New client %s from %s)" % (self.client_map[new_socket].get_name(), address)))
+                    outputs.append(new_socket)
+
+                    lobby.add_client(new_socket)
+
                 elif s == sys.stdin:
                     # handle standard input
                     junk = sys.stdin.readline()
                     running = 0
                 else:
                     # handle all other sockets
-                    
                     try:
                         data = s.recv(1024)
                         if data:
-                            print("[" + self.getname(s) + "] " + data.decode('UTF-8'))
-                            data = data.split(b'\0',1)[0]
-                            msg = json.loads(data.decode('UTF-8'))
-                            
-                            if msg['action'] == ACTION_TALK:
-                                for o in self.outputs:
-                                    if o != self.s:
-                                       o.send((self.getname(s) + ":" + msg['content']).encode('UTF-8'))
+                            print("[" + self.client_map[s].get_name() + "] " + data.decode("UTF-8"))
+                            data = data.split(b"\0",1)[0]
+                            data = json.loads(data.decode("UTF-8"))
+
+                            if data["action"] == ACTION_TALK:
+                                r = self.room_list[data["content"]["room_id"]]
+                                r.put_message((self.client_map[s].get_name() + " : ")+(data["content"]["message"]))
+                                
+
+                                r = self.room_list[data["content"]["room_id"]]
+                                print (data["content"]["message"])
+                                content = data["content"]
+                                broadcast_msg = {"action" :ACTION_TALK, 
+                                                 "content":{"room_id":content["room_id"],
+                                                            "name":self.client_map[s].get_name(),
+                                                            "message":content["message"]}}
+                                r.put_message(json.dumps(broadcast_msg))
+
+                            elif data["action"] == ACTION_SETUSERNAME:
+                                c = self.client_map[s]
+                                new_name = data["content"]["user_name"]
+                                c.set_name(new_name)
+                                broadcast_msg = {"action" :ACTION_SETUSERNAME, 
+                                                 "content":{"user_name":new_name, 
+                                                            "client_id":c.get_id()}}
+                                # [Duty of client side]:change user's info in every rooms
+                                lobby.put_message(json.dumps(broadcast_msg))
+
+                            # put some data to msg_queue of room??
+                            elif data["action"] == ACTION_NEWROOM:
+                                new_room = Room(self.next_room_id, "room"+str(self.next_room_id), ROOM_TYPE_PUBLIC)
+                                self.client_map[self.next_room_id] = new_room
+                                self.next_room_id += 1
+                                print ("new room action")
+                                broadcast_msg = {"action" :ACTION_NEWROOM, 
+                                                 "content":{"room_id"  :new_room.get_id(), 
+                                                            "room_name":new_room.get_name(),
+                                                            "room_type":new_room.type}}
+
+                                # [Duty of client side]:create new room in client side
+                                lobby.put_message(json.dumps(broadcast_msg))
+
+                                # new_client_list = data["content"]["client_list"]
+                                # new_room.add_client_list(new_client_list)
+                                # for c in new_client_list:
+                                #     c.enter_room(new_room.get_id())
+                                # broadcast to member of new room
+
+                            elif data["action"] == ACTION_ENTERROOM:
+                                r = self.room_list[data["content"]["room_id"]]
+                                c = self.client_map[s]
+                                r.add_client(c)
+                                c.enter_room(r.get_id())
+
+                                broadcast_msg = {"action" :ACTION_ENTERROOM, 
+                                                 "content":{"room_id"  :r.get_id(),
+                                                            "client_id":c.get_id()}}
+                                r.put_message(json.dumps(broadcast_msg))
+
+                            elif data["action"] == ACTION_LEAVEROOM:
+                                r = self.room_list[data["content"]["room_id"]]
+                                c = self.client_map[s]
+                                r.remove_client(c)
+                                c.leave_room(r.get_id)
+
+                                broadcast_msg = {"action" :ACTION_ENTERROOM, 
+                                                 "content":{"room_id"  :r.get_id(),
+                                                            "client_id":c.get_id()}}
+                                r.put_message(json.dumps(broadcast_msg))
+
+                            else:
+                                print ("unknown action!!!")
+
                         else:
-                            print ('server: %d hung up' % s.fileno())
-                            self.clients -= 1
+                            print ("server: %d hung up" % s.fileno())
+                            self.client_num -= 1
                             s.close()
                             inputs.remove(s)
-                            self.outputs.remove(s)
+                            outputs.remove(s)
                             
-                            msg = '\n(Hung up: Client from %s' % self.getname(s)
-                            for o in self.outputs:
-                                o.send(msg.encode('utf-8'))
+                            # msg = "\n(Hung up: Client from %s" % self.getname(s)
+                            # for o in outputs:
+                            #     o.send(msg.encode("utf-8"))
                     except socket.error as e:
                         inputs.remove(s)
-                        self.outputs.remove(s)
+                        outputs.remove(s)
+
+            # for s in outputready:
+            for r_id, room in self.room_list.items():
+                if room.msg_queue.empty():
+                    continue
+                next_msg = room.msg_queue.get_nowait()
+                for client_socket in room.client_list:
+                    if client_socket in outputs:
+                        client_socket.send(next_msg.encode("UTF-8"))
                     
-        """
-        conn, addr = self.s.accept()
-        conn.send('Welcome to server\n'.encode('utf-8'))
-        c = Client(conn, addr)
-        c.run()
-        """
-        #conn.close()
 
 
-if __name__ == '__main__':
-    #PORT = int(input('PORT = '))
+if __name__ == "__main__":
     server = Server()
     server.serve()

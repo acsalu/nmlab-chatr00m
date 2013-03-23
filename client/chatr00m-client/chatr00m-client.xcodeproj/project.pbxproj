@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		9017CDF016F1F49F005247A0 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9017CDEF16F1F49F005247A0 /* CoreAudio.framework */; };
-		9017CDF216F1F6D0005247A0 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9017CDF116F1F6D0005247A0 /* CFNetwork.framework */; };
 		9050EF1716FDE39F00B6B216 /* NewRoomSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9050EF1616FDE39F00B6B216 /* NewRoomSheet.xib */; };
 		905FB99A16F01BE80068B1CD /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 905FB99916F01BE80068B1CD /* Cocoa.framework */; };
 		905FB9A416F01BE80068B1CD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 905FB9A216F01BE80068B1CD /* InfoPlist.strings */; };
@@ -25,8 +24,6 @@
 		90E1C46416F4A3AD0074C32C /* CHProfilePicCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E1C46316F4A3AD0074C32C /* CHProfilePicCell.m */; };
 		90E1C46716F4A95F0074C32C /* NSOpenPanel+CHOpenPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E1C46616F4A95F0074C32C /* NSOpenPanel+CHOpenPanel.m */; };
 		90E1C46A16F4B40B0074C32C /* CHUsernameTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E1C46916F4B40B0074C32C /* CHUsernameTextField.m */; };
-		90F8100016F5A98E0026A5CF /* PSMTabBarControl.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 90F80FFF16F5A98E0026A5CF /* PSMTabBarControl.framework */; };
-		90F8100216F5A9B10026A5CF /* PSMTabBarControl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90F8100116F5A9B10026A5CF /* PSMTabBarControl.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -36,7 +33,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				90F8100016F5A98E0026A5CF /* PSMTabBarControl.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -44,7 +40,6 @@
 
 /* Begin PBXFileReference section */
 		9017CDEF16F1F49F005247A0 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
-		9017CDF116F1F6D0005247A0 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		9050EF1616FDE39F00B6B216 /* NewRoomSheet.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewRoomSheet.xib; sourceTree = "<group>"; };
 		9050EF1816FDF86900B6B216 /* Const.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Const.h; sourceTree = "<group>"; };
 		905FB99616F01BE80068B1CD /* chatr00m-client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "chatr00m-client.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -76,8 +71,6 @@
 		90E1C46616F4A95F0074C32C /* NSOpenPanel+CHOpenPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSOpenPanel+CHOpenPanel.m"; sourceTree = "<group>"; };
 		90E1C46816F4B40B0074C32C /* CHUsernameTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHUsernameTextField.h; sourceTree = "<group>"; };
 		90E1C46916F4B40B0074C32C /* CHUsernameTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHUsernameTextField.m; sourceTree = "<group>"; };
-		90F80FFF16F5A98E0026A5CF /* PSMTabBarControl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PSMTabBarControl.framework; sourceTree = "<group>"; };
-		90F8100116F5A9B10026A5CF /* PSMTabBarControl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PSMTabBarControl.framework; path = ../../../../PSMTabBarControl/build/Release/PSMTabBarControl.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,8 +78,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				90F8100216F5A9B10026A5CF /* PSMTabBarControl.framework in Frameworks */,
-				9017CDF216F1F6D0005247A0 /* CFNetwork.framework in Frameworks */,
 				9017CDF016F1F49F005247A0 /* CoreAudio.framework in Frameworks */,
 				905FB99A16F01BE80068B1CD /* Cocoa.framework in Frameworks */,
 			);
@@ -98,7 +89,6 @@
 		905FB98D16F01BE70068B1CD = {
 			isa = PBXGroup;
 			children = (
-				90F80FFF16F5A98E0026A5CF /* PSMTabBarControl.framework */,
 				905FB99F16F01BE80068B1CD /* chatr00m-client */,
 				905FB99816F01BE80068B1CD /* Frameworks */,
 				905FB99716F01BE80068B1CD /* Products */,
@@ -116,9 +106,7 @@
 		905FB99816F01BE80068B1CD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				90F8100116F5A9B10026A5CF /* PSMTabBarControl.framework */,
 				90E1C45516F47C380074C32C /* JSONKit */,
-				9017CDF116F1F6D0005247A0 /* CFNetwork.framework */,
 				9017CDEF16F1F49F005247A0 /* CoreAudio.framework */,
 				905FB99916F01BE80068B1CD /* Cocoa.framework */,
 				905FB99B16F01BE80068B1CD /* Other Frameworks */,
@@ -389,7 +377,8 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "chatr00m-client/chatr00m-client-Prefix.pch";
 				INFOPLIST_FILE = "chatr00m-client/chatr00m-client-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = "";
 				WRAPPER_EXTENSION = app;
@@ -407,7 +396,8 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "chatr00m-client/chatr00m-client-Prefix.pch";
 				INFOPLIST_FILE = "chatr00m-client/chatr00m-client-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = "";
 				WRAPPER_EXTENSION = app;

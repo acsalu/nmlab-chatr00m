@@ -4676,7 +4676,7 @@
 					<dictionary class="NSMutableDictionary" key="actions">
 						<string key="activateSheet:">id</string>
 						<string key="closeSheet:">id</string>
-						<string key="newChatroom:">id</string>
+						<string key="createChatroomButtonPressed:">id</string>
 						<string key="showChatroom:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
@@ -4688,8 +4688,8 @@
 							<string key="name">closeSheet:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-						<object class="IBActionInfo" key="newChatroom:">
-							<string key="name">newChatroom:</string>
+						<object class="IBActionInfo" key="createChatroomButtonPressed:">
+							<string key="name">createChatroomButtonPressed:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="showChatroom:">

@@ -9,8 +9,6 @@
 #import "CHAppDelegate.h"
 #import "CHCommunicationAgent.h"
 #import <CoreAudio/CoreAudio.h>
-#import <PSMTabBarControl/PSMTabBarControl.h>
-#import <PSMTabBarControl/PSMRolloverButton.h>
 
 
 @implementation CHAppDelegate
