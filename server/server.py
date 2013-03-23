@@ -7,67 +7,17 @@ import codecs
 import signal
 import json
 import queue
+from room import *
+from client import *
 
 HOST = ""
 PORT = 10627
 
 ACTION_TALK = "TALK"
-ACTION_SETUSERNAME = "SETUSERNAME"
-ACTION_NEWROOM = "NEWROOM"
-ACTION_ENTERROOM = "ENTERROOM"
-ACTION_LEAVEROOM = "LEAVEROOM"
-
-ROOM_TYPE_PUBLIC = "Public"
-ROOM_TYPE_PRIVATE = "Private"
-
-class Client:
-    next_client_id = 1
-
-    def __init__(self, address, name):
-        self.client_id = Client.next_client_id
-        Client.next_client_id += 1
-        self.address = address
-        self.name = name
-        self.join_list = [0]
-
-    def set_name(self, name):
-        self.name = name
-
-    def get_name(self):
-        return self.name
-
-    def enter_room(self, roomid):
-        self.join_list.append(roomid)
-    
-    def leave_room(self, roomid):
-        self.join_list.remove(roomid)
-
-class Room:
-    def __init__(self, room_id, name, type):
-        self.room_id = room_id
-        self.name = name
-        self.type = ROOM_TYPE_PUBLIC
-        self.client_list = []
-        self.msg_queue = queue.Queue()
-
-    def add_client(self, client):
-        self.client_list.append(client)
-        # client.enter_room(self.room_id)
-
-    def add_client_list(self, client_list):
-        self.client_list.extend(client_list)
-        # for c in client_list:
-        #     c.enter_room(self.room_id)  
-
-    def remove_client(self, client):
-        self.client_list.remove(client)
-        # client.leave_room(self.room_id)
-    
-    def put_message(self, message):
-        self.msg_queue.put(message)
-
-    # def getClientList(self):
-    #     return self.clients
+ACTION_SETUSERNAME = "SETUP_USERNAME"
+ACTION_NEWROOM = "NEW_ROOM"
+ACTION_ENTERROOM = "ENTER_ROOM"
+ACTION_LEAVEROOM = "LEAVE_ROOM"
 
 
 class Server:
@@ -119,15 +69,14 @@ class Server:
                     # cname = receive(client).split("NAME: ")[1]
                     
                     self.client_num += 1
-                    new_socket.send(("CLIENT: " + str(address[0])).encode("utf-8"))
+                    # new_socket.send(("CLIENT: " + str(address[0])).encode("utf-8"))
                     
                     inputs.append(new_socket)
                     self.client_map[new_socket] = Client(address, address[0])
-                    
-                    # the bellow should be modified (send according to room)
-                    lobby.put_message(("\n(Connected: New client %s from %s)" % (self.client_map[new_socket].get_name(), address)))
+
+                    # should broadcast new client info (client_id, name, ...)
+                    # lobby.put_message(("\n(Connected: New client %s from %s)" % (self.client_map[new_socket].get_name(), address)))
                     outputs.append(new_socket)
-                    # the above should be modified
 
                     lobby.add_client(new_socket)
 
@@ -142,39 +91,76 @@ class Server:
                         if data:
                             print("[" + self.client_map[s].get_name() + "] " + data.decode("UTF-8"))
                             data = data.split(b"\0",1)[0]
-                            msg = json.loads(data.decode("UTF-8"))
-                            if msg["action"] == ACTION_TALK:
-                                r = self.room_list[int(msg["content"]["room_id"])]
-                                print (msg["content"]["message"])
-                                content = msg["content"]
-                                name = self.client_map[s].get_name()
-                                jsonstr = json.dumps({
-                                    "action":ACTION_TALK, 
-                                    "content":{
-                                        "room_id":content["room_id"], "name":name, "message":content["message"]}
-                                    })
-                                r.put_message(jsonstr)
-                                #r.put_message((self.client_map[s].get_name() + " : ")+(msg["content"]["message"]))
+                            data = json.loads(data.decode("UTF-8"))
+
+                            if data["action"] == ACTION_TALK:
+                                r = self.room_list[data["content"]["room_id"]]
+                                r.put_message((self.client_map[s].get_name() + " : ")+(data["content"]["message"]))
                                 
-                            elif msg["action"] == ACTION_SETUSERNAME:
-                                pass
-                                # self.client_map[]
 
-                            # put some msg to msg_queue of room??
-                            elif msg["action"] == ACTION_NEWROOM:
-                                new_room = Room(next_room_id, "room"+str(next_room_id), ROOM_TYPE_PUBLIC)
-                                self.client_map[next_room_id] = new_room
+                                r = self.room_list[data["content"]["room_id"]]
+                                print (data["content"]["message"])
+                                content = data["content"]
+                                broadcast_msg = {"action" :ACTION_TALK, 
+                                                 "content":{"room_id":content["room_id"],
+                                                            "name":self.client_map[s].get_name(),
+                                                            "message":content["message"]}}
+                                r.put_message(json.dumps(broadcast_msg))
+
+                            elif data["action"] == ACTION_SETUSERNAME:
+                                c = self.client_map[s]
+                                new_name = data["content"]["user_name"]
+                                c.set_name(new_name)
+                                broadcast_msg = {"action" :ACTION_SETUSERNAME, 
+                                                 "content":{"user_name":new_name, 
+                                                            "client_id":c.get_id()}}
+                                # [Duty of client side]:change user's info in every rooms
+                                lobby.put_message(json.dumps(broadcast_msg))
+
+                            # put some data to msg_queue of room??
+                            elif data["action"] == ACTION_NEWROOM:
+                                new_room = Room(self.next_room_id, "room"+str(self.next_room_id), ROOM_TYPE_PUBLIC)
+                                self.client_map[self.next_room_id] = new_room
                                 self.next_room_id += 1
+                                print ("new room action")
+                                broadcast_msg = {"action" :ACTION_NEWROOM, 
+                                                 "content":{"room_id"  :new_room.get_id(), 
+                                                            "room_name":new_room.get_name(),
+                                                            "room_type":new_room.type}}
 
-                                # new_room.add_client_list(--)
+                                # [Duty of client side]:create new room in client side
+                                lobby.put_message(json.dumps(broadcast_msg))
 
-                            elif msg["action"] == ACTION_ENTERROOM:
-                                r = self.room_list[int(msg["content"]["room_id"])]
-                                # r.add_client(--)
-                            elif msg["action"] == ACTION_LEAVEROOM:
-                                r = self.room_list[int(msg["content"]["room_id"])]
-                                # r.remove_client(--)
+                                # new_client_list = data["content"]["client_list"]
+                                # new_room.add_client_list(new_client_list)
+                                # for c in new_client_list:
+                                #     c.enter_room(new_room.get_id())
+                                # broadcast to member of new room
 
+                            elif data["action"] == ACTION_ENTERROOM:
+                                r = self.room_list[data["content"]["room_id"]]
+                                c = self.client_map[s]
+                                r.add_client(c)
+                                c.enter_room(r.get_id())
+
+                                broadcast_msg = {"action" :ACTION_ENTERROOM, 
+                                                 "content":{"room_id"  :r.get_id(),
+                                                            "client_id":c.get_id()}}
+                                r.put_message(json.dumps(broadcast_msg))
+
+                            elif data["action"] == ACTION_LEAVEROOM:
+                                r = self.room_list[data["content"]["room_id"]]
+                                c = self.client_map[s]
+                                r.remove_client(c)
+                                c.leave_room(r.get_id)
+
+                                broadcast_msg = {"action" :ACTION_ENTERROOM, 
+                                                 "content":{"room_id"  :r.get_id(),
+                                                            "client_id":c.get_id()}}
+                                r.put_message(json.dumps(broadcast_msg))
+
+                            else:
+                                print ("unknown action!!!")
 
                         else:
                             print ("server: %d hung up" % s.fileno())
