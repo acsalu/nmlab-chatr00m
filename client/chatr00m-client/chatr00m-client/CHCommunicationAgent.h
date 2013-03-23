@@ -10,6 +10,7 @@
 #import <CFNetwork/CFNetwork.h>
 
 extern NSString *const ACTION_TALK;
+extern NSString *const ACTION_NEWROOM;
 
 @protocol CHCommunicationAgentDelegate;
 

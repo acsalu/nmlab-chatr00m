@@ -7,6 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "Const.h"
 
 @protocol CHCommunicationAgentDelegate;
 
@@ -18,10 +19,10 @@
 
 // room properties
 @property NSInteger roomId;
-@property (strong, nonatomic) NSString *title;
-
+@property (strong, nonatomic) NSString *roomName;
+@property enum RoomType roomType;
 
 - (IBAction)sendMessage:(id)sender;
-+ (CHChatroomWindowController *)chatroomWindowControllerWithRoomId:(int)roomId;
++ (CHChatroomWindowController *)chatroomWindowControllerWithId:(int)roomId Name:(NSString *)roomName andType:(enum RoomType)roomType;
 
 @end

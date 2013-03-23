@@ -46,6 +46,7 @@
 		9017CDEF16F1F49F005247A0 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		9017CDF116F1F6D0005247A0 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		9050EF1616FDE39F00B6B216 /* NewRoomSheet.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewRoomSheet.xib; sourceTree = "<group>"; };
+		9050EF1816FDF86900B6B216 /* Const.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Const.h; sourceTree = "<group>"; };
 		905FB99616F01BE80068B1CD /* chatr00m-client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "chatr00m-client.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		905FB99916F01BE80068B1CD /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		905FB99C16F01BE80068B1CD /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -168,6 +169,7 @@
 			children = (
 				90892FFF16FDC1460009A5AF /* CHChatroomController.h */,
 				9089300016FDC1460009A5AF /* CHChatroomController.m */,
+				9050EF1816FDF86900B6B216 /* Const.h */,
 				9089300216FDC8B70009A5AF /* ChatroomWindow.xib */,
 				9089300416FDC9290009A5AF /* CHChatroomWindowController.h */,
 				9089300516FDC9290009A5AF /* CHChatroomWindowController.m */,

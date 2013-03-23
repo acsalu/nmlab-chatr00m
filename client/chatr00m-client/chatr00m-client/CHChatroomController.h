@@ -7,17 +7,22 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Const.h"
 
 @class CHChatroomWindowController;
+@protocol CHCommunicationAgentDelegate;
 
-@interface CHChatroomController : NSObject
+@interface CHChatroomController : NSObject <CHCommunicationAgentDelegate>
 
-@property (weak) IBOutlet NSView *view;
-@property (weak) IBOutlet NSTabView *tabView;
 @property (strong, nonatomic) NSMutableArray *windowControllers;
+@property (weak) IBOutlet NSWindow *sheet;
 
-- (IBAction)newChatroom:(id)sender;
+
+- (IBAction)createChatroomButtonPressed:(id)sender;
 - (IBAction)showChatroom:(id)sender;
+- (IBAction)activateSheet:(id)sender;
+- (IBAction)closeSheet:(id)sender;
+
 
 - (CHChatroomWindowController *)chatroomWindowControllerForRoomId:(int)roomId;
 

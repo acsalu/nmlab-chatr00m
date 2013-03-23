@@ -18,11 +18,13 @@
 
 
 
-+ (CHChatroomWindowController *)chatroomWindowControllerWithRoomId:(int)roomId
++ (CHChatroomWindowController *)chatroomWindowControllerWithId:(int)roomId Name:(NSString *)roomName andType:(enum RoomType)roomType
 {
     CHChatroomWindowController *wc = [[CHChatroomWindowController alloc] initWithWindowNibName:@"ChatroomWindow"];
     wc.roomId = roomId;
-    wc.window.title = [NSString stringWithFormat:@"chatroom[%d]-%@", roomId, @"untitiled"];
+    wc.roomType = roomType;
+    wc.roomName = roomName;
+    wc.window.title = [NSString stringWithFormat:@"chatroom[%d]-%@", roomId, roomName];
     return wc;
 }
 
@@ -34,6 +36,8 @@
     NSDictionary *content = @{@"room_id":roomId, @"message": message};
     [[CHCommunicationAgent sharedAgent] send:content forAction:ACTION_TALK];
 }
+
+
 
 # pragma mark - NSTextFieldDelegate methods
 

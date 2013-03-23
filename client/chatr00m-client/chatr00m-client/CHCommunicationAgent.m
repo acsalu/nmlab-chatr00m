@@ -22,9 +22,7 @@
 #define MAX_BUF_SIZE 1024
 
 NSString *const ACTION_TALK = @"TALK";
-
-
-
+NSString *const ACTION_NEWROOM = @"NEW_ROOM";
 
 __strong id agent;
 
@@ -115,9 +113,12 @@ void SocketDataCallBack (CFSocketRef sock,
             printf("SocketUtils: socket received:\n|%s|\n",someBuf);
             
             NSDictionary *dic = [[JSONDecoder decoder] objectWithUTF8String:someBuf length:strlen(someBuf)];
-            int room_id = [dic[@"content"][@"room_id"] intValue];
-            if (dic[@"action"] == ACTION_TALK) {
-                CHChatroomController *cc = ((CHAppDelegate *)[NSApplication sharedApplication].delegate).chatroomController;
+            NSString *action = dic[@"action"];
+            NSDictionary *content = dic[@"content"];
+            CHChatroomController *cc = ((CHAppDelegate *)[NSApplication sharedApplication].delegate).chatroomController;
+            
+            if (action == ACTION_TALK) {
+                int room_id = [content[@"room_id"] intValue];
                 CHChatroomWindowController *wc = [cc chatroomWindowControllerForRoomId:room_id];
                 if (wc) {
                     
@@ -126,8 +127,8 @@ void SocketDataCallBack (CFSocketRef sock,
                     exit(1);
                 }
                 
-            } else {
-                
+            } else if ([action isEqualToString:ACTION_NEWROOM]){
+                [cc communicationAgent:agent receiveMessage:dic];
             }
             
             free(someBuf);
