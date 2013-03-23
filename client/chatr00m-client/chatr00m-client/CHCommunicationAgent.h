@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CFNetwork/CFNetwork.h>
 
-
+extern NSString *const ACTION_TALK;
 
 @protocol CHCommunicationAgentDelegate;
 
@@ -22,6 +22,8 @@
 
 + (CHCommunicationAgent *)sharedAgent;
 - (void)sendMessage:(NSString *)message;
+- (void)send:(NSDictionary *)content forAction:(NSString *)action;
+
 - (void)sendFile:(NSData *)data;
 
 
@@ -29,8 +31,9 @@
 
 @protocol CHCommunicationAgentDelegate <NSObject>
 
-@required
-- (void)communicationAgent:(CHCommunicationAgent *)agent receiveMessage:(NSString *)message;
+@optional
+//- (void)communicationAgent:(CHCommunicationAgent *)agent receiveMessage:(NSString *)message;
+- (void)communicationAgent:(CHCommunicationAgent *)agent receiveMessage:(NSDictionary *)dic;
 
 @end
 

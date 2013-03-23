@@ -9,6 +9,9 @@
 #import <Cocoa/Cocoa.h>
 @class CHCommunicationAgent;
 @protocol CHCommunicationAgentDelegate;
+@class PSMTabBarControl;
+@class CHChatRoomView;
+@class CHChatroomController;
 
 @interface CHAppDelegate : NSObject <NSApplicationDelegate, NSTextFieldDelegate, CHCommunicationAgentDelegate>
 
@@ -17,12 +20,8 @@
 @property (weak) CHCommunicationAgent* agent;
 @property (unsafe_unretained) IBOutlet NSTextView *messageBoard;
 @property (weak) IBOutlet NSScrollView *scrollView;
+@property (weak) IBOutlet CHChatroomController *chatroomController;
 
 - (IBAction)send:(id)sender;
-- (IBAction)transferFile:(id)sender;
-- (IBAction)openCamera:(id)sender;
-- (IBAction)openMic:(id)sender;
-- (IBAction)changeProfilePic:(NSImageView *)sender;
-
 
 @end

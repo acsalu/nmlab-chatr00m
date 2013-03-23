@@ -15,9 +15,16 @@
 #include <sys/types.h>
 #include <unistd.h>
 #import "JSONKit.h"
-
+#import "CHAppDelegate.h"
+#import "CHChatroomController.h"
+#import "CHChatroomWindowController.h"
 
 #define MAX_BUF_SIZE 1024
+
+NSString *const ACTION_TALK = @"TALK";
+
+
+
 
 __strong id agent;
 
@@ -106,29 +113,38 @@ void SocketDataCallBack (CFSocketRef sock,
                 someBuf[i] = *(((const char*) CFDataGetBytePtr((CFDataRef) dataPtr)) + i);
             someBuf[dataSize] = '\0';
             printf("SocketUtils: socket received:\n|%s|\n",someBuf);
-            [((CHCommunicationAgent *)agent).delegate communicationAgent:agent receiveMessage:[NSString stringWithCString:someBuf encoding:NSUTF8StringEncoding]];
+            
+            NSDictionary *dic = [[JSONDecoder decoder] objectWithUTF8String:someBuf length:strlen(someBuf)];
+            int room_id = [dic[@"content"][@"room_id"] intValue];
+            if (dic[@"action"] == ACTION_TALK) {
+                CHChatroomController *cc = ((CHAppDelegate *)[NSApplication sharedApplication].delegate).chatroomController;
+                CHChatroomWindowController *wc = [cc chatroomWindowControllerForRoomId:room_id];
+                if (wc) {
+                    
+                } else {
+                    NSLog(@"No room with id %d", room_id);
+                    exit(1);
+                }
+                
+            } else {
+                
+            }
+            
             free(someBuf);
         }
-        
-        // we'll also send a response
-        /*
-        if ((dataOut = CFDataCreate(kCFAllocatorDefault,
-                                    (const UInt8 *) stringOut,
-                                    strlen(stringOut))) != nil) {
-            CFSocketSendData(sock,NULL,dataOut,0);
-            CFRelease(dataOut);
-        };
-         */
     }
-    //CFSocketInvalidate(sock);
-    //CFRelease(sock);
-
-    //printf("data length = %ld\n", CFDataGetLength((CFDataRef)dataPtr));
 }
 
 - (void)sendMessage:(NSString *)message
 {
-    NSDictionary *dic = @{@"action":@"TALK", @"content": message};
+    NSDictionary *dic = @{@"action":@"TALK", @"content":message, @"room_id":@"0"};
+    const char *msg = [[dic JSONString] cStringUsingEncoding:NSUTF8StringEncoding];
+    send(CFSocketGetNative(self.socket), msg, strlen(msg) + 1, 0);
+}
+
+- (void)send:(NSDictionary *)content forAction:(NSString *)action
+{
+    NSDictionary *dic = @{@"action":action, @"content":content};
     const char *msg = [[dic JSONString] cStringUsingEncoding:NSUTF8StringEncoding];
     send(CFSocketGetNative(self.socket), msg, strlen(msg) + 1, 0);
 }
