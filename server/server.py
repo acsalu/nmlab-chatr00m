@@ -33,7 +33,7 @@ class Server:
         
         self.client_num = 0
         self.next_room_id = 0
-        self.client_map = {}
+        self.socket_client_map = {}
         
         self.room_list = {}
         self.room_list[0] = Room(0, "Lobby", ROOM_TYPE_PUBLIC)
@@ -42,10 +42,10 @@ class Server:
     def sighandler(self, signum, frame):
         #Close the server
         print ("\nShutting down server...")
-        # for o in outputs:
-        #     o.close()
-        # self.s.close()  
-
+        for s, c in self.socket_client_map.items():
+            s.close()
+        self.s.close()
+        
     def serve(self):
         inputs = [self.s, sys.stdin]
         outputs = []
@@ -69,8 +69,8 @@ class Server:
                     self.client_num += 1
                     
                     inputs.append(new_socket)
-                    new_client = Client(address, address[0])
-                    self.client_map[new_socket] = new_client
+                    new_client = Client(s, address, address[0])
+                    self.socket_client_map[new_socket] = new_client
 
                     outputs.append(new_socket)
                     lobby.add_client(new_client)
@@ -89,7 +89,7 @@ class Server:
                     try:
                         data = s.recv(1024)
                         if data:
-                            print("[" + self.client_map[s].get_name() + "] " + data.decode("UTF-8"))
+                            print("[" + self.socket_client_map[s].get_name() + "] " + data.decode("UTF-8"))
                             data = data.split(b"\0",1)[0]
                             data = json.loads(data.decode("UTF-8"))
 
@@ -99,12 +99,12 @@ class Server:
                                 content = data["content"]
                                 broadcast_msg = {"action" :ACTION_TALK, 
                                                  "content":{"room_id":content["room_id"],
-                                                            "name"   :self.client_map[s].get_name(),
+                                                            "name"   :self.socket_client_map[s].get_name(),
                                                             "message":content["message"]}}
                                 r.put_message(json.dumps(broadcast_msg))
 
                             elif data["action"] == ACTION_SETUSERNAME:
-                                c = self.client_map[s]
+                                c = self.socket_client_map[s]
                                 new_name = data["content"]["user_name"]
                                 c.set_name(new_name)
                                 broadcast_msg = {"action" :ACTION_SETUSERNAME, 
@@ -125,7 +125,7 @@ class Server:
 
                                 # [Duty of client side]:create new room in client side
                                 lobby.put_message(json.dumps(broadcast_msg))
-                                room_host = self.client_map[s]
+                                room_host = self.socket_client_map[s]
                                 new_room.add_client(room_host)
                                 room_host.enter_room(new_room.get_id())
                                 # new_client_list = data["content"]["client_list"]
@@ -136,7 +136,7 @@ class Server:
 
                             elif data["action"] == ACTION_ENTERROOM:
                                 r = self.room_list[data["content"]["room_id"]]
-                                c = self.client_map[s]
+                                c = self.socket_client_map[s]
                                 r.add_client(c)
                                 c.enter_room(r.get_id())
 
@@ -147,7 +147,7 @@ class Server:
 
                             elif data["action"] == ACTION_LEAVEROOM:
                                 r = self.room_list[data["content"]["room_id"]]
-                                c = self.client_map[s]
+                                c = self.socket_client_map[s]
                                 r.remove_client(c)
                                 c.leave_room(r.get_id)
 
@@ -175,9 +175,14 @@ class Server:
                             inputs.remove(s)
                             outputs.remove(s)
                             
-                            # msg = "\n(Hung up: Client from %s" % self.getname(s)
-                            # for o in outputs:
-                            #     o.send(msg.encode("utf-8"))
+                            c = self.socket_client_map[s]
+
+                            for r in self.room_list:
+                                broadcast_msg = {"action" :ACTION_LEAVEROOM, 
+                                                 "content":{"room_id"  :r.get_id(),
+                                                            "client_id":c.get_id()}}
+                                r.put_message(json.dumps(broadcast_msg))
+
                     except socket.error as e:
                         inputs.remove(s)
                         outputs.remove(s)
@@ -187,9 +192,9 @@ class Server:
                 if room.msg_queue.empty():
                     continue
                 next_msg = room.msg_queue.get_nowait()
-                for client_socket in room.client_list:
-                    if client_socket in outputs:
-                        client_socket.send(next_msg.encode("UTF-8"))
+                for client in room.client_list:
+                    if client.socket in outputready:
+                        client.socket.send(next_msg)
                     
 
 
