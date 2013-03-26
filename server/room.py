@@ -35,7 +35,7 @@ class Room:
 
     def remove_client(self, client):
         self.client_list.remove(client)
-        if self.get_num_of_client() == 0:
+        if self.get_num_of_client() == 0 and self.room_id != 0:
             return -1
             
     def get_clients_info(self):
