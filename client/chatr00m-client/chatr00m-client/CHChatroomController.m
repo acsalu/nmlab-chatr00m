@@ -57,7 +57,7 @@
     
     for (NSView *view in subviews) {
         if (view.tag == CREATING_INDICATOR_TAG) {
-            NSTextField *creatingMessage = (NSTextView *) view;
+            NSTextField *creatingMessage = (NSTextField *) view;
             [creatingMessage setHidden:NO];
             creatingMessage.stringValue = [NSString stringWithFormat:@"Creating room %@...", title];
         } else if ([view class] == [NSProgressIndicator class]) {
@@ -68,7 +68,7 @@
             [view setHidden:YES];
         }
     }
-    [[CHCommunicationAgent sharedAgent] send:@{@"room_name":title, @"room_type":@"PRIVATE"} forAction:ACTION_NEWROOM];
+    [[CHCommunicationAgent sharedAgent] send:@{@"room_name":title, @"room_type":[NSNumber numberWithInt:roomType]} forAction:ACTION_NEWROOM];
     
 }
 

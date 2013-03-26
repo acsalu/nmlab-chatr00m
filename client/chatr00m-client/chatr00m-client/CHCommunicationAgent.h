@@ -22,6 +22,8 @@ extern NSString *const ACTION_NEWROOM;
 @property (weak) id<CHCommunicationAgentDelegate> delegate;
 
 + (CHCommunicationAgent *)sharedAgent;
+- (void)connect;
+
 - (void)sendMessage:(NSString *)message;
 - (void)send:(NSDictionary *)content forAction:(NSString *)action;
 
@@ -32,6 +34,8 @@ extern NSString *const ACTION_NEWROOM;
 - (void)leaveRoom:(NSString *)roomName;
 - (void)setPicture:(NSImage *)picture;
 
+
++ (NSString *)getIPAddress;
 
 @end
 

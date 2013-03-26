@@ -19,6 +19,8 @@
     self.agent = [CHCommunicationAgent sharedAgent];
     self.agent.delegate = self;
     
+    NSLog(@"local IP address: %@", [CHCommunicationAgent getIPAddress]);
+    
 }
 
 
@@ -34,6 +36,12 @@
         [self send:nil];
     }
 }
+
+- (void)reconnect:(id)sender
+{
+    [[CHCommunicationAgent sharedAgent] connect];
+}
+
 //
 //- (void)communicationAgent:(CHCommunicationAgent *)agent receiveMessage:(NSString *)message
 //{

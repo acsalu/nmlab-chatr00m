@@ -20,7 +20,11 @@
 
 + (CHChatroomWindowController *)chatroomWindowControllerWithId:(int)roomId Name:(NSString *)roomName andType:(enum RoomType)roomType
 {
-    CHChatroomWindowController *wc = [[CHChatroomWindowController alloc] initWithWindowNibName:@"ChatroomWindow"];
+    CHChatroomWindowController *wc;
+    if (roomType == ROOM_TYPE_MESSAGE)
+        wc = [[CHChatroomWindowController alloc] initWithWindowNibName:@"MessageWindow"];
+    else
+        wc = [[CHChatroomWindowController alloc] initWithWindowNibName:@"ChatroomWindow"];
     wc.roomId = roomId;
     wc.roomType = roomType;
     wc.roomName = roomName;
@@ -53,7 +57,11 @@
 
 - (void)communicationAgent:(CHCommunicationAgent *)agent receiveMessage:(NSDictionary *)dic
 {
+    NSString *action = dic[@"action"];
+    NSDictionary *content = dic[@"content"];
     
+    if ([action isEqualToString:ACTION_TALK]) {
+    }
 }
 
 

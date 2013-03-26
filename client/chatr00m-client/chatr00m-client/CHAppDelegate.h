@@ -23,5 +23,6 @@
 @property (weak) IBOutlet CHChatroomController *chatroomController;
 
 - (IBAction)send:(id)sender;
+- (IBAction)reconnect:(id)sender;
 
 @end
