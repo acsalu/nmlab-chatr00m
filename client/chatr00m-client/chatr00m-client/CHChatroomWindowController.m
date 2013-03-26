@@ -45,6 +45,7 @@
     return wc;
 }
 
+
 - (IBAction)sendMessage:(id)sender {
     NSString *message = self.messageTextField.stringValue;
     NSLog(@"msg: %@", message);
@@ -72,7 +73,6 @@
 {
     NSString *action = dic[@"action"];
     NSDictionary *content = dic[@"content"];
-    
     if ([action isEqualToString:ACTION_TALK]) {
         
     }
@@ -100,6 +100,14 @@
         return cellView;
     }
     return nil;
+}
+
+# pragma mark - NSWindowDelegate methods
+
+- (void)windowWillClose:(NSNotification *)notification
+{
+    NSDictionary *content = @{@"room_id":[NSNumber numberWithInteger:self.roomId]};
+    [[CHCommunicationAgent sharedAgent] send:content forAction:ACTION_LEAVEROOM];
 }
 
 

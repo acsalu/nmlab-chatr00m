@@ -13,7 +13,7 @@
 @class CHChatRoomView;
 @class CHChatroomController;
 
-@interface CHAppDelegate : NSObject <NSApplicationDelegate, NSTextFieldDelegate, CHCommunicationAgentDelegate>
+@interface CHAppDelegate : NSObject <NSApplicationDelegate, NSTextFieldDelegate, CHCommunicationAgentDelegate, NSTableViewDataSource, NSTableViewDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
 @property (weak) IBOutlet NSTextField *messageTextField;
@@ -22,7 +22,14 @@
 @property (weak) IBOutlet NSScrollView *scrollView;
 @property (weak) IBOutlet CHChatroomController *chatroomController;
 
+
+@property (weak) IBOutlet NSTableView *chatroomTableView;
+@property (strong) NSMutableArray *chatroomList;
+@property (weak) IBOutlet NSArrayController *chatroomArray;
+
 - (IBAction)send:(id)sender;
 - (IBAction)reconnect:(id)sender;
+
+- (IBAction)doubleClick:(id)sender;
 
 @end
