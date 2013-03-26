@@ -34,10 +34,10 @@
 + (CHChatroomWindowController *)chatroomWindowControllerWithId:(int)roomId Name:(NSString *)roomName andType:(enum RoomType)roomType
 {
     CHChatroomWindowController *wc;
-    if (roomType == ROOM_TYPE_MESSAGE)
+    //if (roomType == ROOM_TYPE_MESSAGE)
         wc = [[CHChatroomWindowController alloc] initWithWindowNibName:@"MessageWindow"];
-    else
-        wc = [[CHChatroomWindowController alloc] initWithWindowNibName:@"ChatroomWindow"];
+    //else
+    //    wc = [[CHChatroomWindowController alloc] initWithWindowNibName:@"ChatroomWindow"];
     wc.roomId = roomId;
     wc.roomType = roomType;
     wc.roomName = roomName;
@@ -45,6 +45,14 @@
     return wc;
 }
 
+
+
+- (IBAction)sendFile:(id)sender {
+    [self initNetworkCommunication];
+    NSString *response = [NSString stringWithFormat:@"testing"];
+    NSData *data = [[NSData alloc] initWithData:[response dataUsingEncoding:NSASCIIStringEncoding]];
+    [self.outputstream write:[data bytes] maxLength:[data length]];
+}
 
 - (IBAction)sendMessage:(id)sender {
     NSString *message = self.messageTextField.stringValue;
@@ -110,5 +118,77 @@
     [[CHCommunicationAgent sharedAgent] send:content forAction:ACTION_LEAVEROOM];
 }
 
+# pragma mark - InitCommunicaiton
+
+- (void)initNetworkCommunication
+{
+    CFReadStreamRef readStream;
+    CFWriteStreamRef writeStream;
+    NSHost *host = [NSHost hostWithAddress:@"140.112.18.211"];
+    NSLog(@"connecting");
+    CFStreamCreatePairWithSocketToHost(NULL, (__bridge CFStringRef)(host), 10627, &readStream, &writeStream);
+    self.inputstream = (__bridge NSInputStream *)readStream;
+    self.outputstream = (__bridge NSOutputStream *)writeStream;
+    [self.inputstream setDelegate:self];
+    [self.outputstream setDelegate:self];
+    [self.inputstream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+    [self.outputstream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+}
+
+- (void)stream:(NSStream *)aStream handleEvent:(NSStreamEvent)eventCode
+{
+    NSLog(@"stream event %i", eventCode);
+	
+	switch (eventCode) {
+			
+		case NSStreamEventOpenCompleted:
+			NSLog(@"Stream opened");
+			break;
+		case NSStreamEventHasBytesAvailable:
+            
+			if (aStream == self.inputstream) {
+				
+				uint8_t buffer[1024];
+				int len;
+				
+				while ([self.inputstream hasBytesAvailable]) {
+					len = [self.inputstream read:buffer maxLength:sizeof(buffer)];
+					if (len > 0) {
+						
+						NSString *output = [[NSString alloc] initWithBytes:buffer length:len encoding:NSASCIIStringEncoding];
+						
+						if (nil != self.outputstream) {
+                            
+							NSLog(@"server said: %@", output);
+							[self messageReceived:output];
+							
+						}
+					}
+				}
+			}
+			break;
+            
+			
+		case NSStreamEventErrorOccurred:
+			
+			NSLog(@"Can not connect to the host!");
+			break;
+			
+		case NSStreamEventEndEncountered:
+            
+            [aStream close];
+            [aStream removeFromRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+            aStream = nil;
+			
+			break;
+		default:
+			NSLog(@"Unknown event");
+	}
+}
+
+- (void)messageReceived:(NSString *)message
+{
+    
+}
 
 @end

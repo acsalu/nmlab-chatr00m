@@ -25,3 +25,4 @@ class Client:
     
     def leave_room(self, roomid):
         self.join_list.remove(roomid)
+
