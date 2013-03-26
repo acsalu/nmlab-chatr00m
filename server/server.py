@@ -53,6 +53,7 @@ class Server:
         self.s.close()
 
     def broadcast_new_room_list(self):
+        print ("broadcast room list : %s" % time.ctime())
         all_rooms_info = []
         for r_id, room in self.room_list.items():
             all_rooms_info.append({"room_id"      :r_id, 
@@ -140,9 +141,9 @@ class Server:
                                                             "room_name":new_room.get_name(),
                                                             "room_type":new_room.type}}
 
-                                room_host = self.socket_client_map[s]
-                                new_room.add_client(room_host)
-                                room_host.enter_room(new_room.get_id())
+                                room_creator = self.socket_client_map[s]
+                                new_room.add_client(room_creator)
+                                room_creator.enter_room(new_room.get_id())
 
                                 new_room.put_message(json.dumps(broadcast_msg).encode("UTF-8"))
 
