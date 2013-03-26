@@ -94,6 +94,7 @@
 - (IBAction)joinRoom:(int)roomId
 {
     NSLog(@"join room [%d]", roomId);
+    [[CHCommunicationAgent sharedAgent] send:@{@"room_id": [NSNumber numberWithInteger:roomId]} forAction:ACTION_ENTERROOM];
 }
 
 - (CHChatroomWindowController *)chatroomWindowControllerForRoomId:(int)roomId
@@ -119,7 +120,7 @@
 {
     NSString *action = dic[@"action"];
     NSDictionary *content = dic[@"content"];
-    if ([action isEqual:ACTION_NEWROOM]) {
+    if ([action isEqualToString:ACTION_NEWROOM] || [action isEqualToString:ACTION_ENTERROOM]) {
         NSString *roomName = content[@"room_name"];
         int roomId = [content[@"room_id"] intValue];
         enum RoomType roomType = [content[@"room_type"] intValue];

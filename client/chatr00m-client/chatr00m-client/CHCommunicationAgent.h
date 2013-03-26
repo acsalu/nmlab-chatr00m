@@ -9,10 +9,11 @@
 #import <Foundation/Foundation.h>
 #import <CFNetwork/CFNetwork.h>
 
+extern NSString *const ACTION_SETUSERNAME;
 extern NSString *const ACTION_TALK;
 extern NSString *const ACTION_NEWROOM;
 extern NSString *const ACTION_ROOMLIST;
-extern NSString *const ACTION_JOINROOM;
+extern NSString *const ACTION_ENTERROOM;
 extern NSString *const ACTION_LEAVEROOM;
 
 @protocol CHCommunicationAgentDelegate;

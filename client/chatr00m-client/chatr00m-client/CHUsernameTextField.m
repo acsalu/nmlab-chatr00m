@@ -27,8 +27,7 @@
     if (button == NSAlertFirstButtonReturn) {
         [input validateEditing];
         self.stringValue = [input.stringValue copy];
-        NSLog(@"input");
-        [[CHCommunicationAgent sharedAgent] setUserName:self.stringValue];
+        [[CHCommunicationAgent sharedAgent] send:@{@"user_name": self.stringValue} forAction:ACTION_SETUSERNAME];
     }
     //NSWindow *window = [[NSApplication sharedApplication] windows][0];
     //[alert beginSheetModalForWindow: window modalDelegate:nil didEndSelector:nil contextInfo:nil];
