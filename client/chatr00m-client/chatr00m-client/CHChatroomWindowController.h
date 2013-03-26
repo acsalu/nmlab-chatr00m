@@ -11,7 +11,11 @@
 
 @protocol CHCommunicationAgentDelegate;
 
+<<<<<<< HEAD
 @interface CHChatroomWindowController : NSWindowController <NSTextFieldDelegate, CHCommunicationAgentDelegate, NSApplicationDelegate, NSStreamDelegate>
+=======
+@interface CHChatroomWindowController : NSWindowController <NSTextFieldDelegate, CHCommunicationAgentDelegate, NSTableViewDataSource, NSTableViewDelegate>
+>>>>>>> 7474b95f67e50af807414886bd98096d7dbd3f86
 
 
 // UI components
@@ -21,8 +25,14 @@
 @property NSInteger roomId;
 @property (strong, nonatomic) NSString *roomName;
 @property enum RoomType roomType;
+<<<<<<< HEAD
 @property (retain, nonatomic) NSOutputStream *outputstream;
 @property (retain, nonatomic) NSInputStream *inputstream;
+=======
+@property (strong, nonatomic) NSMutableArray *userTableContents;
+@property (weak) IBOutlet NSTableView *userTableView;
+@property (weak) IBOutlet NSTableView *chatTableView;
+>>>>>>> 7474b95f67e50af807414886bd98096d7dbd3f86
 
 - (IBAction)sendMessage:(id)sender;
 + (CHChatroomWindowController *)chatroomWindowControllerWithId:(int)roomId Name:(NSString *)roomName andType:(enum RoomType)roomType;
