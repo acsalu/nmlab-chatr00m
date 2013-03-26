@@ -34,10 +34,10 @@
 + (CHChatroomWindowController *)chatroomWindowControllerWithId:(int)roomId Name:(NSString *)roomName andType:(enum RoomType)roomType
 {
     CHChatroomWindowController *wc;
-    //if (roomType == ROOM_TYPE_MESSAGE)
+    if (roomType == ROOM_TYPE_MESSAGE)
         wc = [[CHChatroomWindowController alloc] initWithWindowNibName:@"MessageWindow"];
-    //else
-    //    wc = [[CHChatroomWindowController alloc] initWithWindowNibName:@"ChatroomWindow"];
+    else
+        wc = [[CHChatroomWindowController alloc] initWithWindowNibName:@"ChatroomWindow"];
     wc.roomId = roomId;
     wc.roomType = roomType;
     wc.roomName = roomName;

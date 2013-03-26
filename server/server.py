@@ -151,8 +151,8 @@ class Server:
 
                                 broadcast_msg = {"action" :ACTION_ENTERROOM, 
                                                  "content":{"room_id"    :r.get_id(),
-                                                            "client_id"  :c.get_id(),
-                                                            "client_name":c.get_name()}}
+                                                            "room_name"  :r.get_name(),
+                                                            "room_type"  :r.type}}
                                 r.put_message(json.dumps(broadcast_msg).encode("UTF-8"))
 
                                 self.broadcast_new_room_list()
