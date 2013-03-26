@@ -11,6 +11,7 @@ class Room:
         self.client_list = []
         self.msg_queue = queue.Queue()
 
+
     def get_id(self):
         return self.room_id
 
@@ -19,6 +20,9 @@ class Room:
 
     def get_name(self):
         return self.name
+
+    def get_num_of_client(self):
+        return len(self.client_list)
 
     def add_client(self, client):
         self.client_list.append(client)
@@ -31,8 +35,9 @@ class Room:
 
     def remove_client(self, client):
         self.client_list.remove(client)
-        # client.leave_room(self.room_id)
-  
+        if self.get_num_of_client() == 0:
+            return -1
+            
     def get_clients_info(self):
         user_dic = {}
         for c in self.client_list:
