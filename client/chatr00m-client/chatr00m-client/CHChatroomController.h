@@ -23,6 +23,8 @@
 - (IBAction)activateSheet:(id)sender;
 - (IBAction)closeSheet:(id)sender;
 
+- (IBAction)joinRoom:(int)roomId;
+
 
 - (CHChatroomWindowController *)chatroomWindowControllerForRoomId:(int)roomId;
 

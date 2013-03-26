@@ -91,6 +91,11 @@
     
 }
 
+- (IBAction)joinRoom:(int)roomId
+{
+    NSLog(@"join room [%d]", roomId);
+}
+
 - (CHChatroomWindowController *)chatroomWindowControllerForRoomId:(int)roomId
 {
     // refactor with NSCache
