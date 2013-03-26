@@ -27,7 +27,7 @@ NSString *const ACTION_TALK = @"TALK";
 NSString *const ACTION_NEWROOM = @"NEW_ROOM";
 NSString *const ACTION_ROOMLIST = @"ROOM_LIST";
 
-NSString *const ACTION_JOINROOM = @"JOIN_ROOM";
+NSString *const ACTION_ENTERROOM = @"ENTER_ROOM";
 NSString *const ACTION_LEAVEROOM = @"LEAVE_ROOM";
 
 
@@ -151,7 +151,7 @@ void SocketDataCallBack (CFSocketRef sock,
                     exit(1);
                 }
                 
-            } else if ([action isEqualToString:ACTION_NEWROOM]){
+            } else if ([action isEqualToString:ACTION_NEWROOM] || [action isEqualToString:ACTION_ENTERROOM]){
                 [cc communicationAgent:agent receiveMessage:dic];
             } else if ([action isEqualToString:ACTION_ROOMLIST]) {
                 [appDelegate communicationAgent:agent receiveMessage:dic];
