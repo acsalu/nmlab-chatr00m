@@ -188,7 +188,7 @@
 
 - (void)messageReceived:(NSString *)message
 {
-    
+    NSLog(@"message received...");
 }
 
 @end

@@ -14,7 +14,7 @@ HOST = ""
 PORT = 10627
 
 ACTION_TALK = "TALK"
-ACTION_SETUSERNAME = "SETUP_USERNAME"
+ACTION_SETUSERNAME = "SET_USERNAME"
 ACTION_NEWROOM = "NEW_ROOM"
 ACTION_ENTERROOM = "ENTER_ROOM"
 ACTION_LEAVEROOM = "LEAVE_ROOM"
@@ -89,8 +89,7 @@ class Server:
                     lobby.add_client(new_client)
                     broadcast_msg = {"action" :ACTION_NEWUSER, 
                                      "content":{"name"     :new_client.get_name(),
-                                                "client_id":new_client.get_id(),
-                                                "message"  :"OH~ho~ho~ho~~new friend %s" % new_client.get_name()}}
+                                                "client_id":new_client.get_id()}}
                     lobby.put_message(json.dumps(broadcast_msg).encode("UTF-8"))
 
                     self.broadcast_new_room_list()
@@ -125,10 +124,8 @@ class Server:
                                 broadcast_msg = {"action" :ACTION_SETUSERNAME, 
                                                  "content":{"client_name":new_name, 
                                                             "client_id"  :c.get_id()}}
-                                # [Duty of client side]:change user's info in every rooms
                                 lobby.put_message(json.dumps(broadcast_msg).encode("UTF-8"))
 
-                            # put some data to msg_queue of room??
                             elif action == ACTION_NEWROOM:
                                 new_room = Room(self.next_room_id, content["room_name"], content["room_type"])
                                 self.room_list[self.next_room_id] = new_room
@@ -141,13 +138,7 @@ class Server:
                                 room_host = self.socket_client_map[s]
                                 new_room.add_client(room_host)
                                 room_host.enter_room(new_room.get_id())
-                                # new_client_list = data["content"]["client_list"]
-                                # new_room.add_client_list(new_client_list)
-                                # for c in new_client_list:
-                                #     c.enter_room(new_room.get_id())
-                                # broadcast to member of new room
 
-                                # [Duty of client side]:create new room in client side
                                 new_room.put_message(json.dumps(broadcast_msg).encode("UTF-8"))
 
                                 self.broadcast_new_room_list()
@@ -159,8 +150,9 @@ class Server:
                                 c.enter_room(r.get_id())
 
                                 broadcast_msg = {"action" :ACTION_ENTERROOM, 
-                                                 "content":{"room_id"  :r.get_id(),
-                                                            "client_id":c.get_id()}}
+                                                 "content":{"room_id"    :r.get_id(),
+                                                            "client_id"  :c.get_id(),
+                                                            "client_name":c.get_name()}}
                                 r.put_message(json.dumps(broadcast_msg).encode("UTF-8"))
 
                                 self.broadcast_new_room_list()
@@ -173,8 +165,9 @@ class Server:
                                     del self.room_list[content["room_id"]]
                                 else:
                                     broadcast_msg = {"action" :ACTION_LEAVEROOM, 
-                                                     "content":{"room_id"  :r.get_id(),
-                                                                "client_id":c.get_id()}}
+                                                     "content":{"room_id"    :r.get_id(),
+                                                                "client_id"  :c.get_id(),
+                                                                "client_name":c.get_name()}}
                                     r.put_message(json.dumps(broadcast_msg).encode("UTF-8"))
 
                                 self.broadcast_new_room_list()
@@ -187,9 +180,6 @@ class Server:
                                                             "room_user_num"   :len(r.client_list),
                                                             "room_client_info":r.get_clients_info()}}
                                 r.put_message(json.dumps(broadcast_msg).encode("UTF-8"))
-
-                            # elif action == ACTION_ROOMLIST:
-
 
                             else:
                                 print ("unknown action!!!")
@@ -226,7 +216,6 @@ class Server:
                 next_msg = room.msg_queue.get_nowait()
                 for client in room.client_list:
                     if client.socket in outputready:
-                        print (client.address)
                         client.socket.send(next_msg)
                     
 
