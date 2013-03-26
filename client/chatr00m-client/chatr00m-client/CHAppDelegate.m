@@ -12,6 +12,8 @@
 #import "JSONKit.h"
 #import "CHChatroomController.h"
 
+#define LOBBY_ROOM_ID 0
+
 NSString *const POPULARITY_CELL_IDENTIFIER = @"PopularityCell";
 NSString *const ROOM_CELL_IDENTIFIER = @"RoomCell";
 
@@ -37,8 +39,11 @@ NSString *const ROOM_CELL_IDENTIFIER = @"RoomCell";
 
 
 - (IBAction)send:(id)sender {
-    [self.agent sendMessage:self.messageTextField.stringValue];
+    NSString *message = self.messageTextField.stringValue;
+    NSLog(@"msg: %@", message);
     self.messageTextField.stringValue = @"";
+    NSDictionary *content = @{@"room_id":@(LOBBY_ROOM_ID), @"message": message};
+    [[CHCommunicationAgent sharedAgent] send:content forAction:ACTION_TALK];
 }
 
 - (void)controlTextDidEndEditing:(NSNotification *)obj
@@ -73,6 +78,7 @@ NSString *const ROOM_CELL_IDENTIFIER = @"RoomCell";
 //}
 
 
+
 - (void)communicationAgent:(CHCommunicationAgent *)agent receiveMessage:(NSDictionary *)dic
 {
     NSString *action = dic[@"action"];
@@ -85,6 +91,9 @@ NSString *const ROOM_CELL_IDENTIFIER = @"RoomCell";
         [self.chatroomArray removeObjectsAtArrangedObjectIndexes:[NSIndexSet indexSetWithIndexesInRange:range]];
         for (NSDictionary *room in content[@"room_list"])
             [self.chatroomArray addObject:room];
+    } else if ([action isEqualToString:ACTION_TALK]) {
+        self.messageBoard.string = [NSString stringWithFormat:@"%@\n[%@]: %@",
+                                    self.messageBoard.string, content[@"name"], content[@"message"]];
     }
     
 }

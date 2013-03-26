@@ -141,16 +141,19 @@ void SocketDataCallBack (CFSocketRef sock,
             CHAppDelegate *appDelegate = (CHAppDelegate *) [NSApplication sharedApplication].delegate;
             CHChatroomController *cc = appDelegate.chatroomController;
             
-            if (action == ACTION_TALK) {
+            if ([action isEqualToString:ACTION_TALK]) {
                 int room_id = [content[@"room_id"] intValue];
-                CHChatroomWindowController *wc = [cc chatroomWindowControllerForRoomId:room_id];
-                if (wc) {
-                    
+                if (room_id == 0) {
+                    [appDelegate communicationAgent:agent receiveMessage:dic];
                 } else {
-                    NSLog(@"No room with id %d", room_id);
-                    exit(1);
+                    CHChatroomWindowController *wc = [cc chatroomWindowControllerForRoomId:room_id];
+                    if (wc) {
+                        
+                    } else {
+                        NSLog(@"No room with id %d", room_id);
+                        exit(1);
+                    }
                 }
-                
             } else if ([action isEqualToString:ACTION_NEWROOM] || [action isEqualToString:ACTION_ENTERROOM]){
                 [cc communicationAgent:agent receiveMessage:dic];
             } else if ([action isEqualToString:ACTION_ROOMLIST]) {
