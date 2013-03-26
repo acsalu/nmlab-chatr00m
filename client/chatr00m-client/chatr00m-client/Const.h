@@ -11,7 +11,10 @@
 
 enum RoomType {
     ROOM_TYPE_PRIVATE = 0,
-    ROOM_TYPE_PUBLIC = 1
+    ROOM_TYPE_PUBLIC = 1,
+    ROOM_TYPE_MESSAGE
 };
+
+
 
 #endif

@@ -63,7 +63,7 @@
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="157044074">
 								<int key="NSCellFlags">67108864</int>
-								<int key="NSCellFlags2">134217728</int>
+								<int key="NSCellFlags2">134283264</int>
 								<string key="NSContents">Create Chatroom</string>
 								<object class="NSFont" key="NSSupport" id="200494498">
 									<string key="NSName">LucidaGrande</string>
@@ -72,10 +72,10 @@
 								</object>
 								<string key="NSCellIdentifier">_NS:9</string>
 								<reference key="NSControlView" ref="883045215"/>
-								<int key="NSButtonFlags">-2038284288</int>
+								<int key="NSButtonFlags">-2035007488</int>
 								<int key="NSButtonFlags2">129</int>
 								<string key="NSAlternateContents"/>
-								<string key="NSKeyEquivalent"/>
+								<string type="base64-UTF8" key="NSKeyEquivalent">DQ</string>
 								<int key="NSPeriodicDelay">200</int>
 								<int key="NSPeriodicInterval">25</int>
 							</object>
@@ -92,7 +92,7 @@
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="376781087">
 								<int key="NSCellFlags">67108864</int>
-								<int key="NSCellFlags2">134217728</int>
+								<int key="NSCellFlags2">134250496</int>
 								<string key="NSContents">Cancel</string>
 								<reference key="NSSupport" ref="200494498"/>
 								<string key="NSCellIdentifier">_NS:9</string>
@@ -387,7 +387,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="757008176"/>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {1920, 1058}}</string>
+				<string key="NSScreenRect">{{0, 0}, {1280, 778}}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<bool key="NSWindowIsRestorable">YES</bool>
 			</object>
@@ -1034,7 +1034,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">106</int>
+			<int key="maxID">108</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1044,7 +1044,6 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 					<dictionary class="NSMutableDictionary" key="actions">
 						<string key="activateSheet:">id</string>
 						<string key="closeSheet:">id</string>
-						<string key="createChatRoomWithTitle:andType:">NSString</string>
 						<string key="createChatroomButtonPressed:">id</string>
 						<string key="showChatroom:">id</string>
 					</dictionary>
@@ -1056,10 +1055,6 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<object class="IBActionInfo" key="closeSheet:">
 							<string key="name">closeSheet:</string>
 							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="createChatRoomWithTitle:andType:">
-							<string key="name">createChatRoomWithTitle:andType:</string>
-							<string key="candidateClassName">NSString</string>
 						</object>
 						<object class="IBActionInfo" key="createChatroomButtonPressed:">
 							<string key="name">createChatroomButtonPressed:</string>
