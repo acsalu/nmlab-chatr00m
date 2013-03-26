@@ -59,32 +59,10 @@ NSString *const ROOM_CELL_IDENTIFIER = @"RoomCell";
     [[CHCommunicationAgent sharedAgent] connect];
 }
 
-//
-//- (void)communicationAgent:(CHCommunicationAgent *)agent receiveMessage:(NSString *)message
-//{
-//    self.messageBoard.string = [NSString stringWithFormat:@"%@\n%@",  self.messageBoard.string, message];
-//    
-//    NSPoint newScrollOrigin;
-//    
-//    // assume that the scrollview is an existing variable
-//    if ([[self.scrollView documentView] isFlipped]) {
-//        newScrollOrigin=NSMakePoint(0.0,NSMaxY([[self.scrollView documentView] frame])
-//                                    -NSHeight([[self.scrollView contentView] bounds]));
-//    } else {
-//        newScrollOrigin=NSMakePoint(0.0,0.0);
-//    }
-//    
-//    [[self.scrollView documentView] scrollPoint:newScrollOrigin];
-//}
-
-
-
 - (void)communicationAgent:(CHCommunicationAgent *)agent receiveMessage:(NSDictionary *)dic
 {
     NSString *action = dic[@"action"];
     NSDictionary *content = dic[@"content"];
-    
-    
     
     if ([action isEqualToString:ACTION_ROOMLIST]) {
         NSRange range = NSMakeRange(0, [[self.chatroomArray arrangedObjects] count]);
@@ -105,6 +83,7 @@ NSString *const ROOM_CELL_IDENTIFIER = @"RoomCell";
 //    NSLog(@"row %ld double clicked", rowNumber);
     NSDictionary *room = self.chatroomArray.content[rowNumber];
     int roomId = (int) [room[@"room_id"] integerValue];
+    if (roomId == LOBBY_ROOM_ID) return;
     [self.chatroomController joinRoom:roomId];
 }
 
