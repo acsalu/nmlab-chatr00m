@@ -22,6 +22,7 @@
 
 #define MAX_BUF_SIZE 1024
 
+NSString *const ACTION_SETUSERNAME = @"SET_USERNAME";
 NSString *const ACTION_TALK = @"TALK";
 NSString *const ACTION_NEWROOM = @"NEW_ROOM";
 NSString *const ACTION_ROOMLIST = @"ROOM_LIST";
