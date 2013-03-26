@@ -21,7 +21,7 @@
 {
     CFReadStreamRef readStream;
     CFWriteStreamRef writeStream;
-    NSHost *host = [NSHost hostWithAddress:@"140.112.18.211"];
+    NSHost *host = [NSHost hostWithAddress:@"140.112.18.219"];
     NSLog(@"host:%@",host);
     NSLog(@"connecting");
     CFStreamCreatePairWithSocketToHost(NULL, (__bridge CFStringRef)(host), 10627, &readStream, &writeStream);
