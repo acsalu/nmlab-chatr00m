@@ -1411,6 +1411,7 @@
 											<string key="NSFrameSize">{330, 260}</string>
 											<reference key="NSSuperview" ref="13196643"/>
 											<reference key="NSNextKeyView" ref="495097675"/>
+
 											<string key="NSReuseIdentifierKey">_NS:13</string>
 											<object class="NSTextContainer" key="NSTextContainer" id="33165758">
 												<object class="NSLayoutManager" key="NSLayoutManager">
@@ -1851,7 +1852,7 @@
 					<reference key="NSSuperview"/>
 					<reference key="NSNextKeyView" ref="718971526"/>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {1920, 1058}}</string>
+				<string key="NSScreenRect">{{0, 0}, {1280, 778}}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<bool key="NSWindowIsRestorable">YES</bool>
 			</object>
@@ -4732,6 +4733,7 @@
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
 			<int key="maxID">1150</int>
+
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>

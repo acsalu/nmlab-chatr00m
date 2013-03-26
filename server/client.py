@@ -1,8 +1,11 @@
 class Client:
     next_client_id = 1
+    c_list = {}
 
-    def __init__(self, address, name):
+    def __init__(self, socket, address, name):
+        self.socket = socket
         self.client_id = Client.next_client_id
+        Client.c_list[self.client_id] = self
         Client.next_client_id += 1
         self.address = address
         self.name = name

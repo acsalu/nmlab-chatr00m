@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0FDA97F517006E980036BDC0 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FDA97F417006E980036BDC0 /* CFNetwork.framework */; };
 		9017CDF016F1F49F005247A0 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9017CDEF16F1F49F005247A0 /* CoreAudio.framework */; };
 		901BF4D61701704C00135989 /* MessageWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 901BF4D51701704C00135989 /* MessageWindow.xib */; };
 		9050EF1716FDE39F00B6B216 /* NewRoomSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9050EF1616FDE39F00B6B216 /* NewRoomSheet.xib */; };
@@ -40,6 +41,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0FDA97F417006E980036BDC0 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = /System/Library/Frameworks/CFNetwork.framework; sourceTree = "<absolute>"; };
 		9017CDEF16F1F49F005247A0 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		901BF4D51701704C00135989 /* MessageWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageWindow.xib; sourceTree = "<group>"; };
 		9050EF1616FDE39F00B6B216 /* NewRoomSheet.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewRoomSheet.xib; sourceTree = "<group>"; };
@@ -80,6 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0FDA97F517006E980036BDC0 /* CFNetwork.framework in Frameworks */,
 				9017CDF016F1F49F005247A0 /* CoreAudio.framework in Frameworks */,
 				905FB99A16F01BE80068B1CD /* Cocoa.framework in Frameworks */,
 			);
@@ -109,6 +112,7 @@
 			isa = PBXGroup;
 			children = (
 				90E1C45516F47C380074C32C /* JSONKit */,
+				0FDA97F417006E980036BDC0 /* CFNetwork.framework */,
 				9017CDEF16F1F49F005247A0 /* CoreAudio.framework */,
 				905FB99916F01BE80068B1CD /* Cocoa.framework */,
 				905FB99B16F01BE80068B1CD /* Other Frameworks */,

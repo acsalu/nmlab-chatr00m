@@ -1,7 +1,7 @@
 import queue
 
-ROOM_TYPE_PUBLIC = "Public"
-ROOM_TYPE_PRIVATE = "Private"
+ROOM_TYPE_PUBLIC = 1
+ROOM_TYPE_PRIVATE = 0
 
 class Room:
     def __init__(self, room_id, name, type):
@@ -32,7 +32,13 @@ class Room:
     def remove_client(self, client):
         self.client_list.remove(client)
         # client.leave_room(self.room_id)
-    
+  
+    def get_clients_info(self):
+        user_dic = {}
+        for c in self.client_list:
+            user_dic[c.get_id()] = c.get_name()
+        return user_dic
+
     def put_message(self, message):
         self.msg_queue.put(message)
 
