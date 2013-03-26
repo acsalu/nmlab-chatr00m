@@ -94,7 +94,22 @@
 - (IBAction)joinRoom:(int)roomId
 {
     NSLog(@"join room [%d]", roomId);
-    [[CHCommunicationAgent sharedAgent] send:@{@"room_id": [NSNumber numberWithInteger:roomId]} forAction:ACTION_ENTERROOM];
+    
+    // check whether the user is already in this room!
+    CHChatroomWindowController *roomWindow = nil;
+    for (CHChatroomWindowController *wc in self.windowControllers) {
+        if (wc.roomId == roomId) {
+            roomWindow = wc;
+            break;
+        }
+    }
+    
+    if (roomWindow) {
+        NSLog(@"already in room [%d]", roomId);
+        [roomWindow.window makeKeyAndOrderFront:self];
+    } else {
+        [[CHCommunicationAgent sharedAgent] send:@{@"room_id": [NSNumber numberWithInteger:roomId]} forAction:ACTION_ENTERROOM];
+    }
 }
 
 - (CHChatroomWindowController *)chatroomWindowControllerForRoomId:(int)roomId
