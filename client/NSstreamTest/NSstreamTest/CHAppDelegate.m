@@ -21,16 +21,17 @@
 {
     CFReadStreamRef readStream;
     CFWriteStreamRef writeStream;
-    NSHost *host = [NSHost hostWithAddress:@"140.112.18.211"];
-    NSLog(@"host:%@",host);
+    //NSHost *host = [NSHost hostWithAddress:@"140.112.18.221"];
     NSLog(@"connecting");
-    CFStreamCreatePairWithSocketToHost(NULL, (__bridge CFStringRef)(host), 10627, &readStream, &writeStream);
+    CFStreamCreatePairWithSocketToHost(NULL, (__bridge CFStringRef)@"140.118.18.221", 80, &readStream, &writeStream);
     self.inputstream = (__bridge NSInputStream *)readStream;
     self.outputstream = (__bridge NSOutputStream *)writeStream;
     [self.inputstream setDelegate:self];
     [self.outputstream setDelegate:self];
     [self.inputstream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
     [self.outputstream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+    [self.inputstream open];
+    [self.outputstream open];
 }
 
 - (void)stream:(NSStream *)aStream handleEvent:(NSStreamEvent)eventCode
