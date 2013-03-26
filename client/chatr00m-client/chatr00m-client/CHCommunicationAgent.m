@@ -24,6 +24,10 @@
 
 NSString *const ACTION_TALK = @"TALK";
 NSString *const ACTION_NEWROOM = @"NEW_ROOM";
+NSString *const ACTION_ROOMLIST = @"ROOM_LIST";
+
+NSString *const ACTION_JOINROOM = @"JOIN_ROOM";
+NSString *const ACTION_LEAVEROOM = @"LEAVE_ROOM";
 
 
 const char *SERVER_IP = "140.112.18.220";
@@ -125,10 +129,16 @@ void SocketDataCallBack (CFSocketRef sock,
             someBuf[dataSize] = '\0';
             printf("SocketUtils: socket received:\n|%s|\n",someBuf);
             
-            NSDictionary *dic = [[JSONDecoder decoder] objectWithUTF8String:someBuf length:strlen(someBuf)];
+            
+            JSONDecoder *decoder = [JSONDecoder decoder];
+            
+            
+            NSDictionary *dic = [[NSString stringWithUTF8String:someBuf] objectFromJSONString];
+            
             NSString *action = dic[@"action"];
             NSDictionary *content = dic[@"content"];
-            CHChatroomController *cc = ((CHAppDelegate *)[NSApplication sharedApplication].delegate).chatroomController;
+            CHAppDelegate *appDelegate = (CHAppDelegate *) [NSApplication sharedApplication].delegate;
+            CHChatroomController *cc = appDelegate.chatroomController;
             
             if (action == ACTION_TALK) {
                 int room_id = [content[@"room_id"] intValue];
@@ -142,6 +152,8 @@ void SocketDataCallBack (CFSocketRef sock,
                 
             } else if ([action isEqualToString:ACTION_NEWROOM]){
                 [cc communicationAgent:agent receiveMessage:dic];
+            } else if ([action isEqualToString:ACTION_ROOMLIST]) {
+                [appDelegate communicationAgent:agent receiveMessage:dic];
             }
             
             free(someBuf);

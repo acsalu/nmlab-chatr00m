@@ -9,9 +9,21 @@
 #import "CHAppDelegate.h"
 #import "CHCommunicationAgent.h"
 #import <CoreAudio/CoreAudio.h>
+#import "JSONKit.h"
+#import "CHChatroomController.h"
+
+NSString *const POPULARITY_CELL_IDENTIFIER = @"PopularityCell";
+NSString *const ROOM_CELL_IDENTIFIER = @"RoomCell";
 
 
 @implementation CHAppDelegate
+
+- (void)awakeFromNib
+{
+    self.chatroomList = [NSMutableArray array];
+    [self.chatroomTableView setTarget:self];
+    [self.chatroomTableView setDoubleAction:@selector(doubleClick:)];
+}
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
@@ -60,5 +72,31 @@
 //    [[self.scrollView documentView] scrollPoint:newScrollOrigin];
 //}
 
+
+- (void)communicationAgent:(CHCommunicationAgent *)agent receiveMessage:(NSDictionary *)dic
+{
+    NSString *action = dic[@"action"];
+    NSDictionary *content = dic[@"content"];
+    
+    
+    
+    if ([action isEqualToString:ACTION_ROOMLIST]) {
+        NSRange range = NSMakeRange(0, [[self.chatroomArray arrangedObjects] count]);
+        [self.chatroomArray removeObjectsAtArrangedObjectIndexes:[NSIndexSet indexSetWithIndexesInRange:range]];
+        for (NSDictionary *room in content[@"room_list"])
+            [self.chatroomArray addObject:room];
+    }
+    
+}
+
+- (IBAction)doubleClick:(id)sender
+{
+    
+    NSInteger rowNumber = [self.chatroomTableView clickedRow];
+//    NSLog(@"row %ld double clicked", rowNumber);
+    NSDictionary *room = self.chatroomArray.content[rowNumber];
+    int roomId = (int) [room[@"room_id"] integerValue];
+    [self.chatroomController joinRoom:roomId];
+}
 
 @end
