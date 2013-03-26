@@ -7,6 +7,8 @@ import codecs
 import signal
 import json
 import queue
+import time
+import threading
 from room import *
 from client import *
 
@@ -41,6 +43,8 @@ class Server:
         self.room_list[0] = Room(0, "Lobby", ROOM_TYPE_PUBLIC)
         self.next_room_id += 1
 
+        self.broadcast_new_room_list()
+
     def sighandler(self, signum, frame):
         #Close the server
         print ("\nShutting down server...")
@@ -58,6 +62,7 @@ class Server:
         broadcast_msg = {"action" :ACTION_ROOMLIST, 
                          "content":{"room_list":all_rooms_info}}
         self.room_list[0].put_message(json.dumps(broadcast_msg).encode("UTF-8"))
+        threading.Timer(1, self.broadcast_new_room_list).start()
         
     def serve(self):
         inputs = [self.s, sys.stdin]
@@ -92,7 +97,7 @@ class Server:
                                                 "client_id":new_client.get_id()}}
                     lobby.put_message(json.dumps(broadcast_msg).encode("UTF-8"))
 
-                    self.broadcast_new_room_list()
+                    # self.broadcast_new_room_list()
 
                 elif s == sys.stdin:
                     # handle standard input
@@ -141,7 +146,7 @@ class Server:
 
                                 new_room.put_message(json.dumps(broadcast_msg).encode("UTF-8"))
 
-                                self.broadcast_new_room_list()
+                                # self.broadcast_new_room_list()
                                 
                             elif action == ACTION_ENTERROOM:
                                 r = self.room_list[content["room_id"]]
@@ -155,7 +160,7 @@ class Server:
                                                             "room_type"  :r.type}}
                                 r.put_message(json.dumps(broadcast_msg).encode("UTF-8"))
 
-                                self.broadcast_new_room_list()
+                                # self.broadcast_new_room_list()
 
                             elif action == ACTION_LEAVEROOM:
                                 r = self.room_list[content["room_id"]]
@@ -170,7 +175,7 @@ class Server:
                                                                 "client_name":c.get_name()}}
                                     r.put_message(json.dumps(broadcast_msg).encode("UTF-8"))
 
-                                self.broadcast_new_room_list()
+                                # self.broadcast_new_room_list()
 
                             elif action == ACTION_GETONEROOMINFO:
                                 r = self.room_list[content["room_id"]]
