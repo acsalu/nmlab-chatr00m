@@ -87,4 +87,9 @@ NSString *const ROOM_CELL_IDENTIFIER = @"RoomCell";
     [self.chatroomController joinRoom:roomId];
 }
 
+- (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender
+{
+    return YES;
+}
+
 @end

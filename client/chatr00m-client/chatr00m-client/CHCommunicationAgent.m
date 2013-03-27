@@ -20,7 +20,7 @@
 #import "CHChatroomWindowController.h"
 #import <ifaddrs.h>
 
-#define MAX_BUF_SIZE 1024
+#define MAX_BUF_SIZE 200
 
 NSString *const ACTION_SETUSERNAME = @"SET_USERNAME";
 NSString *const ACTION_TALK = @"TALK";
@@ -31,7 +31,8 @@ NSString *const ACTION_ENTERROOM = @"ENTER_ROOM";
 NSString *const ACTION_LEAVEROOM = @"LEAVE_ROOM";
 
 
-const char *SERVER_IP = "140.112.18.220";
+const char *SERVER_IP = "54.249.234.231";
+//const char *SERVER_IP = "140.112.18.220";
 const int SERVER_PORT = 10627;
 
 __strong id agent;
@@ -104,7 +105,7 @@ __strong id agent;
     
     CFDataRef address = CFDataCreate(kCFAllocatorDefault, (const UInt8*)&addr, sizeof(addr));
     NSDictionary *dic = @{@"action":@"CHANGE_PIC", @"content": data};
-    const char *msg = [[dic JSONString] cStringUsingEncoding:NSUTF8StringEncoding];
+//    const char *msg = [[dic JSONString] cStringUsingEncoding:NSUTF8StringEncoding];
     //send(CFSocketGetNative(self.socket), msg, strlen(msg) + 1, 0);
     
     if (CFSocketSendData(self.socket, address, CFDataCreate(NULL, [data bytes], [data length]), 0)) {
@@ -128,12 +129,7 @@ void SocketDataCallBack (CFSocketRef sock,
             for (size_t i = 0; i < dataSize; ++i)
                 someBuf[i] = *(((const char*) CFDataGetBytePtr((CFDataRef) dataPtr)) + i);
             someBuf[dataSize] = '\0';
-            printf("SocketUtils: socket received:\n|%s|\n",someBuf);
-            
-            
-            JSONDecoder *decoder = [JSONDecoder decoder];
-            
-            
+            //printf("SocketUtils: socket received:\n|%s|\n",someBuf);
             NSDictionary *dic = [[NSString stringWithUTF8String:someBuf] objectFromJSONString];
             
             NSString *action = dic[@"action"];
@@ -148,7 +144,7 @@ void SocketDataCallBack (CFSocketRef sock,
                 } else {
                     CHChatroomWindowController *wc = [cc chatroomWindowControllerForRoomId:room_id];
                     if (wc) {
-                        
+                        [wc communicationAgent:agent receiveMessage:dic];
                     } else {
                         NSLog(@"No room with id %d", room_id);
                         exit(1);
@@ -165,38 +161,11 @@ void SocketDataCallBack (CFSocketRef sock,
     }
 }
 
-- (void)sendMessage:(NSString *)message
-{
-    NSDictionary *dic = @{@"action":@"TALK", @"content":message, @"room_id":@"0"};
-    const char *msg = [[dic JSONString] cStringUsingEncoding:NSUTF8StringEncoding];
-    send(CFSocketGetNative(self.socket), msg, strlen(msg) + 1, 0);
-}
-
 - (void)send:(NSDictionary *)content forAction:(NSString *)action
 {
     NSDictionary *dic = @{@"action":action, @"content":content};
     const char *msg = [[dic JSONString] cStringUsingEncoding:NSUTF8StringEncoding];
     send(CFSocketGetNative(self.socket), msg, strlen(msg) + 1, 0);
-}
-
-- (void)setUserName:(NSString *)name
-{
-    NSDictionary *dic = @{@"action":@"SETUSERNAME", @"content": name};
-    const char *msg = [[dic JSONString] cStringUsingEncoding:NSUTF8StringEncoding];
-    send(CFSocketGetNative(self.socket), msg, strlen(msg) + 1, 0);
-    //NSLog(@"SetName");
-}
-
-- (void)newRoom:(NSString *)roomName
-{
-    NSDictionary *dic = @{@"action":@"NEWROOM", @"content":roomName};
-    const char *msg = [[dic JSONString] cStringUsingEncoding:NSUTF8StringEncoding];
-    send(CFSocketGetNative(self.socket), msg, strlen(msg) + 1, 0);
-}
-
-- (void)setPicture:(NSImage *)picture
-{
-    
 }
 
 + (NSString *)getIPAddress {
