@@ -64,6 +64,7 @@
 							<string key="NSFrame">{{623, 7}, {57, 66}}</string>
 							<reference key="NSSuperview" ref="1006"/>
 							<reference key="NSWindow"/>
+							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:22</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="411744520">
@@ -140,7 +141,7 @@
 											<string key="NSFrameSize">{130, 380}</string>
 											<reference key="NSSuperview" ref="231090392"/>
 											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView" ref="775633781"/>
+											<reference key="NSNextKeyView" ref="216461665"/>
 											<string key="NSReuseIdentifierKey">_NS:13</string>
 											<bool key="NSEnabled">YES</bool>
 											<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
@@ -151,10 +152,10 @@
 												<string key="NSFrameSize">{130, 17}</string>
 												<reference key="NSSuperview" ref="775633781"/>
 												<reference key="NSWindow"/>
-												<reference key="NSNextKeyView" ref="512480109"/>
+												<reference key="NSNextKeyView" ref="231090392"/>
 												<reference key="NSTableView" ref="1068504954"/>
 											</object>
-											<object class="_NSCornerView" key="NSCornerView" id="512480109">
+											<object class="_NSCornerView" key="NSCornerView">
 												<nil key="NSNextResponder"/>
 												<int key="NSvFlags">-2147483392</int>
 												<string key="NSFrame">{{224, 0}, {16, 17}}</string>
@@ -295,7 +296,7 @@
 							<string key="NSFrame">{{548, 86}, {132, 398}}</string>
 							<reference key="NSSuperview" ref="1006"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="231090392"/>
+							<reference key="NSNextKeyView" ref="775633781"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<int key="NSsFlags">133682</int>
 							<reference key="NSVScroller" ref="710375595"/>
@@ -322,7 +323,7 @@
 											<string key="NSFrameSize">{518, 380}</string>
 											<reference key="NSSuperview" ref="319355460"/>
 											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView" ref="878576032"/>
+											<reference key="NSNextKeyView" ref="638467068"/>
 											<string key="NSReuseIdentifierKey">_NS:13</string>
 											<bool key="NSEnabled">YES</bool>
 											<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
@@ -333,11 +334,11 @@
 												<string key="NSFrameSize">{518, 17}</string>
 												<reference key="NSSuperview" ref="878576032"/>
 												<reference key="NSWindow"/>
-												<reference key="NSNextKeyView" ref="675868933"/>
+												<reference key="NSNextKeyView" ref="319355460"/>
 												<string key="NSReuseIdentifierKey">_NS:16</string>
 												<reference key="NSTableView" ref="644742401"/>
 											</object>
-											<object class="_NSCornerView" key="NSCornerView" id="675868933">
+											<object class="_NSCornerView" key="NSCornerView">
 												<nil key="NSNextResponder"/>
 												<int key="NSvFlags">-2147483392</int>
 												<string key="NSFrame">{{224, 0}, {16, 17}}</string>
@@ -346,6 +347,7 @@
 											</object>
 											<array class="NSMutableArray" key="NSTableColumns">
 												<object class="NSTableColumn" id="28412584">
+													<string key="NSIdentifier">ChatCell</string>
 													<double key="NSWidth">513.37890625</double>
 													<double key="NSMinWidth">40</double>
 													<double key="NSMaxWidth">1000</double>
@@ -447,7 +449,7 @@
 							<string key="NSFrame">{{20, 86}, {520, 398}}</string>
 							<reference key="NSSuperview" ref="1006"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="319355460"/>
+							<reference key="NSNextKeyView" ref="878576032"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<int key="NSsFlags">133682</int>
 							<reference key="NSVScroller" ref="707233088"/>
@@ -1656,6 +1658,7 @@
 					<reference ref="643200268"/>
 				</array>
 				<string key="207.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="207.userInterfaceItemIdentifier">ChatCell</string>
 				<array key="208.IBNSViewMetadataConstraints">
 					<reference ref="149391020"/>
 				</array>

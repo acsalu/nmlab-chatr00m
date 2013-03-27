@@ -23,4 +23,7 @@
 
 @property (weak) IBOutlet id<CHProfilePicCellDelegate> delegate;
 
+
++ (NSImage *)profilePicForIndex:(int)index;
+
 @end

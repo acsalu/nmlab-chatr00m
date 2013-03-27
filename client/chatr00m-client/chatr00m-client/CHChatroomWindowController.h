@@ -25,8 +25,8 @@
 @property enum RoomType roomType;
 @property (retain, nonatomic) NSOutputStream *outputstream;
 @property (retain, nonatomic) NSInputStream *inputstream;
-@property (strong, nonatomic) NSMutableArray *userTableContents;
-@property (strong, nonatomic) NSMutableArray *chatTableContents;
+@property (strong, nonatomic) NSArray *userTableContents;
+@property (strong, nonatomic) NSArray *chatTableContents;
 
 
 - (IBAction)sendMessage:(id)sender;

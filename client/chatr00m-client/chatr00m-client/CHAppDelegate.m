@@ -12,7 +12,6 @@
 #import "JSONKit.h"
 #import "CHChatroomController.h"
 #import "CHVLCWindowController.h"
-#import <VLCKit/VLCKit.h>
 #import "CHUsernameTextField.h"
 #import "CHProfilePicCell.h"
 

@@ -29,7 +29,7 @@ NSString *const ACTION_ROOMLIST = @"ROOM_LIST";
 
 NSString *const ACTION_ENTERROOM = @"ENTER_ROOM";
 NSString *const ACTION_LEAVEROOM = @"LEAVE_ROOM";
-
+NSString *const ACTION_ROOMINFO = @"ONE_ROOM_INFO";
 
 const char *SERVER_IP = "54.249.234.231";
 //const char *SERVER_IP = "140.112.18.220";
@@ -122,14 +122,15 @@ void SocketDataCallBack (CFSocketRef sock,
     CFIndex dataSize;
     
     if ((dataSize = CFDataGetLength((CFDataRef)dataPtr)) > 0) {
-        printf("data length = %ld\n", CFDataGetLength((CFDataRef)dataPtr)); 
+//        printf("data length = %ld\n", CFDataGetLength((CFDataRef)dataPtr)); 
         // handle your data here. This example prints to stderr.
         char *someBuf;
         if ((someBuf = malloc(dataSize+1)) != nil) {
             for (size_t i = 0; i < dataSize; ++i)
                 someBuf[i] = *(((const char*) CFDataGetBytePtr((CFDataRef) dataPtr)) + i);
             someBuf[dataSize] = '\0';
-            //printf("SocketUtils: socket received:\n|%s|\n",someBuf);
+            printf("-------------------------------------------------------------\n");
+            printf("SocketUtils: socket received:\n|%s|\n\n",someBuf);
             NSDictionary *dic = [[NSString stringWithUTF8String:someBuf] objectFromJSONString];
             
             NSString *action = dic[@"action"];
@@ -137,7 +138,7 @@ void SocketDataCallBack (CFSocketRef sock,
             CHAppDelegate *appDelegate = (CHAppDelegate *) [NSApplication sharedApplication].delegate;
             CHChatroomController *cc = appDelegate.chatroomController;
             
-            if ([action isEqualToString:ACTION_TALK]) {
+            if ([action isEqualToString:ACTION_TALK] || [action isEqualToString:ACTION_ROOMINFO]) {
                 int room_id = [content[@"room_id"] intValue];
                 if (room_id == 0) {
                     [appDelegate communicationAgent:agent receiveMessage:dic];

@@ -8,6 +8,7 @@
 
 #import "CHChatroomWindowController.h"
 #import "CHCommunicationAgent.h"
+#import "CHProfilePicCell.h"
 
 @interface CHChatroomWindowController ()
 
@@ -15,22 +16,10 @@
 
 @implementation CHChatroomWindowController
 
-- (void)awakeFromNib
+- (NSArray *) chatTableContents
 {
-    self.userTableContents = [NSMutableArray array];
-    NSString *path = @"/Library/Application Support/Apple/iChat Icons/Tribal Masks";
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSDirectoryEnumerator *directoryEnumerator = [fileManager enumeratorAtPath:path];
-    
-    self.chatTableContents = [NSMutableArray array];
-    
-    NSString *file;
-    while (file = [directoryEnumerator nextObject]) {
-        NSString *filePath = [path stringByAppendingFormat:@"/%@", file];
-        NSDictionary *obj = @{@"image":[[NSImage alloc] initByReferencingFile:filePath],
-                              @"name":[file stringByDeletingPathExtension]};
-        [self.userTableContents addObject:obj];
-    }
+    if (!_chatTableContents) _chatTableContents = [[NSArray alloc] init];
+    return _chatTableContents;
 }
 
 + (CHChatroomWindowController *)chatroomWindowControllerWithId:(int)roomId Name:(NSString *)roomName andType:(enum RoomType)roomType
@@ -85,8 +74,12 @@
     NSDictionary *content = dic[@"content"];
     if ([action isEqualToString:ACTION_TALK]) {
         NSLog(@"%@:%@", content[@"name"], content[@"message"]);
-        [self.chatTableContents addObject:content];
+        self.chatTableContents = [self.chatTableContents arrayByAddingObject:content];
+        NSLog(@"%@", self.chatTableContents);
         [self.chatTableView reloadData];
+    } else if ([action isEqualToString:ACTION_ROOMINFO] ) {
+        self.userTableContents = content[@"room_client_info"];
+        [self.userTableView reloadData];
     }
 }
 
@@ -96,6 +89,7 @@
 {
     if (tableView == self.userTableView) return self.userTableContents.count;
     else if (tableView == self.chatTableView) return self.chatTableContents.count;
+    else return 0;
 }
 
 - (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
@@ -107,11 +101,14 @@
     
     if ([identifier isEqualToString:@"UserCell"]) {
         cellView = [tableView makeViewWithIdentifier:@"UserCell" owner:self];
-        NSDictionary *user = self.userTableContents[row];
-        cellView.textField.stringValue = user[@"name"];
-        cellView.imageView.image = user[@"image"];
+        NSArray *user = self.userTableContents[row];
+        //cellView.textField.stringValue = user[@"name"];
+        //cellView.imageView.image = user[@"image"];
+        cellView.textField.stringValue = user[1];
+        cellView.imageView.image = [CHProfilePicCell profilePicForIndex:1];
     } else if ([identifier isEqualToString:@"ChatCell"]) {
-        cellView = [tableView makeViewWithIdentifier:@"UserCell" owner:self];
+        cellView = [tableView makeViewWithIdentifier:@"ChatCell" owner:self];
+        NSLog(@"%@", self.chatTableContents);
         NSDictionary *chat = self.chatTableContents[row];
         cellView.textField.stringValue = chat[@"message"];
 //        cellView.imageView.image = user[@"image"];

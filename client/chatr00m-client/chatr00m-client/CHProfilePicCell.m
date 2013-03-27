@@ -20,5 +20,10 @@
     [self.delegate profilePicCell:self isClicked:self.clicked];
 }
 
++ (NSImage *)profilePicForIndex:(int)index
+{
+    NSLog(@"%@", [NSString stringWithFormat:@"user_img_0%d", index]);
+    return [NSImage imageNamed:[NSString stringWithFormat:@"user_img_%d.gif", index]];
+}
 
 @end
