@@ -158,7 +158,9 @@ void SocketDataCallBack (CFSocketRef sock,
                         //exit(1);
                     }
                 }
-            } else if ([action isEqualToString:ACTION_NEWROOM] || [action isEqualToString:ACTION_ENTERROOM]){
+            } else if ([action isEqualToString:ACTION_NEWROOM] ||
+                       [action isEqualToString:ACTION_ENTERROOM] ||
+                       [action isEqualToString:ACTION_NEWMESSAGE]) {
                 [cc communicationAgent:agent receiveMessage:dic];
             } else if ([action isEqualToString:ACTION_ROOMLIST]) {
                 [appDelegate communicationAgent:agent receiveMessage:dic];
