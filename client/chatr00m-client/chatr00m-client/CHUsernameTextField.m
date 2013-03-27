@@ -27,7 +27,7 @@
     if (button == NSAlertFirstButtonReturn) {
         [input validateEditing];
         self.stringValue = [input.stringValue copy];
-        [[CHCommunicationAgent sharedAgent] send:@{@"user_name": self.stringValue} forAction:ACTION_SETUSERNAME];
+        
     }
     //NSWindow *window = [[NSApplication sharedApplication] windows][0];
     //[alert beginSheetModalForWindow: window modalDelegate:nil didEndSelector:nil contextInfo:nil];
@@ -42,6 +42,12 @@
 - (void)mouseExited:(NSEvent *)theEvent
 {
     NSLog(@"mouse exited");
+}
+
+- (void)setStringValue:(NSString *)aString
+{
+    [super setStringValue:aString];
+    [[CHCommunicationAgent sharedAgent] send:@{@"user_name": self.stringValue} forAction:ACTION_SETUSERNAME];   
 }
 
 @end

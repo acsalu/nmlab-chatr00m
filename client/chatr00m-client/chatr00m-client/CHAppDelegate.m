@@ -11,8 +11,12 @@
 #import <CoreAudio/CoreAudio.h>
 #import "JSONKit.h"
 #import "CHChatroomController.h"
+#import "CHVLCWindowController.h"
+#import <VLCKit/VLCKit.h>
+#import "CHUsernameTextField.h"
 
 #define LOBBY_ROOM_ID 0
+#define USER_NAME_TEXTFIELD_TAG 1000
 
 NSString *const POPULARITY_CELL_IDENTIFIER = @"PopularityCell";
 NSString *const ROOM_CELL_IDENTIFIER = @"RoomCell";
@@ -25,6 +29,16 @@ NSString *const ROOM_CELL_IDENTIFIER = @"RoomCell";
     self.chatroomList = [NSMutableArray array];
     [self.chatroomTableView setTarget:self];
     [self.chatroomTableView setDoubleAction:@selector(doubleClick:)];
+    //if (welcomeSheet) {
+    //    [NSBundle loadNibNamed:@"WelcomeSheet" owner:self];
+        
+        [NSApp beginSheet:self.welcomeSheet
+           modalForWindow:self.window
+            modalDelegate:self
+           didEndSelector:NULL
+              contextInfo:NULL];
+    //}
+    
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
@@ -37,6 +51,22 @@ NSString *const ROOM_CELL_IDENTIFIER = @"RoomCell";
     
 }
 
+- (IBAction)finishWelcomeSheet:(id)sender
+{
+    for (NSView *view in [self.welcomeSheet.contentView subviews]) {
+        if (view.tag == USER_NAME_TEXTFIELD_TAG) {
+            NSTextField *tf = (NSTextField *) view;
+            NSLog(@"username = %@", tf.stringValue);
+            self.userNameTextField.stringValue = tf.stringValue;
+            break;
+        }
+    }
+    [NSApp endSheet:self.welcomeSheet];
+    [self.welcomeSheet close];
+    self.welcomeSheet = nil;
+    [self.window makeKeyAndOrderFront:self];
+
+}
 
 - (IBAction)send:(id)sender {
     NSString *message = self.messageTextField.stringValue;
@@ -44,6 +74,16 @@ NSString *const ROOM_CELL_IDENTIFIER = @"RoomCell";
     self.messageTextField.stringValue = @"";
     NSDictionary *content = @{@"room_id":@(LOBBY_ROOM_ID), @"message": message};
     [[CHCommunicationAgent sharedAgent] send:content forAction:ACTION_TALK];
+}
+
+- (IBAction)tryVLC:(id)sender
+{
+    if (!self.vlcWindowController) {
+        self.vlcWindowController = [[CHVLCWindowController alloc] initWithWindowNibName:@"CHVLCWindowController"];
+        [self.vlcWindowController showWindow:self];
+    } else {
+        [self.vlcWindowController.window makeKeyAndOrderFront:self];
+    }
 }
 
 - (void)controlTextDidEndEditing:(NSNotification *)obj
