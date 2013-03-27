@@ -410,6 +410,15 @@
     self.service = nil;
 }
 
+- (void)netService:(NSNetService *)sender didNotResolve:(NSDictionary *)errorDict
+{
+    NSLog(@"Bonjour did not resolve");
+}
+- (void)netServiceDidResolveAddress:(NSNetService *)sender
+{
+    NSLog(@"Bonjour did resolve address");
+}
+
 #pragma mark - NSNetServiceBrowserDelegate methods
 
 - (void)netServiceBrowserWillSearch:(NSNetServiceBrowser *)aNetServiceBrowser
