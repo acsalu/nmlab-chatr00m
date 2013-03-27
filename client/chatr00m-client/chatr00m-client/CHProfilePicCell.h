@@ -8,9 +8,19 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class CHProfilePicCell;
+
+@protocol CHProfilePicCellDelegate <NSObject>
+
+- (void) profilePicCell:(CHProfilePicCell *)profilePicCell isClicked:(BOOL)clicked;
+
+@end
+
 @interface CHProfilePicCell : NSImageView <NSPopoverDelegate>
 
 @property (nonatomic) BOOL clicked;
 @property (nonatomic) NSInteger profilePic;
+
+@property (weak) IBOutlet id<CHProfilePicCellDelegate> delegate;
 
 @end

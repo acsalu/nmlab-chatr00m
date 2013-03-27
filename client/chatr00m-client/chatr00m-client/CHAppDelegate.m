@@ -14,6 +14,7 @@
 #import "CHVLCWindowController.h"
 #import <VLCKit/VLCKit.h>
 #import "CHUsernameTextField.h"
+#import "CHProfilePicCell.h"
 
 #define LOBBY_ROOM_ID 0
 #define USER_NAME_TEXTFIELD_TAG 1000
@@ -58,7 +59,8 @@ NSString *const ROOM_CELL_IDENTIFIER = @"RoomCell";
             NSTextField *tf = (NSTextField *) view;
             NSLog(@"username = %@", tf.stringValue);
             self.userNameTextField.stringValue = tf.stringValue;
-            break;
+        } else if (view == self.profilePicCellwelcomeSheet) {
+            self.profilePicCellMain.image = self.profilePicCellwelcomeSheet.image;
         }
     }
     [NSApp endSheet:self.welcomeSheet];
@@ -66,6 +68,11 @@ NSString *const ROOM_CELL_IDENTIFIER = @"RoomCell";
     self.welcomeSheet = nil;
     [self.window makeKeyAndOrderFront:self];
 
+}
+
+- (void)profilePicCell:(CHProfilePicCell *)profilePicCell isClicked:(BOOL)clicked
+{
+    [self.popover showRelativeToRect:[profilePicCell bounds] ofView:profilePicCell preferredEdge:NSMinYEdge];
 }
 
 - (IBAction)send:(id)sender {
@@ -84,6 +91,14 @@ NSString *const ROOM_CELL_IDENTIFIER = @"RoomCell";
     } else {
         [self.vlcWindowController.window makeKeyAndOrderFront:self];
     }
+}
+
+- (IBAction)pickUserImage:(id)sender
+{
+    NSButton *button = (NSButton *) sender;
+    CHProfilePicCell *profilePicCell = (self.welcomeSheet) ? self.profilePicCellwelcomeSheet : self.profilePicCellMain;
+    profilePicCell.image = button.image;
+    [self.popover close];
 }
 
 - (void)controlTextDidEndEditing:(NSNotification *)obj

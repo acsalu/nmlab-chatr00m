@@ -14,7 +14,6 @@
 		90599C861702CB5D003BD0CA /* VLCKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90599C841702C9B4003BD0CA /* VLCKit.framework */; };
 		90599C951702CC91003BD0CA /* CHVLCWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90599C931702CC91003BD0CA /* CHVLCWindowController.m */; };
 		90599C961702CC91003BD0CA /* CHVLCWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90599C941702CC91003BD0CA /* CHVLCWindowController.xib */; };
-		90599C981702D9A8003BD0CA /* WelcomeSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90599C971702D9A8003BD0CA /* WelcomeSheet.xib */; };
 		90599C9A1702E711003BD0CA /* user_img_01.gif in Resources */ = {isa = PBXBuildFile; fileRef = 90599C991702E711003BD0CA /* user_img_01.gif */; };
 		90599C9C1702E71B003BD0CA /* user_img_02.gif in Resources */ = {isa = PBXBuildFile; fileRef = 90599C9B1702E71B003BD0CA /* user_img_02.gif */; };
 		90599C9F1702E737003BD0CA /* user_img_03.gif in Resources */ = {isa = PBXBuildFile; fileRef = 90599C9D1702E737003BD0CA /* user_img_03.gif */; };
@@ -60,7 +59,6 @@
 		90599C921702CC91003BD0CA /* CHVLCWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHVLCWindowController.h; sourceTree = "<group>"; };
 		90599C931702CC91003BD0CA /* CHVLCWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHVLCWindowController.m; sourceTree = "<group>"; };
 		90599C941702CC91003BD0CA /* CHVLCWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CHVLCWindowController.xib; sourceTree = "<group>"; };
-		90599C971702D9A8003BD0CA /* WelcomeSheet.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WelcomeSheet.xib; sourceTree = "<group>"; };
 		90599C991702E711003BD0CA /* user_img_01.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = user_img_01.gif; sourceTree = "<group>"; };
 		90599C9B1702E71B003BD0CA /* user_img_02.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = user_img_02.gif; sourceTree = "<group>"; };
 		90599C9D1702E737003BD0CA /* user_img_03.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = user_img_03.gif; sourceTree = "<group>"; };
@@ -160,7 +158,6 @@
 				905FB9AB16F01BE80068B1CD /* CHAppDelegate.h */,
 				905FB9AC16F01BE80068B1CD /* CHAppDelegate.m */,
 				905FB9AE16F01BE80068B1CD /* MainMenu.xib */,
-				90599C971702D9A8003BD0CA /* WelcomeSheet.xib */,
 				90599C921702CC91003BD0CA /* CHVLCWindowController.h */,
 				90599C931702CC91003BD0CA /* CHVLCWindowController.m */,
 				90599C941702CC91003BD0CA /* CHVLCWindowController.xib */,
@@ -307,7 +304,6 @@
 				90C6E3141701C469006E47DA /* user_img_05.gif in Resources */,
 				90C6E3191701C469006E47DA /* user_img_06.gif in Resources */,
 				90599C961702CC91003BD0CA /* CHVLCWindowController.xib in Resources */,
-				90599C981702D9A8003BD0CA /* WelcomeSheet.xib in Resources */,
 				90599C9A1702E711003BD0CA /* user_img_01.gif in Resources */,
 				90599C9C1702E71B003BD0CA /* user_img_02.gif in Resources */,
 				90599C9F1702E737003BD0CA /* user_img_03.gif in Resources */,

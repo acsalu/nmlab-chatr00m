@@ -14,13 +14,11 @@
 
 - (void)mouseDown:(NSEvent *)theEvent
 {
-    if (self.clicked) return;
+    //if (self.clicked) return;
     self.clicked = YES;
     NSLog(@"change profile pic");
-    
+    [self.delegate profilePicCell:self isClicked:self.clicked];
 }
-
-# pragma mark - NSPopoverDelegate methods
 
 
 @end

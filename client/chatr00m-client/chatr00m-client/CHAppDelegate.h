@@ -7,15 +7,21 @@
 //
 
 #import <Cocoa/Cocoa.h>
-@class CHCommunicationAgent;
+
 @protocol CHCommunicationAgentDelegate;
+@protocol CHProfilePicCellDelegate;
+
+@class CHCommunicationAgent;
 @class PSMTabBarControl;
 @class CHChatRoomView;
 @class CHChatroomController;
 @class CHVLCWindowController;
 @class CHUsernameTextField;
+@class CHProfilePicCell;
 
-@interface CHAppDelegate : NSObject <NSApplicationDelegate, NSTextFieldDelegate, CHCommunicationAgentDelegate, NSTableViewDataSource, NSTableViewDelegate, NSWindowDelegate>
+@interface CHAppDelegate : NSObject
+    <NSApplicationDelegate, NSTextFieldDelegate, CHCommunicationAgentDelegate, NSTableViewDataSource,
+     NSTableViewDelegate, NSWindowDelegate, CHProfilePicCellDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
 @property (weak) IBOutlet NSTextField *messageTextField;
@@ -25,6 +31,8 @@
 @property (weak) IBOutlet NSScrollView *scrollView;
 @property (weak) IBOutlet CHChatroomController *chatroomController;
 
+@property (weak) IBOutlet CHProfilePicCell *profilePicCellMain;
+
 
 @property (weak) IBOutlet NSTableView *chatroomTableView;
 @property (strong) NSMutableArray *chatroomList;
@@ -32,6 +40,10 @@
 @property (strong) CHVLCWindowController *vlcWindowController;
 
 @property (weak) IBOutlet NSWindow *welcomeSheet;
+@property (weak) IBOutlet CHProfilePicCell *profilePicCellwelcomeSheet;
+
+
+@property (weak) IBOutlet NSPopover *popover;
 
 - (IBAction)send:(id)sender;
 - (IBAction)reconnect:(id)sender;
@@ -39,6 +51,8 @@
 
 - (IBAction)doubleClick:(id)sender;
 - (IBAction)tryVLC:(id)sender;
+
+- (IBAction)pickUserImage:(id)sender;
 
 
 @end
