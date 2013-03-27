@@ -39,10 +39,10 @@ class Room:
             return -1
             
     def get_clients_info(self):
-        user_dic = {}
+        user_list = []
         for c in self.client_list:
-            user_dic[c.get_id()] = c.get_name()
-        return user_dic
+            user_list.append(c.get_id(), c.get_name())
+        return user_list
 
     def put_message(self, message):
         self.msg_queue.put(message)
