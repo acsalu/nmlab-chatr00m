@@ -1,5 +1,6 @@
 import queue
 
+ROOM_TYPE_MESSAGE = 2
 ROOM_TYPE_PUBLIC = 1
 ROOM_TYPE_PRIVATE = 0
 
@@ -42,3 +43,14 @@ class Room:
 
     def put_message(self, message):
         self.msg_queue.put(message)
+
+
+    def get_the_other_client(self, client):
+        if self.type != ROOM_TYPE_MESSAGE:
+            return None
+        else:
+            for c in self.client_list:
+                if c != client:
+                    return c
+            # bug 
+            return None

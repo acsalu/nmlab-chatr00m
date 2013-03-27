@@ -135,20 +135,20 @@
 {
     NSString *action = dic[@"action"];
     NSDictionary *content = dic[@"content"];
-    if ([action isEqualToString:ACTION_NEWROOM] || [action isEqualToString:ACTION_ENTERROOM]) {
-        NSString *roomName = content[@"room_name"];
+    if ([action isEqualToString:ACTION_NEWROOM] || [action isEqualToString:ACTION_ENTERROOM] || [action isEqualToString:ACTION_NEWMESSAGE]) {
+        NSString *roomName =  (![action isEqualToString:ACTION_NEWMESSAGE]) ? content[@"room_name"] : @"message";
         int roomId = [content[@"room_id"] intValue];
-        enum RoomType roomType = [content[@"room_type"] intValue];
+        enum RoomType roomType = ([action isEqualToString:ACTION_NEWMESSAGE]) ? ROOM_TYPE_MESSAGE : [content[@"room_type"] intValue];
         
         
-//        CHChatroomWindowController *wc = [CHChatroomWindowController chatroomWindowControllerWithId:roomId
-//                                                                                               Name:roomName
-//                                                                                            andType:roomType];
+        CHChatroomWindowController *wc = [CHChatroomWindowController chatroomWindowControllerWithId:roomId
+                                                                                               Name:roomName
+                                                                                            andType:roomType];
         
-        // for test file transfer
-        CHChatroomWindowController *wc = [CHChatroomWindowController chatroomWindowControllerWithId:100
-                                                                                               Name:@"File Transfer Test"
-                                                                                            andType:ROOM_TYPE_MESSAGE];
+//        
+//        CHChatroomWindowController *wc = [CHChatroomWindowController chatroomWindowControllerWithId:100
+//                                                                                               Name:@"File Transfer Test"
+//                                                                                            andType:ROOM_TYPE_MESSAGE];
         [self.windowControllers addObject:wc];
         [wc showWindow:self];
         
