@@ -57,7 +57,6 @@ class Server:
         sys.exit()
 
     def broadcast_new_room_list(self):
-        print ("broadcast_new_room_list")
         all_rooms_info = []
         for r_id, room in self.room_list.items():
             all_rooms_info.append({"room_id"      :r_id, 
@@ -71,7 +70,6 @@ class Server:
         self.timer_room_list.start()
 
     def broadcast_new_clients_list(self):
-        print ("broadcast_new_clients_list")
         for r_id, r in self.room_list.items():
             broadcast_msg = {"action" :ACTION_ONEROOMINFO, 
                              "content":{"room_id"         :r_id,
