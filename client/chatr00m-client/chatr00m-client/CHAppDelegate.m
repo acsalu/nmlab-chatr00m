@@ -99,6 +99,8 @@ NSString *const ROOM_CELL_IDENTIFIER = @"RoomCell";
 
 - (void)reconnect:(id)sender
 {
+    self.chatroomController.windowControllers = [NSMutableArray array];
+    //for (CHChatroomWindowController *wc in self.chatroomController.)
     [[CHCommunicationAgent sharedAgent] connect];
 }
 
