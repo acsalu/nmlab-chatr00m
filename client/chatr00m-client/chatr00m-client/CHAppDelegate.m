@@ -34,6 +34,7 @@ NSString *const ROOM_CELL_IDENTIFIER = @"RoomCell";
         modalDelegate:self
        didEndSelector:NULL
           contextInfo:NULL];
+    self.imgIdx = 1;
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
@@ -89,6 +90,8 @@ NSString *const ROOM_CELL_IDENTIFIER = @"RoomCell";
     NSButton *button = (NSButton *) sender;
     CHProfilePicCell *profilePicCell = (self.welcomeSheet) ? self.profilePicCellwelcomeSheet : self.profilePicCellMain;
     profilePicCell.image = button.image;
+    self.imgIdx = button.tag;
+    [[CHCommunicationAgent sharedAgent] send:@{@"image":@(self.imgIdx)} forAction:ACTION_SETUSERPIC];
     [self.popover close];
 }
 
@@ -96,6 +99,8 @@ NSString *const ROOM_CELL_IDENTIFIER = @"RoomCell";
 
 - (void)reconnect:(id)sender
 {
+    self.chatroomController.windowControllers = [NSMutableArray array];
+    //for (CHChatroomWindowController *wc in self.chatroomController.)
     [[CHCommunicationAgent sharedAgent] connect];
 }
 
@@ -111,7 +116,7 @@ NSString *const ROOM_CELL_IDENTIFIER = @"RoomCell";
             [self.chatroomArray addObject:room];
     } else if ([action isEqualToString:ACTION_TALK]) {
         self.messageBoard.string = [NSString stringWithFormat:@"%@\n[%@]: %@",
-                                    self.messageBoard.string, content[@"name"], content[@"message"]];
+                                    self.messageBoard.string, content[@"client_name"], content[@"message"]];
     }
     
 }

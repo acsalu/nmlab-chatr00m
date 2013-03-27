@@ -47,6 +47,8 @@
 @property (weak) IBOutlet NSPopover *popover;
 @property (weak) IBOutlet NSPopover *usernamePopover;
 
+@property int imgIdx;
+@property int userId;
 
 - (IBAction)send:(id)sender;
 - (IBAction)reconnect:(id)sender;

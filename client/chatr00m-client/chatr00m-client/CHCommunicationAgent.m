@@ -37,6 +37,8 @@ NSString *const ACTION_AGREETORECEIVE = @"AGREETORECEIVE";
 NSString *const ACTION_ROOMINFO = @"ONE_ROOM_INFO";
 NSString *const ACTION_NEWMESSAGE = @"NEW_MESSAGE";
 
+NSString *const ACTION_SETUSERPIC = @"SET_USERPIC";
+
 const char *SERVER_IP = "54.249.234.231";
 //const char *SERVER_IP = "140.112.18.220";
 
@@ -100,25 +102,6 @@ __strong id agent;
 }
 
 
-- (void)sendFile:(NSData *)data
-{
-    struct sockaddr_in addr;
-    
-    memset(&addr, 0, sizeof(addr));
-    addr.sin_len = sizeof(struct sockaddr_in);
-    addr.sin_family = AF_INET;
-    addr.sin_addr.s_addr = inet_addr("140.112.18.220");
-    addr.sin_port = htons(10627);
-    
-    CFDataRef address = CFDataCreate(kCFAllocatorDefault, (const UInt8*)&addr, sizeof(addr));
-    NSDictionary *dic = @{@"action":@"CHANGE_PIC", @"content": data};
-//    const char *msg = [[dic JSONString] cStringUsingEncoding:NSUTF8StringEncoding];
-    //send(CFSocketGetNative(self.socket), msg, strlen(msg) + 1, 0);
-    
-    if (CFSocketSendData(self.socket, address, CFDataCreate(NULL, [data bytes], [data length]), 0)) {
-        NSLog(@"file transfer sucks");
-    }
-}
 
 void SocketDataCallBack (CFSocketRef sock,
                          CFSocketCallBackType type,
@@ -136,36 +119,44 @@ void SocketDataCallBack (CFSocketRef sock,
             for (size_t i = 0; i < dataSize; ++i)
                 someBuf[i] = *(((const char*) CFDataGetBytePtr((CFDataRef) dataPtr)) + i);
             someBuf[dataSize] = '\0';
-            printf("-------------------------------------------------------------\n");
-            printf("SocketUtils: socket received:\n|%s|\n\n",someBuf);
-            NSDictionary *dic = [[NSString stringWithUTF8String:someBuf] objectFromJSONString];
+//            printf("-------------------------------------------------------------\n");
+//            printf("SocketUtils: socket received:\n|%s|\n\n",someBuf);
             
-            NSString *action = dic[@"action"];
-            NSDictionary *content = dic[@"content"];
-            CHAppDelegate *appDelegate = (CHAppDelegate *) [NSApplication sharedApplication].delegate;
-            CHChatroomController *cc = appDelegate.chatroomController;
-            
-            if ([action isEqualToString:ACTION_TALK] || [action isEqualToString:ACTION_ROOMINFO]) {
-                int room_id = [content[@"room_id"] intValue];
-                if (room_id == 0) {
-                    [appDelegate communicationAgent:agent receiveMessage:dic];
-                } else {
-                    CHChatroomWindowController *wc = [cc chatroomWindowControllerForRoomId:room_id];
-                    if (wc) {
-                        [wc communicationAgent:agent receiveMessage:dic];
+            NSArray *jsonstrings = [agent divideJSONString:[NSString stringWithUTF8String:someBuf]];
+            for (NSString *actionjson in jsonstrings) {
+                NSLog(@"-------------------------------------------------------------");
+                NSDictionary *dic = [actionjson objectFromJSONString];
+                
+                NSString *action = dic[@"action"];
+                NSDictionary *content = dic[@"content"];
+                
+                NSLog(@"[%@]", action);
+                CHAppDelegate *appDelegate = (CHAppDelegate *) [NSApplication sharedApplication].delegate;
+                CHChatroomController *cc = appDelegate.chatroomController;
+                
+                if ([action isEqualToString:ACTION_TALK] || [action isEqualToString:ACTION_ROOMINFO]) {
+                    int room_id = [content[@"room_id"] intValue];
+                    if (room_id == 0) {
+                        [appDelegate communicationAgent:agent receiveMessage:dic];
                     } else {
-                        NSLog(@"No room with id %d", room_id);
-                        //exit(1);
+                        CHChatroomWindowController *wc = [cc chatroomWindowControllerForRoomId:room_id];
+                        if (wc) {
+                            [wc communicationAgent:agent receiveMessage:dic];
+                        } else {
+                            NSLog(@"No room with id %d", room_id);
+                            //exit(1);
+                        }
                     }
+                } else if ([action isEqualToString:ACTION_NEWROOM] ||
+                           [action isEqualToString:ACTION_ENTERROOM] ||
+                           [action isEqualToString:ACTION_NEWMESSAGE]) {
+                    [cc communicationAgent:agent receiveMessage:dic];
+                } else if ([action isEqualToString:ACTION_ROOMLIST]) {
+                    [appDelegate communicationAgent:agent receiveMessage:dic];
+                } else if ([action isEqualToString:ACTION_SETUSERNAME]) {
+                    [appDelegate setUserId:(int) [content[@"client_id"] integerValue]];
                 }
-            } else if ([action isEqualToString:ACTION_NEWROOM] ||
-                       [action isEqualToString:ACTION_ENTERROOM] ||
-                       [action isEqualToString:ACTION_NEWMESSAGE]) {
-                [cc communicationAgent:agent receiveMessage:dic];
-            } else if ([action isEqualToString:ACTION_ROOMLIST]) {
-                [appDelegate communicationAgent:agent receiveMessage:dic];
             }
-            
             free(someBuf);
         }
     }
@@ -208,6 +199,36 @@ void SocketDataCallBack (CFSocketRef sock,
     // Free memory
     freeifaddrs(interfaces);
     return address;
+    
+}
+
+
+
+
+- (NSArray *) divideJSONString:(NSString *)jsonString
+{
+    NSMutableArray *result = [NSMutableArray array];
+    NSString *header =  @"{\"action\"";
+    
+    NSRange range = [jsonString rangeOfString:header];
+    
+    
+    while (range.location != NSNotFound) {
+        NSString *sub = [jsonString substringFromIndex:range.length];
+        NSRange newRange = [sub rangeOfString:header];
+        if (newRange.location != NSNotFound) {
+            [result addObject:[jsonString substringWithRange:NSMakeRange(range.location, newRange.location + range.length)]];
+            jsonString = [jsonString substringFromIndex:range.location + newRange.location + range.length];
+        } else {
+            [result addObject:jsonString];
+            break;
+        }
+    }
+
+//    if (result.count > 1) {
+//        NSLog(@"divider works!");
+//    }
+    return [result copy];
     
 }
 

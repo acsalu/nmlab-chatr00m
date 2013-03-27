@@ -20,7 +20,7 @@ extern NSString *const ACTION_AGREETORECEIVE;
 
 extern NSString *const ACTION_ROOMINFO;
 extern NSString *const ACTION_NEWMESSAGE;
-
+extern NSString *const ACTION_SETUSERPIC;
 
 @protocol CHCommunicationAgentDelegate;
 
