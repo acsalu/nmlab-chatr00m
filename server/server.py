@@ -41,7 +41,8 @@ class Server:
         self.room_list = {}
         self.room_list[0] = Room(0, "Lobby", ROOM_TYPE_PUBLIC)
         self.next_room_id += 1
-
+        
+        self.broadcast_timer = None
         self.broadcast_new_room_list()
         self.broadcast_new_clients_list()
 
@@ -53,6 +54,7 @@ class Server:
         self.s.close()
         self.timer_room_list.cancel()
         self.timer_clients_list.cancel()
+        sys.exit()
 
     def broadcast_new_room_list(self):
         print ("broadcast_new_room_list")
@@ -65,7 +67,6 @@ class Server:
         broadcast_msg = {"action" :ACTION_ROOMLIST, 
                          "content":{"room_list":all_rooms_info}}
         self.room_list[0].put_message(json.dumps(broadcast_msg).encode("UTF-8"))
-        
         self.timer_room_list = threading.Timer(1.0, self.broadcast_new_room_list)
         self.timer_room_list.start()
 
