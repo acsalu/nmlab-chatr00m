@@ -116,7 +116,7 @@ NSString *const ROOM_CELL_IDENTIFIER = @"RoomCell";
             [self.chatroomArray addObject:room];
     } else if ([action isEqualToString:ACTION_TALK]) {
         self.messageBoard.string = [NSString stringWithFormat:@"%@\n[%@]: %@",
-                                    self.messageBoard.string, content[@"name"], content[@"message"]];
+                                    self.messageBoard.string, content[@"client_name"], content[@"message"]];
     }
     
 }
