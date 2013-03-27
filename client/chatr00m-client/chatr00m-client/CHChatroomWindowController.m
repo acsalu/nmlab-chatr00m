@@ -67,7 +67,7 @@
     [[CHCommunicationAgent sharedAgent] send:content forAction:ACTION_ASKTOSEND];
     
     //for testing
-    NSString *receiverIp = @"localhost";
+    NSString *receiverIp = @"140.112.18.220";
     [self initNetworkCommunicationWith:receiverIp];
     [self startSendingFile:content[@"file"]];
     
@@ -293,7 +293,7 @@
 - (IBAction)declareReceiver:(id)sender
 {
     NSLog(@"receiver got request...");
-    NSString *senderIp = @"localhost";
+    NSString *senderIp = @"140.112.18.219";
     [self initNetworkCommunicationWith:senderIp];
 }
 
