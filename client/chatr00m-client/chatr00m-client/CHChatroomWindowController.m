@@ -63,7 +63,7 @@
 //    }
     
     NSString *userIp = [NSString stringWithFormat:@"140.112.18.221"];
-    NSDictionary *content = @{@"user_ip":userIp, @"file":@"filepath"};
+    NSDictionary *content = @{@"user_ip":userIp, @"file":@"filepath", @"room_id":@(self.roomId)};
     [[CHCommunicationAgent sharedAgent] send:content forAction:ACTION_ASKTOSEND];
     
     //for testing
