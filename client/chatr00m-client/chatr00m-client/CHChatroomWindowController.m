@@ -198,55 +198,70 @@
     [self.outputstream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
 }
 
-- (void)stream:(NSStream *)aStream handleEvent:(NSStreamEvent)eventCode
+- (void)stream:(NSStream *)stream handleEvent:(NSStreamEvent)eventCode
+//- (void)stream:(NSStream *)aStream handleEvent:(NSStreamEvent)eventCode
 {
     NSLog(@"stream event %li", eventCode);
 	
-	switch (eventCode) {
-			
-		case NSStreamEventOpenCompleted:
-			NSLog(@"Stream opened");
-			break;
-		case NSStreamEventHasBytesAvailable:
-            
-			if (aStream == self.inputstream) {
-				
-				uint8_t buffer[1024];
-				int len;
-				
-				while ([self.inputstream hasBytesAvailable]) {
-					len = [self.inputstream read:buffer maxLength:sizeof(buffer)];
-					if (len > 0) {
-						
-						NSString *output = [[NSString alloc] initWithBytes:buffer length:len encoding:NSASCIIStringEncoding];
-						
-						if (nil != self.outputstream) {
-                            
-							NSLog(@"server said: %@", output);
-							[self messageReceived:output];
-							
-						}
-					}
-				}
-			}
-			break;
-            
-			
-		case NSStreamEventErrorOccurred:
-			
-			NSLog(@"Can not connect to the host!");
-			break;
-			
-		case NSStreamEventEndEncountered:
-            
-            [aStream close];
-            [aStream removeFromRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
-            aStream = nil;
-			
-			break;
-		default:
-			NSLog(@"Unknown event");
-	}
+    if (eventCode == NSStreamEventHasBytesAvailable) {
+        NSMutableData *data = [[NSMutableData alloc] init];
+        
+        //定義接收串流的大小
+        uint8_t buf[1024];
+        unsigned int len = 0;
+        len = [(NSInputStream *)stream read:buf maxLength:1024];
+        [data appendBytes:(const void *)buf length:len];
+        
+        NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        NSLog(@"get string:%@",str);
+        //將得到得的結果輸出到TextView上
+        //textView.text = str;
+    }
+//	switch (eventCode) {
+//			
+//		case NSStreamEventOpenCompleted:
+//			NSLog(@"Stream opened");
+//			break;
+//		case NSStreamEventHasBytesAvailable:
+//            
+//			if (stream == self.inputstream) {
+//				
+//				uint8_t buffer[1024];
+//				int len;
+//				
+//				while ([self.inputstream hasBytesAvailable]) {
+//					len = [self.inputstream read:buffer maxLength:sizeof(buffer)];
+//					if (len > 0) {
+//						
+//						NSString *output = [[NSString alloc] initWithBytes:buffer length:len encoding:NSASCIIStringEncoding];
+//						
+//						if (nil != self.outputstream) {
+//                            
+//							NSLog(@"server said: %@", output);
+//							[self messageReceived:output];
+//							
+//						}
+//					}
+//				}
+//			}
+//			break;
+//            
+//			
+//		case NSStreamEventErrorOccurred:
+//			
+//			NSLog(@"Can not connect to the host!");
+//			break;
+//			
+//		case NSStreamEventEndEncountered:
+//            
+//            [aStream close];
+//            [aStream removeFromRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+//            aStream = nil;
+//			
+//			break;
+//		default:
+//			NSLog(@"Unknown event");
+//	}
 }
 
 - (void)messageReceived:(NSString *)message
@@ -256,12 +271,18 @@
 
 - (void) startSendingFile:(NSString *)filePath
 {
-    NSImage *image = [[NSImage alloc] initWithContentsOfFile:filePath];
-    NSLog(@"image:%@",image);
+    NSLog(@"start sending file");
+    //NSImage *image = [[NSImage alloc] initWithContentsOfFile:filePath];
+    //NSLog(@"image:%@",image);
     
-    NSString *response = [NSString stringWithFormat:@"testing"];
-    NSData *data = [[NSData alloc] initWithData:[response dataUsingEncoding:NSASCIIStringEncoding]];
-    [self.outputstream write:[data bytes] maxLength:[data length]];
+    //NSString *response = [NSString stringWithFormat:@"testing"];
+    //NSData *data = [[NSData alloc] initWithData:[response dataUsingEncoding:NSASCIIStringEncoding]];
+    NSString *str =@"iOS Login Success ...";
+    const uint8_t *nuit8Text;
+    nuit8Text = (uint8_t *) [str cStringUsingEncoding:NSASCIIStringEncoding];
+    [self.outputstream write:nuit8Text maxLength:strlen((char*)nuit8Text)];
+    //[self.outputstream write:[data bytes] maxLength:[data length]];
+    NSLog(@"after sending file");
 }
 
 - (void) fileReceived:(NSString *)filePath
