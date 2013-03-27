@@ -43,7 +43,12 @@
     
     NSImage *image = [[NSImage alloc] initWithContentsOfFile:filepath];
     NSLog(@"image:%@",image);
-
+    [image lockFocus];
+    NSBitmapImageRep *bitmapRep = [[NSBitmapImageRep alloc] initWithFocusedViewRect:NSMakeRect(0,0,image.size.width,image.size.height)];
+    [image unlockFocus];
+    NSLog(@"bitmap:%@",bitmapRep);
+    NSData *imageData = [bitmapRep representationUsingType:NSPNGFileType properties:Nil];
+    NSLog(@"data:%@",imageData);
     NSHost *host = [NSHost hostWithAddress:@"140.112.18.221"];
     NSLog(@"connecting");
     CFStreamCreatePairWithSocketToHost(NULL, (__bridge CFStringRef)@"140.118.18.221", 80, &readStream, &writeStream);
