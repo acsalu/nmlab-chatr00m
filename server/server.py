@@ -21,9 +21,8 @@ ACTION_NEWROOM = "NEW_ROOM"
 ACTION_ENTERROOM = "ENTER_ROOM"
 ACTION_LEAVEROOM = "LEAVE_ROOM"
 ACTION_LOGOUT = "LOGOUT"
-
 ACTION_NEWUSER = "NEW_USER"
-ACTION_GETONEROOMINFO = "GET_ONE_ROOM_INFO"
+ACTION_ONEROOMINFO = "ONE_ROOM_INFO"
 ACTION_ROOMLIST = "ROOM_LIST"
 
 class Server:
@@ -42,8 +41,10 @@ class Server:
         self.room_list = {}
         self.room_list[0] = Room(0, "Lobby", ROOM_TYPE_PUBLIC)
         self.next_room_id += 1
-
+        
+        self.broadcast_timer = None
         self.broadcast_new_room_list()
+        self.broadcast_new_clients_list()
 
     def sighandler(self, signum, frame):
         #Close the server
@@ -51,6 +52,9 @@ class Server:
         for s, c in self.socket_client_map.items():
             s.close()
         self.s.close()
+        self.timer_room_list.cancel()
+        self.timer_clients_list.cancel()
+        sys.exit()
 
     def broadcast_new_room_list(self):
         all_rooms_info = []
@@ -62,7 +66,18 @@ class Server:
         broadcast_msg = {"action" :ACTION_ROOMLIST, 
                          "content":{"room_list":all_rooms_info}}
         self.room_list[0].put_message(json.dumps(broadcast_msg).encode("UTF-8"))
-        threading.Timer(1, self.broadcast_new_room_list).start()
+        self.timer_room_list = threading.Timer(1.0, self.broadcast_new_room_list)
+        self.timer_room_list.start()
+
+    def broadcast_new_clients_list(self):
+        for r_id, r in self.room_list.items():
+            broadcast_msg = {"action" :ACTION_ONEROOMINFO, 
+                             "content":{"room_id"         :r_id,
+                                        "room_user_num"   :len(r.client_list),
+                                        "room_client_info":r.get_clients_info()}}
+            r.put_message(json.dumps(broadcast_msg).encode("UTF-8"))
+        self.timer_clients_list = threading.Timer(2.0, self.broadcast_new_clients_list)
+        self.timer_clients_list.start()
         
     def serve(self):
         inputs = [self.s, sys.stdin]
@@ -96,8 +111,6 @@ class Server:
                                      "content":{"name"     :new_client.get_name(),
                                                 "client_id":new_client.get_id()}}
                     lobby.put_message(json.dumps(broadcast_msg).encode("UTF-8"))
-
-                    # self.broadcast_new_room_list()
 
                 elif s == sys.stdin:
                     # handle standard input
@@ -140,14 +153,12 @@ class Server:
                                                             "room_name":new_room.get_name(),
                                                             "room_type":new_room.type}}
 
-                                room_host = self.socket_client_map[s]
-                                new_room.add_client(room_host)
-                                room_host.enter_room(new_room.get_id())
+                                room_creator = self.socket_client_map[s]
+                                new_room.add_client(room_creator)
+                                room_creator.enter_room(new_room.get_id())
 
                                 new_room.put_message(json.dumps(broadcast_msg).encode("UTF-8"))
-
-                                # self.broadcast_new_room_list()
-                                
+                              
                             elif action == ACTION_ENTERROOM:
                                 r = self.room_list[content["room_id"]]
                                 c = self.socket_client_map[s]
@@ -159,8 +170,6 @@ class Server:
                                                             "room_name"  :r.get_name(),
                                                             "room_type"  :r.type}}
                                 r.put_message(json.dumps(broadcast_msg).encode("UTF-8"))
-
-                                # self.broadcast_new_room_list()
 
                             elif action == ACTION_LEAVEROOM:
                                 r = self.room_list[content["room_id"]]
@@ -174,17 +183,6 @@ class Server:
                                                                 "client_id"  :c.get_id(),
                                                                 "client_name":c.get_name()}}
                                     r.put_message(json.dumps(broadcast_msg).encode("UTF-8"))
-
-                                # self.broadcast_new_room_list()
-
-                            elif action == ACTION_GETONEROOMINFO:
-                                r = self.room_list[content["room_id"]]
-
-                                broadcast_msg = {"action" :ACTION_GETONEROOMINFO, 
-                                                 "content":{"room_id"         :r.get_id(),
-                                                            "room_user_num"   :len(r.client_list),
-                                                            "room_client_info":r.get_clients_info()}}
-                                r.put_message(json.dumps(broadcast_msg).encode("UTF-8"))
 
                             else:
                                 print ("unknown action!!!")
