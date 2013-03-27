@@ -42,7 +42,8 @@ class Server:
         self.room_list = {}
         self.room_list[0] = Room(0, "Lobby", ROOM_TYPE_PUBLIC)
         self.next_room_id += 1
-
+        
+        self.broadcast_timer = None
         self.broadcast_new_room_list()
 
     def sighandler(self, signum, frame):
@@ -51,6 +52,8 @@ class Server:
         for s, c in self.socket_client_map.items():
             s.close()
         self.s.close()
+        self.broadcast_timer.cancel()
+        sys.exit()
 
     def broadcast_new_room_list(self):
         print ("broadcast room list : %s" % time.ctime())
@@ -63,8 +66,9 @@ class Server:
         broadcast_msg = {"action" :ACTION_ROOMLIST, 
                          "content":{"room_list":all_rooms_info}}
         self.room_list[0].put_message(json.dumps(broadcast_msg).encode("UTF-8"))
-        threading.Timer(1, self.broadcast_new_room_list).start()
-        
+        self.broadcast_timer = threading.Timer(1, self.broadcast_new_room_list)
+        self.broadcast_timer.start()
+ 
     def serve(self):
         inputs = [self.s, sys.stdin]
         outputs = []
