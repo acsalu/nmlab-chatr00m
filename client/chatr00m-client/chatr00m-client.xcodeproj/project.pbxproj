@@ -11,6 +11,12 @@
 		9017CDF016F1F49F005247A0 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9017CDEF16F1F49F005247A0 /* CoreAudio.framework */; };
 		901BF4D61701704C00135989 /* MessageWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 901BF4D51701704C00135989 /* MessageWindow.xib */; };
 		9050EF1716FDE39F00B6B216 /* NewRoomSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9050EF1616FDE39F00B6B216 /* NewRoomSheet.xib */; };
+		90599C951702CC91003BD0CA /* CHVLCWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90599C931702CC91003BD0CA /* CHVLCWindowController.m */; };
+		90599C961702CC91003BD0CA /* CHVLCWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90599C941702CC91003BD0CA /* CHVLCWindowController.xib */; };
+		90599C9A1702E711003BD0CA /* user_img_01.gif in Resources */ = {isa = PBXBuildFile; fileRef = 90599C991702E711003BD0CA /* user_img_01.gif */; };
+		90599C9C1702E71B003BD0CA /* user_img_02.gif in Resources */ = {isa = PBXBuildFile; fileRef = 90599C9B1702E71B003BD0CA /* user_img_02.gif */; };
+		90599C9F1702E737003BD0CA /* user_img_03.gif in Resources */ = {isa = PBXBuildFile; fileRef = 90599C9D1702E737003BD0CA /* user_img_03.gif */; };
+		90599CA01702E737003BD0CA /* user_img_04.gif in Resources */ = {isa = PBXBuildFile; fileRef = 90599C9E1702E737003BD0CA /* user_img_04.gif */; };
 		905FB99A16F01BE80068B1CD /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 905FB99916F01BE80068B1CD /* Cocoa.framework */; };
 		905FB9A416F01BE80068B1CD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 905FB9A216F01BE80068B1CD /* InfoPlist.strings */; };
 		905FB9A616F01BE80068B1CD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 905FB9A516F01BE80068B1CD /* main.m */; };
@@ -21,16 +27,8 @@
 		9089300116FDC1460009A5AF /* CHChatroomController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9089300016FDC1460009A5AF /* CHChatroomController.m */; };
 		9089300316FDC8B70009A5AF /* ChatroomWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9089300216FDC8B70009A5AF /* ChatroomWindow.xib */; };
 		9089300616FDC9290009A5AF /* CHChatroomWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9089300516FDC9290009A5AF /* CHChatroomWindowController.m */; };
-		90C6E3141701C469006E47DA /* B'galla Mask.gif in Resources */ = {isa = PBXBuildFile; fileRef = 90C6E30A1701C469006E47DA /* B'galla Mask.gif */; };
-		90C6E3151701C469006E47DA /* Bauchi Mask.gif in Resources */ = {isa = PBXBuildFile; fileRef = 90C6E30B1701C469006E47DA /* Bauchi Mask.gif */; };
-		90C6E3161701C469006E47DA /* Baule Mask.gif in Resources */ = {isa = PBXBuildFile; fileRef = 90C6E30C1701C469006E47DA /* Baule Mask.gif */; };
-		90C6E3171701C469006E47DA /* Eket Mask.gif in Resources */ = {isa = PBXBuildFile; fileRef = 90C6E30D1701C469006E47DA /* Eket Mask.gif */; };
-		90C6E3181701C469006E47DA /* Gere Mask.gif in Resources */ = {isa = PBXBuildFile; fileRef = 90C6E30E1701C469006E47DA /* Gere Mask.gif */; };
-		90C6E3191701C469006E47DA /* Makonde Mask.gif in Resources */ = {isa = PBXBuildFile; fileRef = 90C6E30F1701C469006E47DA /* Makonde Mask.gif */; };
-		90C6E31A1701C469006E47DA /* Raratonga Mask.gif in Resources */ = {isa = PBXBuildFile; fileRef = 90C6E3101701C469006E47DA /* Raratonga Mask.gif */; };
-		90C6E31B1701C469006E47DA /* Rukai Mask.gif in Resources */ = {isa = PBXBuildFile; fileRef = 90C6E3111701C469006E47DA /* Rukai Mask.gif */; };
-		90C6E31C1701C469006E47DA /* Tsonoqua Mask.gif in Resources */ = {isa = PBXBuildFile; fileRef = 90C6E3121701C469006E47DA /* Tsonoqua Mask.gif */; };
-		90C6E31D1701C469006E47DA /* Yoruba Mask.gif in Resources */ = {isa = PBXBuildFile; fileRef = 90C6E3131701C469006E47DA /* Yoruba Mask.gif */; };
+		90C6E3141701C469006E47DA /* user_img_05.gif in Resources */ = {isa = PBXBuildFile; fileRef = 90C6E30A1701C469006E47DA /* user_img_05.gif */; };
+		90C6E3191701C469006E47DA /* user_img_06.gif in Resources */ = {isa = PBXBuildFile; fileRef = 90C6E30F1701C469006E47DA /* user_img_06.gif */; };
 		90E1C45D16F47EBE0074C32C /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E1C45816F47C380074C32C /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		90E1C46016F499140074C32C /* AcsaLu.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 90E1C45F16F499140074C32C /* AcsaLu.jpg */; };
 		90E1C46416F4A3AD0074C32C /* CHProfilePicCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E1C46316F4A3AD0074C32C /* CHProfilePicCell.m */; };
@@ -41,7 +39,7 @@
 /* Begin PBXCopyFilesBuildPhase section */
 		90F80FFC16F5A9590026A5CF /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
@@ -56,6 +54,14 @@
 		901BF4D51701704C00135989 /* MessageWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageWindow.xib; sourceTree = "<group>"; };
 		9050EF1616FDE39F00B6B216 /* NewRoomSheet.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewRoomSheet.xib; sourceTree = "<group>"; };
 		9050EF1816FDF86900B6B216 /* Const.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Const.h; sourceTree = "<group>"; };
+		90599C841702C9B4003BD0CA /* VLCKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VLCKit.framework; path = /Library/Frameworks/VLCKit.framework; sourceTree = "<absolute>"; };
+		90599C921702CC91003BD0CA /* CHVLCWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHVLCWindowController.h; sourceTree = "<group>"; };
+		90599C931702CC91003BD0CA /* CHVLCWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHVLCWindowController.m; sourceTree = "<group>"; };
+		90599C941702CC91003BD0CA /* CHVLCWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CHVLCWindowController.xib; sourceTree = "<group>"; };
+		90599C991702E711003BD0CA /* user_img_01.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = user_img_01.gif; sourceTree = "<group>"; };
+		90599C9B1702E71B003BD0CA /* user_img_02.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = user_img_02.gif; sourceTree = "<group>"; };
+		90599C9D1702E737003BD0CA /* user_img_03.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = user_img_03.gif; sourceTree = "<group>"; };
+		90599C9E1702E737003BD0CA /* user_img_04.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = user_img_04.gif; sourceTree = "<group>"; };
 		905FB99616F01BE80068B1CD /* chatr00m-client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "chatr00m-client.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		905FB99916F01BE80068B1CD /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		905FB99C16F01BE80068B1CD /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -76,16 +82,8 @@
 		9089300216FDC8B70009A5AF /* ChatroomWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatroomWindow.xib; sourceTree = "<group>"; };
 		9089300416FDC9290009A5AF /* CHChatroomWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHChatroomWindowController.h; sourceTree = "<group>"; };
 		9089300516FDC9290009A5AF /* CHChatroomWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHChatroomWindowController.m; sourceTree = "<group>"; };
-		90C6E30A1701C469006E47DA /* B'galla Mask.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "B'galla Mask.gif"; sourceTree = "<group>"; };
-		90C6E30B1701C469006E47DA /* Bauchi Mask.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "Bauchi Mask.gif"; sourceTree = "<group>"; };
-		90C6E30C1701C469006E47DA /* Baule Mask.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "Baule Mask.gif"; sourceTree = "<group>"; };
-		90C6E30D1701C469006E47DA /* Eket Mask.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "Eket Mask.gif"; sourceTree = "<group>"; };
-		90C6E30E1701C469006E47DA /* Gere Mask.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "Gere Mask.gif"; sourceTree = "<group>"; };
-		90C6E30F1701C469006E47DA /* Makonde Mask.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "Makonde Mask.gif"; sourceTree = "<group>"; };
-		90C6E3101701C469006E47DA /* Raratonga Mask.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "Raratonga Mask.gif"; sourceTree = "<group>"; };
-		90C6E3111701C469006E47DA /* Rukai Mask.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "Rukai Mask.gif"; sourceTree = "<group>"; };
-		90C6E3121701C469006E47DA /* Tsonoqua Mask.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "Tsonoqua Mask.gif"; sourceTree = "<group>"; };
-		90C6E3131701C469006E47DA /* Yoruba Mask.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "Yoruba Mask.gif"; sourceTree = "<group>"; };
+		90C6E30A1701C469006E47DA /* user_img_05.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = user_img_05.gif; sourceTree = "<group>"; };
+		90C6E30F1701C469006E47DA /* user_img_06.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = user_img_06.gif; sourceTree = "<group>"; };
 		90E1C45716F47C380074C32C /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		90E1C45816F47C380074C32C /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
 		90E1C45F16F499140074C32C /* AcsaLu.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = AcsaLu.jpg; sourceTree = "<group>"; };
@@ -132,6 +130,7 @@
 			isa = PBXGroup;
 			children = (
 				90E1C45516F47C380074C32C /* JSONKit */,
+				90599C841702C9B4003BD0CA /* VLCKit.framework */,
 				0FDA97F417006E980036BDC0 /* CFNetwork.framework */,
 				9017CDEF16F1F49F005247A0 /* CoreAudio.framework */,
 				905FB99916F01BE80068B1CD /* Cocoa.framework */,
@@ -157,6 +156,9 @@
 				905FB9AB16F01BE80068B1CD /* CHAppDelegate.h */,
 				905FB9AC16F01BE80068B1CD /* CHAppDelegate.m */,
 				905FB9AE16F01BE80068B1CD /* MainMenu.xib */,
+				90599C921702CC91003BD0CA /* CHVLCWindowController.h */,
+				90599C931702CC91003BD0CA /* CHVLCWindowController.m */,
+				90599C941702CC91003BD0CA /* CHVLCWindowController.xib */,
 				9089300716FDCCC20009A5AF /* Chatroom */,
 				905FB9A016F01BE80068B1CD /* Supporting Files */,
 				905FB9B616F028740068B1CD /* CHCommunicationAgent.h */,
@@ -197,16 +199,12 @@
 		90C6E3091701C3B3006E47DA /* img */ = {
 			isa = PBXGroup;
 			children = (
-				90C6E30A1701C469006E47DA /* B'galla Mask.gif */,
-				90C6E30B1701C469006E47DA /* Bauchi Mask.gif */,
-				90C6E30C1701C469006E47DA /* Baule Mask.gif */,
-				90C6E30D1701C469006E47DA /* Eket Mask.gif */,
-				90C6E30E1701C469006E47DA /* Gere Mask.gif */,
-				90C6E30F1701C469006E47DA /* Makonde Mask.gif */,
-				90C6E3101701C469006E47DA /* Raratonga Mask.gif */,
-				90C6E3111701C469006E47DA /* Rukai Mask.gif */,
-				90C6E3121701C469006E47DA /* Tsonoqua Mask.gif */,
-				90C6E3131701C469006E47DA /* Yoruba Mask.gif */,
+				90599C991702E711003BD0CA /* user_img_01.gif */,
+				90599C9B1702E71B003BD0CA /* user_img_02.gif */,
+				90599C9D1702E737003BD0CA /* user_img_03.gif */,
+				90599C9E1702E737003BD0CA /* user_img_04.gif */,
+				90C6E30A1701C469006E47DA /* user_img_05.gif */,
+				90C6E30F1701C469006E47DA /* user_img_06.gif */,
 			);
 			name = img;
 			sourceTree = "<group>";
@@ -301,16 +299,13 @@
 				9089300316FDC8B70009A5AF /* ChatroomWindow.xib in Resources */,
 				9050EF1716FDE39F00B6B216 /* NewRoomSheet.xib in Resources */,
 				901BF4D61701704C00135989 /* MessageWindow.xib in Resources */,
-				90C6E3141701C469006E47DA /* B'galla Mask.gif in Resources */,
-				90C6E3151701C469006E47DA /* Bauchi Mask.gif in Resources */,
-				90C6E3161701C469006E47DA /* Baule Mask.gif in Resources */,
-				90C6E3171701C469006E47DA /* Eket Mask.gif in Resources */,
-				90C6E3181701C469006E47DA /* Gere Mask.gif in Resources */,
-				90C6E3191701C469006E47DA /* Makonde Mask.gif in Resources */,
-				90C6E31A1701C469006E47DA /* Raratonga Mask.gif in Resources */,
-				90C6E31B1701C469006E47DA /* Rukai Mask.gif in Resources */,
-				90C6E31C1701C469006E47DA /* Tsonoqua Mask.gif in Resources */,
-				90C6E31D1701C469006E47DA /* Yoruba Mask.gif in Resources */,
+				90C6E3141701C469006E47DA /* user_img_05.gif in Resources */,
+				90C6E3191701C469006E47DA /* user_img_06.gif in Resources */,
+				90599C961702CC91003BD0CA /* CHVLCWindowController.xib in Resources */,
+				90599C9A1702E711003BD0CA /* user_img_01.gif in Resources */,
+				90599C9C1702E71B003BD0CA /* user_img_02.gif in Resources */,
+				90599C9F1702E737003BD0CA /* user_img_03.gif in Resources */,
+				90599CA01702E737003BD0CA /* user_img_04.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -330,6 +325,7 @@
 				90E1C46A16F4B40B0074C32C /* CHUsernameTextField.m in Sources */,
 				9089300116FDC1460009A5AF /* CHChatroomController.m in Sources */,
 				9089300616FDC9290009A5AF /* CHChatroomWindowController.m in Sources */,
+				90599C951702CC91003BD0CA /* CHVLCWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -392,7 +388,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = "";
+				SDKROOT = macosx10.7;
 			};
 			name = Debug;
 		};
@@ -418,7 +414,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
-				SDKROOT = "";
+				SDKROOT = macosx10.7;
 			};
 			name = Release;
 		};
@@ -426,12 +422,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../../Desktop\"",
+					"\"$(SRCROOT)/VLCKit\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "chatr00m-client/chatr00m-client-Prefix.pch";
 				INFOPLIST_FILE = "chatr00m-client/chatr00m-client-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "";
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = "";
 				WRAPPER_EXTENSION = app;
@@ -442,12 +442,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../../Desktop\"",
+					"\"$(SRCROOT)/VLCKit\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "chatr00m-client/chatr00m-client-Prefix.pch";
 				INFOPLIST_FILE = "chatr00m-client/chatr00m-client-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "";
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = "";
 				WRAPPER_EXTENSION = app;

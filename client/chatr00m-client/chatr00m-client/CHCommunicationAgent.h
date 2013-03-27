@@ -18,6 +18,10 @@ extern NSString *const ACTION_LEAVEROOM;
 extern NSString *const ACTION_ASKTOSEND;
 extern NSString *const ACTION_AGREETORECEIVE;
 
+extern NSString *const ACTION_ROOMINFO;
+extern NSString *const ACTION_NEWMESSAGE;
+
+
 @protocol CHCommunicationAgentDelegate;
 
 

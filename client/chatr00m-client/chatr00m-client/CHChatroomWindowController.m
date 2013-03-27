@@ -8,6 +8,7 @@
 
 #import "CHChatroomWindowController.h"
 #import "CHCommunicationAgent.h"
+#import "CHProfilePicCell.h"
 
 @interface CHChatroomWindowController ()
 
@@ -17,18 +18,15 @@
 
 - (void)awakeFromNib
 {
-    self.userTableContents = [NSMutableArray array];
-    NSString *path = @"/Library/Application Support/Apple/iChat Icons/Tribal Masks";
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSDirectoryEnumerator *directoryEnumerator = [fileManager enumeratorAtPath:path];
-    
-    NSString *file;
-    while (file = [directoryEnumerator nextObject]) {
-        NSString *filePath = [path stringByAppendingFormat:@"/%@", file];
-        NSDictionary *obj = @{@"image":[[NSImage alloc] initByReferencingFile:filePath],
-                              @"name":[file stringByDeletingPathExtension]};
-        [self.userTableContents addObject:obj];
-    }
+    [self.userTableView setTarget:self];
+    [self.userTableView setDoubleAction:@selector(doubleClickedOnUser:)];
+}
+
+
+- (NSArray *) chatTableContents
+{
+    if (!_chatTableContents) _chatTableContents = [[NSArray alloc] init];
+    return _chatTableContents;
 }
 
 + (CHChatroomWindowController *)chatroomWindowControllerWithId:(int)roomId Name:(NSString *)roomName andType:(enum RoomType)roomType
@@ -85,6 +83,18 @@
     [[CHCommunicationAgent sharedAgent] send:content forAction:ACTION_TALK];
 }
 
+- (IBAction)doubleClickedOnUser:(id)sender
+{
+    NSInteger row = [self.userTableView clickedRow];
+    NSLog(@"double click on row %ld", row);
+    if (row < 0) {
+        NSLog(@"invalid row");
+        return;
+    }
+    NSArray *otherUser = self.userTableContents[row];
+    NSLog(@"private talk with %@[%ld]", otherUser[1], (long)[otherUser[0] integerValue]);
+    // check if the user is self
+}
 
 
 # pragma mark - NSTextFieldDelegate methods
@@ -103,13 +113,20 @@
 {
     NSString *action = dic[@"action"];
     NSDictionary *content = dic[@"content"];
+
     if ([action isEqualToString:ACTION_AGREETORECEIVE]) {
         NSString *receiverIp = @"140.112.18.221";
         [self initNetworkCommunicationWith:receiverIp];
         [self startSendingFile:content[@"file"]];
-        
-    }
-    else if([action isEqualToString:ACTION_ASKTOSEND]){
+    } else if ([action isEqualToString:ACTION_TALK]) {
+        NSLog(@"%@:%@", content[@"name"], content[@"message"]);
+        self.chatTableContents = [self.chatTableContents arrayByAddingObject:content];
+        NSLog(@"%@", self.chatTableContents);
+        [self.chatTableView reloadData];
+    } else if ([action isEqualToString:ACTION_ROOMINFO] ) {
+        self.userTableContents = content[@"room_client_info"];
+        [self.userTableView reloadData];
+    } else if([action isEqualToString:ACTION_ASKTOSEND]){
         NSString *file = content[@"file"];
         NSString *ip = @"140.112.18.221";
         NSDictionary *content = @{@"receiver_ip":ip, @"file":file};
@@ -124,24 +141,34 @@
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView
 {
-    return self.userTableContents.count;
+    if (tableView == self.userTableView) return self.userTableContents.count;
+    else if (tableView == self.chatTableView) return self.chatTableContents.count;
+    else return 0;
 }
 
 - (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
 {
-    NSDictionary *user = self.userTableContents[row];
     
     // may use for more than 1 column
     NSString *identifier = [tableColumn identifier];
+    NSTableCellView *cellView = nil;
     
     if ([identifier isEqualToString:@"UserCell"]) {
-        NSTableCellView *cellView = [tableView makeViewWithIdentifier:@"UserCell" owner:self];
-        cellView.textField = user[@"name"];
-        cellView.imageView.image = user[@"image"];
-        
-        return cellView;
+        cellView = [tableView makeViewWithIdentifier:@"UserCell" owner:self];
+        NSArray *user = self.userTableContents[row];
+        //cellView.textField.stringValue = user[@"name"];
+        //cellView.imageView.image = user[@"image"];
+        cellView.textField.stringValue = user[1];
+        cellView.imageView.image = [CHProfilePicCell profilePicForIndex:1];
+    } else if ([identifier isEqualToString:@"ChatCell"]) {
+        cellView = [tableView makeViewWithIdentifier:@"ChatCell" owner:self];
+        NSLog(@"%@", self.chatTableContents);
+        NSDictionary *chat = self.chatTableContents[row];
+        cellView.textField.stringValue = chat[@"message"];
+//        cellView.imageView.image = user[@"image"];
     }
-    return nil;
+    
+     return cellView;
 }
 
 # pragma mark - NSWindowDelegate methods

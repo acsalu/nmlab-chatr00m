@@ -11,7 +11,6 @@ class Room:
         self.client_list = []
         self.msg_queue = queue.Queue()
 
-
     def get_id(self):
         return self.room_id
 
@@ -26,12 +25,9 @@ class Room:
 
     def add_client(self, client):
         self.client_list.append(client)
-        # client.enter_room(self.room_id)
 
     def add_client_list(self, client_list):
         self.client_list.extend(client_list)
-        # for c in client_list:
-        #     c.enter_room(self.room_id)  
 
     def remove_client(self, client):
         self.client_list.remove(client)
@@ -39,13 +35,10 @@ class Room:
             return -1
             
     def get_clients_info(self):
-        user_dic = {}
+        user_list = []
         for c in self.client_list:
-            user_dic[c.get_id()] = c.get_name()
-        return user_dic
+            user_list.append( (c.get_id(), c.get_name()) )
+        return user_list
 
     def put_message(self, message):
         self.msg_queue.put(message)
-
-    # def getClientList(self):
-    #     return self.clients

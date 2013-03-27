@@ -9,6 +9,16 @@
 #import <Cocoa/Cocoa.h>
 #import "CHCommunicationAgent.h"
 
+@class CHUsernameTextField;
+
+@protocol CHUsernameTextFieldDelegate <NSObject>
+
+- (void)usernameTextFieldIsClicked:(CHUsernameTextField *)usernameTextField;
+
+@end
+
 @interface CHUsernameTextField : NSTextField
+
+@property (weak) IBOutlet id<CHUsernameTextFieldDelegate> actionDelegate;
 
 @end

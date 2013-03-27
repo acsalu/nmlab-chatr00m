@@ -25,9 +25,12 @@
 @property enum RoomType roomType;
 @property (retain, nonatomic) NSOutputStream *outputstream;
 @property (retain, nonatomic) NSInputStream *inputstream;
-@property (strong, nonatomic) NSMutableArray *userTableContents;
-@property (strong, nonatomic) NSMutableArray *chatTableContents;
+
 @property (strong, nonatomic) NSDictionary *files;
+
+@property (strong, nonatomic) NSArray *userTableContents;
+@property (strong, nonatomic) NSArray *chatTableContents;
+
 
 
 - (IBAction)sendMessage:(id)sender;
@@ -36,8 +39,12 @@
 - (void)initNetworkCommunicationWith:(NSString *)ip;
 - (void)stream:(NSStream *)aStream handleEvent:(NSStreamEvent)eventCode;
 - (void)messageReceived:(NSString *)message;
+
 - (void)startSendingFile:(NSString *)filePath;
 - (void)fileReceived:(NSString *)filePath;
 - (IBAction)declareReceiver:(id)sender;
+
+- (IBAction)doubleClickedOnUser:(id)sender;
+
 
 @end

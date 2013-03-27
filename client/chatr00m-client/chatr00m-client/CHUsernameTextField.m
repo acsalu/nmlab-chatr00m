@@ -12,7 +12,8 @@
 
 - (void)mouseDown:(NSEvent *)theEvent
 {
-    NSLog(@"ouch");
+    [self.actionDelegate usernameTextFieldIsClicked:self];
+    /*
     NSAlert *alert = [[NSAlert alloc] init];
     [alert setAlertStyle:NSInformationalAlertStyle];
     [alert addButtonWithTitle:@"Change Username"];
@@ -27,21 +28,17 @@
     if (button == NSAlertFirstButtonReturn) {
         [input validateEditing];
         self.stringValue = [input.stringValue copy];
-        [[CHCommunicationAgent sharedAgent] send:@{@"user_name": self.stringValue} forAction:ACTION_SETUSERNAME];
+        
     }
     //NSWindow *window = [[NSApplication sharedApplication] windows][0];
     //[alert beginSheetModalForWindow: window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+    */
 }
 
-- (void)mouseEntered:(NSEvent *)theEvent
+- (void)setStringValue:(NSString *)aString
 {
-    NSLog(@"mouse entered");
-    self.stringValue = @"XD";
-}
-
-- (void)mouseExited:(NSEvent *)theEvent
-{
-    NSLog(@"mouse exited");
+    [super setStringValue:aString];
+    [[CHCommunicationAgent sharedAgent] send:@{@"user_name": self.stringValue} forAction:ACTION_SETUSERNAME];   
 }
 
 @end
