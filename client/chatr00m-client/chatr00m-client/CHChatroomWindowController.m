@@ -189,17 +189,21 @@
     CFWriteStreamRef writeStream;
     NSHost *host = [NSHost hostWithAddress:ip];
     NSLog(@"connecting to %@",ip);
-    CFStreamCreatePairWithSocketToHost(NULL, (__bridge CFStringRef)(host), 10627, &readStream, &writeStream);
+    CFStreamCreatePairWithSocketToHost(kCFAllocatorDefault, (__bridge CFStringRef)ip, 10627, &readStream, &writeStream);
+    CFReadStreamSetProperty(readStream, kCFStreamPropertyShouldCloseNativeSocket, kCFBooleanTrue);
+    CFWriteStreamSetProperty(writeStream, kCFStreamPropertyShouldCloseNativeSocket, kCFBooleanTrue);
     self.inputstream = (__bridge NSInputStream *)readStream;
     self.outputstream = (__bridge NSOutputStream *)writeStream;
     [self.inputstream setDelegate:self];
     [self.outputstream setDelegate:self];
     [self.inputstream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
     [self.outputstream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+    [self.inputstream open];
+    [self.outputstream open];
 }
 
-- (void)stream:(NSStream *)stream handleEvent:(NSStreamEvent)eventCode
-//- (void)stream:(NSStream *)aStream handleEvent:(NSStreamEvent)eventCode
+//- (void)stream:(NSStream *)stream handleEvent:(NSStreamEvent)eventCode
+- (void)stream:(NSStream *)aStream handleEvent:(NSStreamEvent)eventCode
 {
     NSLog(@"stream event %li", eventCode);
 	
@@ -209,7 +213,7 @@
         //定義接收串流的大小
         uint8_t buf[1024];
         unsigned int len = 0;
-        len = [(NSInputStream *)stream read:buf maxLength:1024];
+        len = [(NSInputStream *)aStream read:buf maxLength:1024];
         [data appendBytes:(const void *)buf length:len];
         
         NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
@@ -271,9 +275,12 @@
 
 - (void) startSendingFile:(NSString *)filePath
 {
-    NSLog(@"start sending file");
+    //NSLog(@"start sending file");
     //NSImage *image = [[NSImage alloc] initWithContentsOfFile:filePath];
     //NSLog(@"image:%@",image);
+    //[image lockFocus];
+    //NSBitmapImageRep *bitmapRep = [[NSBitmapImageRep alloc] initWithFocusedViewRect:(0,0,image.size.width,image.size.height)];
+    //[image unlockFocus];
     
     //NSString *response = [NSString stringWithFormat:@"testing"];
     //NSData *data = [[NSData alloc] initWithData:[response dataUsingEncoding:NSASCIIStringEncoding]];
