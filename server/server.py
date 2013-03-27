@@ -124,7 +124,7 @@ class Server:
                     try:
                         data = s.recv(1024)
                         if data:
-                            print("[" + self.socket_client_map[s].get_name() + "] " + data.decode("UTF-8"))
+                            print("[" + self.socket_client_map[s].address[0] + "] " + data.decode("UTF-8"))
                             data = data.split(b"\0",1)[0]
                             data = json.loads(data.decode("UTF-8"))
                             action = data["action"]
