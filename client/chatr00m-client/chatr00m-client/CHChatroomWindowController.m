@@ -48,10 +48,32 @@
 
 
 - (IBAction)sendFile:(id)sender {
-    [self initNetworkCommunication];
-    NSString *response = [NSString stringWithFormat:@"testing"];
-    NSData *data = [[NSData alloc] initWithData:[response dataUsingEncoding:NSASCIIStringEncoding]];
-    [self.outputstream write:[data bytes] maxLength:[data length]];
+    NSOpenPanel *openDlg = [NSOpenPanel openPanel];
+    NSArray *fileTypesArray;
+    fileTypesArray = [NSArray arrayWithObjects:@"jpg",@"gif",@"png",nil];    
+    [openDlg setCanChooseFiles:YES];
+    [openDlg setAllowsOtherFileTypes:fileTypesArray];
+    [openDlg setAllowsMultipleSelection:TRUE];
+    
+    NSString *filepath;
+    if([openDlg runModal] == NSOKButton){
+        NSLog(@"file chose");
+        NSArray *files = [openDlg URLs];
+        //NSLog(@"array:%@",files);
+        NSLog(@"filename:%@",[[files objectAtIndex:0] path]);
+        filepath = [[files objectAtIndex:0] path];
+    }
+    
+    NSString *userIp = [NSString stringWithFormat:@"140.112.18.221"];
+    NSDictionary *content = @{@"user_ip":userIp, @"file":filepath};
+    [[CHCommunicationAgent sharedAgent] send:content forAction:ACTION_ASKTOSEND];
+    
+    //for testing
+    NSString *receiverIp = @"140.112.18.221";
+    [self initNetworkCommunicationWith:receiverIp];
+    [self startSendingFile:content[@"file"]];
+    
+    
 }
 
 - (IBAction)sendMessage:(id)sender {
@@ -81,9 +103,21 @@
 {
     NSString *action = dic[@"action"];
     NSDictionary *content = dic[@"content"];
-    if ([action isEqualToString:ACTION_TALK]) {
+    if ([action isEqualToString:ACTION_AGREETORECEIVE]) {
+        NSString *receiverIp = @"140.112.18.221";
+        [self initNetworkCommunicationWith:receiverIp];
+        [self startSendingFile:content[@"file"]];
         
     }
+    else if([action isEqualToString:ACTION_ASKTOSEND]){
+        NSString *file = content[@"file"];
+        NSString *ip = @"140.112.18.221";
+        NSDictionary *content = @{@"receiver_ip":ip, @"file":file};
+        [[CHCommunicationAgent sharedAgent] send:content forAction:ACTION_AGREETORECEIVE];
+        NSString *senderIp = @"140.112.18.219";
+        [self initNetworkCommunicationWith:senderIp];
+    }
+    
 }
 
 # pragma mark - NSTableViewDataSource methods
@@ -120,12 +154,12 @@
 
 # pragma mark - InitCommunicaiton
 
-- (void)initNetworkCommunication
+- (void)initNetworkCommunicationWith:(NSString *)ip
 {
     CFReadStreamRef readStream;
     CFWriteStreamRef writeStream;
-    NSHost *host = [NSHost hostWithAddress:@"140.112.18.211"];
-    NSLog(@"connecting");
+    NSHost *host = [NSHost hostWithAddress:ip];
+    NSLog(@"connecting to %@",ip);
     CFStreamCreatePairWithSocketToHost(NULL, (__bridge CFStringRef)(host), 10627, &readStream, &writeStream);
     self.inputstream = (__bridge NSInputStream *)readStream;
     self.outputstream = (__bridge NSOutputStream *)writeStream;
@@ -137,7 +171,7 @@
 
 - (void)stream:(NSStream *)aStream handleEvent:(NSStreamEvent)eventCode
 {
-    NSLog(@"stream event %i", eventCode);
+    NSLog(@"stream event %li", eventCode);
 	
 	switch (eventCode) {
 			
@@ -189,6 +223,28 @@
 - (void)messageReceived:(NSString *)message
 {
     NSLog(@"message received...");
+}
+
+- (void) startSendingFile:(NSString *)filePath
+{
+    NSImage *image = [[NSImage alloc] initWithContentsOfFile:filePath];
+    NSLog(@"image:%@",image);
+    
+    NSString *response = [NSString stringWithFormat:@"testing"];
+    NSData *data = [[NSData alloc] initWithData:[response dataUsingEncoding:NSASCIIStringEncoding]];
+    [self.outputstream write:[data bytes] maxLength:[data length]];
+}
+
+- (void) fileReceived:(NSString *)filePath
+{
+    
+}
+
+- (IBAction)declareReceiver:(id)sender
+{
+    NSLog(@"receiver got request...");
+    NSString *senderIp = @"140.112.18.219";
+    [self initNetworkCommunicationWith:senderIp];
 }
 
 @end

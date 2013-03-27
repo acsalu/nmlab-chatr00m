@@ -27,13 +27,17 @@
 @property (retain, nonatomic) NSInputStream *inputstream;
 @property (strong, nonatomic) NSMutableArray *userTableContents;
 @property (strong, nonatomic) NSMutableArray *chatTableContents;
+@property (strong, nonatomic) NSDictionary *files;
 
 
 - (IBAction)sendMessage:(id)sender;
 + (CHChatroomWindowController *)chatroomWindowControllerWithId:(int)roomId Name:(NSString *)roomName andType:(enum RoomType)roomType;
 - (IBAction)sendFile:(id)sender;
-- (void)initNetworkCommunication;
+- (void)initNetworkCommunicationWith:(NSString *)ip;
 - (void)stream:(NSStream *)aStream handleEvent:(NSStreamEvent)eventCode;
 - (void)messageReceived:(NSString *)message;
+- (void)startSendingFile:(NSString *)filePath;
+- (void)fileReceived:(NSString *)filePath;
+- (IBAction)declareReceiver:(id)sender;
 
 @end

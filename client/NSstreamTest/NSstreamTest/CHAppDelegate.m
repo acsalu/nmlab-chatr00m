@@ -21,6 +21,28 @@
 {
     CFReadStreamRef readStream;
     CFWriteStreamRef writeStream;
+    NSOpenPanel *openDlg = [NSOpenPanel openPanel];
+    
+    NSArray *fileTypesArray;
+    fileTypesArray = [NSArray arrayWithObjects:@"jpg",@"gif",@"png",nil];
+    
+    [openDlg setCanChooseFiles:YES];
+    [openDlg setAllowsOtherFileTypes:fileTypesArray];
+    [openDlg setAllowsMultipleSelection:NO];
+    
+    NSString *filepath;
+
+    if([openDlg runModal] == NSOKButton){
+        NSLog(@"file chose");
+        NSArray *files = [openDlg URLs];
+        NSLog(@"array:%@",files);
+        NSLog(@"filename:%@",[[files objectAtIndex:0] path]);
+        filepath = [[files objectAtIndex:0] path];
+
+    }
+    
+    NSImage *image = [[NSImage alloc] initWithContentsOfFile:filepath];
+    NSLog(@"image:%@",image);
 
     NSHost *host = [NSHost hostWithAddress:@"140.112.18.221"];
     NSLog(@"connecting");
@@ -33,11 +55,14 @@
     [self.outputstream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
     [self.inputstream open];
     [self.outputstream open];
+    NSString *response = [NSString stringWithFormat:@"testing"];
+    NSData *data = [[NSData alloc] initWithData:[response dataUsingEncoding:NSASCIIStringEncoding]];
+    [self.outputstream write:[data bytes] maxLength:[data length]];
 }
 
 - (void)stream:(NSStream *)aStream handleEvent:(NSStreamEvent)eventCode
 {
-    NSLog(@"stream event %i", eventCode);
+    NSLog(@"stream event %li", eventCode);
 	
 	switch (eventCode) {
 			
