@@ -9,6 +9,7 @@
 #import "CHChatroomWindowController.h"
 #import "CHCommunicationAgent.h"
 #import "CHProfilePicCell.h"
+#import "CHAppDelegate.h"
 
 @interface CHChatroomWindowController ()
 
@@ -27,6 +28,33 @@
 {
     if (!_chatTableContents) _chatTableContents = [[NSArray alloc] init];
     return _chatTableContents;
+}
+
+- (IBAction)startNetService:(id)sender
+{
+    NSButton *button = (NSButton *) sender;
+    if (!_service) {
+        button.stringValue = @"Stop Net Service";
+        _service = [[NSNetService alloc] initWithDomain:@"" type:@"_ipp._tcp" name:@"Acsa's MBP" port:5555];
+        _service.delegate = self;
+    } else {
+        [_service stop];
+        button.stringValue = @"Start Net Service";
+    }
+}
+
+- (IBAction)startBrowser:(id)sender
+{
+    NSButton *button = (NSButton *) sender;
+    if (!_service) {
+        button.stringValue = @"Stop Browser";
+        _browser = [[NSNetServiceBrowser alloc] init];
+        _browser.delegate = self;
+        [_browser searchForServicesOfType:@"_ipp.tcp" inDomain:@""];
+    } else {
+        [_browser stop];
+        button.stringValue = @"Start Browser";
+    }
 }
 
 + (CHChatroomWindowController *)chatroomWindowControllerWithId:(int)roomId Name:(NSString *)roomName andType:(enum RoomType)roomType
@@ -70,8 +98,6 @@
     NSString *receiverIp = @"140.112.18.220";
     [self initNetworkCommunicationWith:receiverIp];
     [self startSendingFile:content[@"file"]];
-    
-    
 }
 
 - (IBAction)sendMessage:(id)sender {
@@ -92,6 +118,10 @@
         return;
     }
     NSArray *otherUser = self.userTableContents[row];
+    if (((CHAppDelegate *) [NSApp delegate]).userId == (int) [otherUser[0] integerValue]) {
+        NSLog(@"You can't talk with yourself asshole!");
+        return;
+    }
     NSLog(@"private talk with %@[%ld]", otherUser[1], (long)[otherUser[0] integerValue]);
     NSDictionary *content = @{@"client_id":otherUser[0]};
     [[CHCommunicationAgent sharedAgent] send:content forAction:ACTION_NEWMESSAGE];
@@ -237,6 +267,7 @@
             
         case NSStreamEventHasBytesAvailable:
         {
+            NSLog(@"bytesAva");
             uint8_t *buffer;
             NSUInteger length;
             BOOL freeBuffer = NO;
@@ -351,9 +382,61 @@
 {
     self.inputstream = [[NSInputStream alloc] initWithFileAtPath:@"./"];
     [self.inputstream setDelegate:self];
-    [self.inputstream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+    [self.inputstream scheduleInRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
     [self.inputstream open];
     
+}
+
+#pragma mark - NSNetServiceDelegate methods
+
+- (void)netServiceWillPublish:(NSNetService *)sender
+{
+    NSLog(@"Bonjour is going to publish");
+}
+
+- (void)netServiceDidPublish:(NSNetService *)sender
+{
+    NSLog(@"Bonjour publish succeeded");
+}
+
+- (void)netService:(NSNetService *)sender didNotPublish:(NSDictionary *)errorDict
+{
+    NSLog(@"Bonjour publish failed");
+}
+
+- (void)netServiceDidStop:(NSNetService *)sender
+{
+    sender.delegate = nil;
+    self.service = nil;
+}
+
+#pragma mark - NSNetServiceBrowserDelegate methods
+
+- (void)netServiceBrowserWillSearch:(NSNetServiceBrowser *)aNetServiceBrowser
+{
+    NSLog(@"Bonjour is going to search");
+}
+
+- (void)netServiceBrowserDidStopSearch:(NSNetServiceBrowser *)browser
+{
+    NSLog(@"Bonjour search stopped");
+    browser.delegate = nil;
+    self.browser = nil;
+}
+
+- (void)netServiceBrowser:(NSNetServiceBrowser *)browser didNotSearch:(NSDictionary *)errorInfo
+{
+    NSLog(@"Bonjour search failed");
+}
+
+- (void)netServiceBrowser:(NSNetServiceBrowser *)browser didFindService:(NSNetService *)service moreComing:(BOOL)more
+{
+    NSLog(@"Bonjour found service");
+}
+
+- (void)netServiceBrowser:(NSNetServiceBrowser *)browser didRemoveService:(NSNetService *)service moreComing:(BOOL)more
+{
+    NSLog(@"Bonjour service removed");
 }
 
 @end

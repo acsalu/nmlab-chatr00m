@@ -119,17 +119,18 @@ void SocketDataCallBack (CFSocketRef sock,
             for (size_t i = 0; i < dataSize; ++i)
                 someBuf[i] = *(((const char*) CFDataGetBytePtr((CFDataRef) dataPtr)) + i);
             someBuf[dataSize] = '\0';
-            printf("-------------------------------------------------------------\n");
-            printf("SocketUtils: socket received:\n|%s|\n\n",someBuf);
+//            printf("-------------------------------------------------------------\n");
+//            printf("SocketUtils: socket received:\n|%s|\n\n",someBuf);
             
             NSArray *jsonstrings = [agent divideJSONString:[NSString stringWithUTF8String:someBuf]];
-            for (NSString *action in jsonstrings) {
-                
-                NSDictionary *dic = [action objectFromJSONString];
-                
+            for (NSString *actionjson in jsonstrings) {
+                NSLog(@"-------------------------------------------------------------");
+                NSDictionary *dic = [actionjson objectFromJSONString];
                 
                 NSString *action = dic[@"action"];
                 NSDictionary *content = dic[@"content"];
+                
+                NSLog(@"[%@]", action);
                 CHAppDelegate *appDelegate = (CHAppDelegate *) [NSApplication sharedApplication].delegate;
                 CHChatroomController *cc = appDelegate.chatroomController;
                 
@@ -152,6 +153,8 @@ void SocketDataCallBack (CFSocketRef sock,
                     [cc communicationAgent:agent receiveMessage:dic];
                 } else if ([action isEqualToString:ACTION_ROOMLIST]) {
                     [appDelegate communicationAgent:agent receiveMessage:dic];
+                } else if ([action isEqualToString:ACTION_SETUSERNAME]) {
+                    [appDelegate setUserId:(int) [content[@"client_id"] integerValue]];
                 }
             }
             free(someBuf);
@@ -198,6 +201,9 @@ void SocketDataCallBack (CFSocketRef sock,
     return address;
     
 }
+
+
+
 
 - (NSArray *) divideJSONString:(NSString *)jsonString
 {
