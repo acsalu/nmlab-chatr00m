@@ -24,6 +24,9 @@ ACTION_LOGOUT = "LOGOUT"
 ACTION_NEWUSER = "NEW_USER"
 ACTION_ONEROOMINFO = "ONE_ROOM_INFO"
 ACTION_ROOMLIST = "ROOM_LIST"
+ACTION_NEWMESSAGE = "NEW_MESSAGE"
+ACTION_ASKTOSEND = "ASKTOSEND"
+ACTION_AGREETORECEIVE = "AGREETORECEIVE"
 
 class Server:
     def __init__(self):
@@ -102,7 +105,7 @@ class Server:
                     self.client_num += 1
                     
                     inputs.append(new_socket)
-                    new_client = Client(new_socket, address, address[0])
+                    new_client = Client(new_socket, address)
                     self.socket_client_map[new_socket] = new_client
 
                     outputs.append(new_socket)
@@ -184,6 +187,45 @@ class Server:
                                                                 "client_name":c.get_name()}}
                                     r.put_message(json.dumps(broadcast_msg).encode("UTF-8"))
 
+                            elif action == ACTION_NEWMESSAGE:
+                                new_msg_room = Room(self.next_room_id, "message", ROOM_TYPE_MESSAGE)
+                                self.room_list[self.next_room_id] = new_msg_room
+                                self.next_room_id += 1
+                                secret_msg = {"action" :ACTION_NEWMESSAGE, 
+                                              "content":{"room_id"  :new_msg_room.get_id()}}
+
+                                room_creator = self.socket_client_map[s]
+                                new_msg_room.add_client(room_creator)
+                                room_creator.enter_room(new_msg_room.get_id())
+
+                                the_other_client = Client.c_list[content["client_id"]]
+                                new_msg_room.add_client(the_other_client)
+                                the_other_client.enter_room(new_msg_room.get_id())
+
+                                new_room.put_message(json.dumps(secret_msg).encode("UTF-8"))
+                           
+
+                            elif action == ACTION_ASKTOSEND:
+                                r = self.room_list[content["room_id"]]
+                                sender = self.socket_client_map[s]
+                                receiver = r.get_the_other_client(self.socket_client_map[s])
+
+                                secret_msg = {"action" :ACTION_ASKTOSEND, 
+                                              "content":{"room_id"    :r.get_id(),
+                                                         "file"       :content["file"],
+                                                         "sender_IP"  :sender.address[0]}}
+                                receiver.put_message(json.dumps(secret_msg).encode("UTF-8"))
+
+                            elif action == ACTION_AGREETORECEIVE:
+                                r = self.room_list[content["room_id"]]
+                                receiver = self.socket_client_map[s]
+                                sender = r.get_the_other_client(self.socket_client_map[s])
+
+                                secret_msg = {"action" :ACTION_AGREETORECEIVE, 
+                                              "content":{"room_id"    :r.get_id(),
+                                                         "receiver_IP":receiver.address[0]}}
+                                sender.put_message(json.dumps(secret_msg).encode("UTF-8"))
+
                             else:
                                 print ("unknown action!!!")
 
@@ -220,6 +262,12 @@ class Server:
                 for client in room.client_list:
                     if client.socket in outputready:
                         client.socket.send(next_msg)
+
+            for s, c in self.socket_client_map.items():
+                if c.msg_queue.empty():
+                    continue
+                next_msg = c.msg_queue.get_nowait()
+                s.send(next_msg)
                     
 
 

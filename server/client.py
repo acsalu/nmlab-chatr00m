@@ -1,15 +1,18 @@
+import queue
+
 class Client:
     next_client_id = 1
     c_list = {}
 
-    def __init__(self, socket, address, name):
+    def __init__(self, socket, address):
         self.socket = socket
         self.client_id = Client.next_client_id
         Client.c_list[self.client_id] = self
         Client.next_client_id += 1
         self.address = address
-        self.name = name
+        self.name = None
         self.join_list = [0]
+        self.msg_queue = queue.Queue()
 
     def set_name(self, name):
         self.name = name
@@ -25,4 +28,7 @@ class Client:
     
     def leave_room(self, roomid):
         self.join_list.remove(roomid)
+
+    def put_message(self, message):
+        self.msg_queue.put(message)
 
