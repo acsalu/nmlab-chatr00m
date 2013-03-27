@@ -155,7 +155,7 @@ void SocketDataCallBack (CFSocketRef sock,
                         [wc communicationAgent:agent receiveMessage:dic];
                     } else {
                         NSLog(@"No room with id %d", room_id);
-                        exit(1);
+                        //exit(1);
                     }
                 }
             } else if ([action isEqualToString:ACTION_NEWROOM] || [action isEqualToString:ACTION_ENTERROOM]){

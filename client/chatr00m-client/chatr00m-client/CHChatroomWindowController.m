@@ -67,7 +67,7 @@
     [[CHCommunicationAgent sharedAgent] send:content forAction:ACTION_ASKTOSEND];
     
     //for testing
-    NSString *receiverIp = @"140.112.18.221";
+    NSString *receiverIp = @"140.112.18.220";
     [self initNetworkCommunicationWith:receiverIp];
     [self startSendingFile:content[@"file"]];
     
