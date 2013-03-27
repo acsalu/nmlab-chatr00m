@@ -10,6 +10,7 @@
 
 @protocol CHCommunicationAgentDelegate;
 @protocol CHProfilePicCellDelegate;
+@protocol CHUsernameTextFieldDelegate;
 
 @class CHCommunicationAgent;
 @class PSMTabBarControl;
@@ -18,21 +19,21 @@
 @class CHVLCWindowController;
 @class CHUsernameTextField;
 @class CHProfilePicCell;
+@class CHUsernameTextField;
 
 @interface CHAppDelegate : NSObject
     <NSApplicationDelegate, NSTextFieldDelegate, CHCommunicationAgentDelegate, NSTableViewDataSource,
-     NSTableViewDelegate, NSWindowDelegate, CHProfilePicCellDelegate>
+     NSTableViewDelegate, NSWindowDelegate, CHProfilePicCellDelegate, CHUsernameTextFieldDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
 @property (weak) IBOutlet NSTextField *messageTextField;
-@property (weak) IBOutlet CHUsernameTextField *userNameTextField;
 @property (weak) CHCommunicationAgent* agent;
 @property (unsafe_unretained) IBOutlet NSTextView *messageBoard;
 @property (weak) IBOutlet NSScrollView *scrollView;
 @property (weak) IBOutlet CHChatroomController *chatroomController;
 
 @property (weak) IBOutlet CHProfilePicCell *profilePicCellMain;
-
+@property (weak) IBOutlet CHUsernameTextField *usernameTextField;
 
 @property (weak) IBOutlet NSTableView *chatroomTableView;
 @property (strong) NSMutableArray *chatroomList;
@@ -44,6 +45,8 @@
 
 
 @property (weak) IBOutlet NSPopover *popover;
+@property (weak) IBOutlet NSPopover *usernamePopover;
+
 
 - (IBAction)send:(id)sender;
 - (IBAction)reconnect:(id)sender;

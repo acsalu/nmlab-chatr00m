@@ -12,7 +12,8 @@
 
 - (void)mouseDown:(NSEvent *)theEvent
 {
-    NSLog(@"ouch");
+    [self.actionDelegate usernameTextFieldIsClicked:self];
+    /*
     NSAlert *alert = [[NSAlert alloc] init];
     [alert setAlertStyle:NSInformationalAlertStyle];
     [alert addButtonWithTitle:@"Change Username"];
@@ -31,17 +32,7 @@
     }
     //NSWindow *window = [[NSApplication sharedApplication] windows][0];
     //[alert beginSheetModalForWindow: window modalDelegate:nil didEndSelector:nil contextInfo:nil];
-}
-
-- (void)mouseEntered:(NSEvent *)theEvent
-{
-    NSLog(@"mouse entered");
-    self.stringValue = @"XD";
-}
-
-- (void)mouseExited:(NSEvent *)theEvent
-{
-    NSLog(@"mouse exited");
+    */
 }
 
 - (void)setStringValue:(NSString *)aString

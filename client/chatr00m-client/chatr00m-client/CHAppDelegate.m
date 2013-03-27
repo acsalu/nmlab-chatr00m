@@ -30,26 +30,18 @@ NSString *const ROOM_CELL_IDENTIFIER = @"RoomCell";
     self.chatroomList = [NSMutableArray array];
     [self.chatroomTableView setTarget:self];
     [self.chatroomTableView setDoubleAction:@selector(doubleClick:)];
-    //if (welcomeSheet) {
-    //    [NSBundle loadNibNamed:@"WelcomeSheet" owner:self];
-        
-        [NSApp beginSheet:self.welcomeSheet
-           modalForWindow:self.window
-            modalDelegate:self
-           didEndSelector:NULL
-              contextInfo:NULL];
-    //}
-    
+    [NSApp beginSheet:self.welcomeSheet
+       modalForWindow:self.window
+        modalDelegate:self
+       didEndSelector:NULL
+          contextInfo:NULL];
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    
     self.agent = [CHCommunicationAgent sharedAgent];
     self.agent.delegate = self;
-    
-    NSLog(@"local IP address: %@", [CHCommunicationAgent getIPAddress]);
-    
+//    NSLog(@"local IP address: %@", [CHCommunicationAgent getIPAddress]);
 }
 
 - (IBAction)finishWelcomeSheet:(id)sender
@@ -58,7 +50,7 @@ NSString *const ROOM_CELL_IDENTIFIER = @"RoomCell";
         if (view.tag == USER_NAME_TEXTFIELD_TAG) {
             NSTextField *tf = (NSTextField *) view;
             NSLog(@"username = %@", tf.stringValue);
-            self.userNameTextField.stringValue = tf.stringValue;
+            self.usernameTextField.stringValue = tf.stringValue;
         } else if (view == self.profilePicCellwelcomeSheet) {
             self.profilePicCellMain.image = self.profilePicCellwelcomeSheet.image;
         }
@@ -101,13 +93,7 @@ NSString *const ROOM_CELL_IDENTIFIER = @"RoomCell";
     [self.popover close];
 }
 
-- (void)controlTextDidEndEditing:(NSNotification *)obj
-{
-    if ([[[obj userInfo] objectForKey:@"NSTextMovement"] intValue] == NSReturnTextMovement)
-    {
-        [self send:nil];
-    }
-}
+
 
 - (void)reconnect:(id)sender
 {
@@ -145,6 +131,28 @@ NSString *const ROOM_CELL_IDENTIFIER = @"RoomCell";
 - (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender
 {
     return YES;
+}
+
+
+#pragma  mark - CHUsernameTextFieldDelegate methods
+
+- (void) usernameTextFieldIsClicked:(CHUsernameTextField *)usernameTextField
+{
+    [self.usernamePopover showRelativeToRect:[usernameTextField bounds] ofView:usernameTextField preferredEdge:NSMinYEdge];
+}
+
+#pragma mark - NSTextFieldDelegate methods
+
+- (void)controlTextDidEndEditing:(NSNotification *)obj
+{
+    NSTextField *sender = (NSTextField *) [obj object];
+    if ([[[obj userInfo] objectForKey:@"NSTextMovement"] intValue] == NSReturnTextMovement)
+    {
+        if (sender.tag == USER_NAME_TEXTFIELD_TAG) {
+            self.usernameTextField.stringValue = sender.stringValue;
+            [self.usernamePopover close];
+        } else [self send:nil];
+    }
 }
 
 @end
