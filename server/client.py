@@ -6,28 +6,22 @@ class Client:
 
     def __init__(self, socket, address):
         self.socket = socket
-        self.client_id = Client.next_client_id
-        Client.c_list[self.client_id] = self
+        self.id = Client.next_client_id
+        Client.c_list[self.id] = self
         Client.next_client_id += 1
         self.address = address
         self.name = None
+        self.picture = 1
         self.join_list = [0]
         self.msg_queue = queue.Queue()
 
-    def set_name(self, name):
-        self.name = name
-
-    def get_name(self):
-        return self.name
-
-    def get_id(self):
-        return self.client_id
-
     def enter_room(self, roomid):
-        self.join_list.append(roomid)
+        if roomid not in self.join_list:
+            self.join_list.append(roomid)
     
     def leave_room(self, roomid):
-        self.join_list.remove(roomid)
+        if roomid in self.join_list:
+            self.join_list.remove(roomid)
 
     def put_message(self, message):
         self.msg_queue.put(message)

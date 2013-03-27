@@ -1,7 +1,0 @@
-//
-// Prefix header for all source files of the 'NSstreamTest' target in the 'NSstreamTest' project
-//
-
-#ifdef __OBJC__
-    #import <Cocoa/Cocoa.h>
-#endif
