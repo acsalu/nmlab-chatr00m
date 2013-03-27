@@ -93,6 +93,8 @@
     }
     NSArray *otherUser = self.userTableContents[row];
     NSLog(@"private talk with %@[%ld]", otherUser[1], (long)[otherUser[0] integerValue]);
+    NSDictionary *content = @{@"client_id":otherUser[0]};
+    [[CHCommunicationAgent sharedAgent] send:content forAction:ACTION_NEWMESSAGE];
     // check if the user is self
 }
 
