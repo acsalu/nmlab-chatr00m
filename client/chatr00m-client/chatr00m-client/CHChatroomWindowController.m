@@ -109,6 +109,16 @@
     }
 }
 
+- (NSInteger)profilePicIdxForClient:(NSInteger)clientId
+{
+    for (NSArray *client in self.userTableContents) {
+        if ([client[0] integerValue] == clientId) {
+            NSLog(@"%ld", [client[2] integerValue]);
+            return [client[2] integerValue];
+        }
+    }
+}
+
 # pragma mark - CHCommunicationAgentDelegate methods
 
 - (void)communicationAgent:(CHCommunicationAgent *)agent receiveMessage:(NSDictionary *)dic
@@ -121,9 +131,9 @@
         [self initNetworkCommunicationWith:receiverIp];
         [self startSendingFile:content[@"file"]];
     } else if ([action isEqualToString:ACTION_TALK]) {
-        NSLog(@"%@:%@", content[@"name"], content[@"message"]);
+        NSLog(@"%@:%@", content[@"client_name"], content[@"message"]);
         self.chatTableContents = [self.chatTableContents arrayByAddingObject:content];
-        NSLog(@"%@", self.chatTableContents);
+        //NSLog(@"%@", self.chatTableContents);
         [self.chatTableView reloadData];
     } else if ([action isEqualToString:ACTION_ROOMINFO] ) {
         self.userTableContents = content[@"room_client_info"];
@@ -161,13 +171,14 @@
         //cellView.textField.stringValue = user[@"name"];
         //cellView.imageView.image = user[@"image"];
         cellView.textField.stringValue = user[1];
-        cellView.imageView.image = [CHProfilePicCell profilePicForIndex:1];
+        cellView.imageView.image = [NSImage imageNamed:[NSString stringWithFormat:@"user_img_0%ld", [user[2] integerValue]]];
     } else if ([identifier isEqualToString:@"ChatCell"]) {
         cellView = [tableView makeViewWithIdentifier:@"ChatCell" owner:self];
         NSLog(@"%@", self.chatTableContents);
         NSDictionary *chat = self.chatTableContents[row];
+        NSInteger clientId = [chat[@"client_id"] integerValue];
         cellView.textField.stringValue = chat[@"message"];
-//        cellView.imageView.image = user[@"image"];
+        cellView.imageView.image = [NSImage imageNamed:[NSString stringWithFormat:@"user_img_0%ld", [self profilePicIdxForClient:clientId]]];
     }
     
      return cellView;
