@@ -18,6 +18,9 @@ class Room:
     def add_client(self, client):
         if client not in self.client_list:
             self.client_list.append(client)
+            return 1
+        else:
+            return 0
 
     # def add_client_list(self, client_list):
     #     self.client_list.extend(client_list)
@@ -26,7 +29,7 @@ class Room:
         if client in self.client_list:
             self.client_list.remove(client)
         if self.get_num_of_client() == 0 and self.id != 0:
-            return -1
+            return 0
             
     def get_clients_info(self):
         user_list = []

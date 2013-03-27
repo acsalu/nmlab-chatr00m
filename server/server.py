@@ -21,6 +21,7 @@ ACTION_TALK = "TALK"
 ACTION_SETUSERNAME = "SET_USERNAME"
 ACTION_SETUSERPIC = "SET_USERPIC"
 ACTION_NEWROOM = "NEW_ROOM"
+ACTION_INVITE = "INVITE"
 ACTION_ENTERROOM = "ENTER_ROOM"
 ACTION_LEAVEROOM = "LEAVE_ROOM"
 ACTION_LOGOUT = "LOGOUT"
@@ -172,23 +173,36 @@ class Server:
 
                                 new_room.put_message(json.dumps(broadcast_msg).encode("UTF-8"))
                               
+                            elif action == ACTION_INVITE:
+                                r = self.room_list[content["room_id"]]
+                                c = Client.c_list[content["client_id"]]
+                                if r.add_client(c) != 0:
+                                    c.enter_room(r.id)
+
+                                    broadcast_msg = {"action" :ACTION_ENTERROOM, 
+                                                     "content":{"room_id"    :r.id,
+                                                                "room_name"  :r.name,
+                                                                "room_type"  :r.type}}
+                                    c.put_message(json.dumps(broadcast_msg).encode("UTF-8"))
+
+
                             elif action == ACTION_ENTERROOM:
                                 r = self.room_list[content["room_id"]]
                                 c = self.socket_client_map[s]
-                                r.add_client(c)
-                                c.enter_room(r.id)
+                                if r.add_client(c) != 0:
+                                    c.enter_room(r.id)
 
-                                broadcast_msg = {"action" :ACTION_ENTERROOM, 
-                                                 "content":{"room_id"    :r.id,
-                                                            "room_name"  :r.name,
-                                                            "room_type"  :r.type}}
-                                c.put_message(json.dumps(broadcast_msg).encode("UTF-8"))
+                                    broadcast_msg = {"action" :ACTION_ENTERROOM, 
+                                                     "content":{"room_id"    :r.id,
+                                                                "room_name"  :r.name,
+                                                                "room_type"  :r.type}}
+                                    c.put_message(json.dumps(broadcast_msg).encode("UTF-8"))
 
                             elif action == ACTION_LEAVEROOM:
                                 r = self.room_list[content["room_id"]]
                                 c = self.socket_client_map[s]
                                 c.leave_room(r.id)
-                                if r.remove_client(c) == -1:
+                                if r.remove_client(c) == 0:
                                     del self.room_list[content["room_id"]]
 
                             elif action == ACTION_NEWMESSAGE:
@@ -206,7 +220,7 @@ class Server:
                                 new_msg_room.add_client(the_other_client)
                                 the_other_client.enter_room(new_msg_room.id)
 
-                                new_room.put_message(json.dumps(secret_msg).encode("UTF-8"))
+                                new_msg_room.put_message(json.dumps(secret_msg).encode("UTF-8"))
                            
 
                             elif action == ACTION_ASKTOSEND:
@@ -249,7 +263,7 @@ class Server:
                                              "content":{"client_name":c.name,
                                                         "client_id"  :c.id}}
                             del self.socket_client_map[s]
-                            if shounldDelRoom == -1:
+                            if shounldDelRoom == 0:
                                 del self.room_list[r_id]
 
                             lobby.put_message(json.dumps(broadcast_msg).encode("UTF-8"))
