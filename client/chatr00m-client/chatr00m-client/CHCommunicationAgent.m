@@ -38,6 +38,7 @@ NSString *const ACTION_ROOMINFO = @"ONE_ROOM_INFO";
 NSString *const ACTION_NEWMESSAGE = @"NEW_MESSAGE";
 
 NSString *const ACTION_SETUSERPIC = @"SET_USERPIC";
+NSString *const ACTION_INVITE = @"INVITE";
 
 const char *SERVER_IP = "54.249.234.231";
 //const char *SERVER_IP = "140.112.18.220";
@@ -135,6 +136,8 @@ void SocketDataCallBack (CFSocketRef sock,
                 CHChatroomController *cc = appDelegate.chatroomController;
                 
                 if ([action isEqualToString:ACTION_TALK] || [action isEqualToString:ACTION_ROOMINFO]) {
+                    if ([action isEqualToString:ACTION_TALK])
+                        AudioServicesPlaySystemSound([CHCommunicationAgent creatSoundId:@"a.mp3"]);
                     int room_id = [content[@"room_id"] intValue];
                     if (room_id == 0) {
                         [appDelegate communicationAgent:agent receiveMessage:dic];
@@ -150,6 +153,7 @@ void SocketDataCallBack (CFSocketRef sock,
                 } else if ([action isEqualToString:ACTION_NEWROOM] ||
                            [action isEqualToString:ACTION_ENTERROOM] ||
                            [action isEqualToString:ACTION_NEWMESSAGE]) {
+                    AudioServicesPlaySystemSound([CHCommunicationAgent creatSoundId:@"b.mp3"]);
                     [cc communicationAgent:agent receiveMessage:dic];
                 } else if ([action isEqualToString:ACTION_ROOMLIST]) {
                     [appDelegate communicationAgent:agent receiveMessage:dic];
@@ -230,6 +234,18 @@ void SocketDataCallBack (CFSocketRef sock,
 //    }
     return [result copy];
     
+}
+
++ (SystemSoundID)creatSoundId:(NSString *)name
+{
+    NSString *path = [NSString stringWithFormat: @"%@/%@",
+                       [[NSBundle mainBundle] resourcePath], name];
+    
+    
+    NSURL* filePath = [NSURL fileURLWithPath: path isDirectory: NO];
+    SystemSoundID soundID;
+    AudioServicesCreateSystemSoundID((__bridge CFURLRef)filePath, &soundID);
+    return soundID;
 }
 
 @end

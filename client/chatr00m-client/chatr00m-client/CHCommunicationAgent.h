@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CFNetwork/CFNetwork.h>
+#import <AudioToolbox/AudioToolbox.h>
 
 extern NSString *const ACTION_SETUSERNAME;
 extern NSString *const ACTION_TALK;
@@ -21,6 +22,7 @@ extern NSString *const ACTION_AGREETORECEIVE;
 extern NSString *const ACTION_ROOMINFO;
 extern NSString *const ACTION_NEWMESSAGE;
 extern NSString *const ACTION_SETUSERPIC;
+extern NSString *const ACTION_INVITE;
 
 @protocol CHCommunicationAgentDelegate;
 
@@ -46,8 +48,10 @@ extern NSString *const ACTION_SETUSERPIC;
 
 
 + (NSString *)getIPAddress;
++ (SystemSoundID)creatSoundId: (NSString *)name;
 
 @end
+
 
 @protocol CHCommunicationAgentDelegate <NSObject>
 

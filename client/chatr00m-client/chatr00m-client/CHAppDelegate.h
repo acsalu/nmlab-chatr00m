@@ -49,6 +49,7 @@
 
 @property int imgIdx;
 @property int userId;
+@property (strong) NSArray *clientList;
 
 - (IBAction)send:(id)sender;
 - (IBAction)reconnect:(id)sender;

@@ -117,8 +117,9 @@ NSString *const ROOM_CELL_IDENTIFIER = @"RoomCell";
     } else if ([action isEqualToString:ACTION_TALK]) {
         self.messageBoard.string = [NSString stringWithFormat:@"%@\n[%@]: %@",
                                     self.messageBoard.string, content[@"client_name"], content[@"message"]];
+    } else if ([action isEqualToString:ACTION_ROOMINFO]) {
+        self.clientList = content[@"room_client_info"];
     }
-    
 }
 
 - (IBAction)doubleClick:(id)sender

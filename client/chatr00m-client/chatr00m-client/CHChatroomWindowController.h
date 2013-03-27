@@ -11,7 +11,7 @@
 
 @protocol CHCommunicationAgentDelegate;
 
-@interface CHChatroomWindowController : NSWindowController <NSTextFieldDelegate, CHCommunicationAgentDelegate, NSTableViewDataSource, NSTableViewDelegate, NSStreamDelegate, NSWindowDelegate, NSNetServiceDelegate, NSNetServiceBrowserDelegate>
+@interface CHChatroomWindowController : NSWindowController <NSTextFieldDelegate, CHCommunicationAgentDelegate, NSTableViewDataSource, NSTableViewDelegate, NSStreamDelegate, NSWindowDelegate, NSNetServiceDelegate, NSNetServiceBrowserDelegate, NSPopoverDelegate>
 
 
 // UI components
@@ -34,6 +34,11 @@
 @property (strong) NSNetService *service;
 @property (strong) NSNetServiceBrowser *browser;
 
+
+@property (weak) IBOutlet NSTableView *onlineUsersTableView;
+
+@property (weak) IBOutlet NSPopover *popover;
+
 - (IBAction)sendMessage:(id)sender;
 + (CHChatroomWindowController *)chatroomWindowControllerWithId:(int)roomId Name:(NSString *)roomName andType:(enum RoomType)roomType;
 - (IBAction)sendFile:(id)sender;
@@ -47,7 +52,9 @@
 - (void) setUpStreamForFile;
 - (IBAction)doubleClickedOnUser:(id)sender;
 
-
+- (IBAction)inviteButtonClicked:(id)sender;
+- (IBAction)confirmInvite:(id)sender;
+- (IBAction)cancelInvite:(id)sender;
 
 // test Bonjour
 - (IBAction)startNetService:(id)sender;

@@ -17,6 +17,10 @@
 		90599C9C1702E71B003BD0CA /* user_img_02.gif in Resources */ = {isa = PBXBuildFile; fileRef = 90599C9B1702E71B003BD0CA /* user_img_02.gif */; };
 		90599C9F1702E737003BD0CA /* user_img_03.gif in Resources */ = {isa = PBXBuildFile; fileRef = 90599C9D1702E737003BD0CA /* user_img_03.gif */; };
 		90599CA01702E737003BD0CA /* user_img_04.gif in Resources */ = {isa = PBXBuildFile; fileRef = 90599C9E1702E737003BD0CA /* user_img_04.gif */; };
+		90599CD517038743003BD0CA /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90599CD417038743003BD0CA /* AudioToolbox.framework */; };
+		90599CDB170387AB003BD0CA /* a.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 90599CD8170387AB003BD0CA /* a.mp3 */; };
+		90599CDC170387AB003BD0CA /* b.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 90599CD9170387AB003BD0CA /* b.mp3 */; };
+		90599CDD170387AB003BD0CA /* c.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 90599CDA170387AB003BD0CA /* c.mp3 */; };
 		905FB99A16F01BE80068B1CD /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 905FB99916F01BE80068B1CD /* Cocoa.framework */; };
 		905FB9A416F01BE80068B1CD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 905FB9A216F01BE80068B1CD /* InfoPlist.strings */; };
 		905FB9A616F01BE80068B1CD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 905FB9A516F01BE80068B1CD /* main.m */; };
@@ -61,6 +65,10 @@
 		90599C9B1702E71B003BD0CA /* user_img_02.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = user_img_02.gif; sourceTree = "<group>"; };
 		90599C9D1702E737003BD0CA /* user_img_03.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = user_img_03.gif; sourceTree = "<group>"; };
 		90599C9E1702E737003BD0CA /* user_img_04.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = user_img_04.gif; sourceTree = "<group>"; };
+		90599CD417038743003BD0CA /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = /System/Library/Frameworks/AudioToolbox.framework; sourceTree = "<absolute>"; };
+		90599CD8170387AB003BD0CA /* a.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = a.mp3; sourceTree = "<group>"; };
+		90599CD9170387AB003BD0CA /* b.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = b.mp3; sourceTree = "<group>"; };
+		90599CDA170387AB003BD0CA /* c.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = c.mp3; sourceTree = "<group>"; };
 		905FB99616F01BE80068B1CD /* chatr00m-client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "chatr00m-client.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		905FB99916F01BE80068B1CD /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		905FB99C16F01BE80068B1CD /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -98,6 +106,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				90599CD517038743003BD0CA /* AudioToolbox.framework in Frameworks */,
 				0FDA97F517006E980036BDC0 /* CFNetwork.framework in Frameworks */,
 				9017CDF016F1F49F005247A0 /* CoreAudio.framework in Frameworks */,
 				905FB99A16F01BE80068B1CD /* Cocoa.framework in Frameworks */,
@@ -107,6 +116,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		90599CD61703874B003BD0CA /* resource */ = {
+			isa = PBXGroup;
+			children = (
+				90599CD71703878E003BD0CA /* sound */,
+				90C6E3091701C3B3006E47DA /* img */,
+			);
+			name = resource;
+			sourceTree = "<group>";
+		};
+		90599CD71703878E003BD0CA /* sound */ = {
+			isa = PBXGroup;
+			children = (
+				90599CD8170387AB003BD0CA /* a.mp3 */,
+				90599CD9170387AB003BD0CA /* b.mp3 */,
+				90599CDA170387AB003BD0CA /* c.mp3 */,
+			);
+			name = sound;
+			sourceTree = "<group>";
+		};
 		905FB98D16F01BE70068B1CD = {
 			isa = PBXGroup;
 			children = (
@@ -127,6 +155,7 @@
 		905FB99816F01BE80068B1CD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				90599CD417038743003BD0CA /* AudioToolbox.framework */,
 				90E1C45516F47C380074C32C /* JSONKit */,
 				90599C841702C9B4003BD0CA /* VLCKit.framework */,
 				0FDA97F417006E980036BDC0 /* CFNetwork.framework */,
@@ -160,7 +189,7 @@
 				905FB9A016F01BE80068B1CD /* Supporting Files */,
 				905FB9B616F028740068B1CD /* CHCommunicationAgent.h */,
 				905FB9B716F028740068B1CD /* CHCommunicationAgent.m */,
-				90C6E3091701C3B3006E47DA /* img */,
+				90599CD61703874B003BD0CA /* resource */,
 				90E1C46116F4A3610074C32C /* View */,
 			);
 			path = "chatr00m-client";
@@ -294,6 +323,9 @@
 				90599C9C1702E71B003BD0CA /* user_img_02.gif in Resources */,
 				90599C9F1702E737003BD0CA /* user_img_03.gif in Resources */,
 				90599CA01702E737003BD0CA /* user_img_04.gif in Resources */,
+				90599CDB170387AB003BD0CA /* a.mp3 in Resources */,
+				90599CDC170387AB003BD0CA /* b.mp3 in Resources */,
+				90599CDD170387AB003BD0CA /* c.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

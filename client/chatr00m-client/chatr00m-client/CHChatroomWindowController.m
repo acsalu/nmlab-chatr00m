@@ -10,6 +10,7 @@
 #import "CHCommunicationAgent.h"
 #import "CHProfilePicCell.h"
 #import "CHAppDelegate.h"
+#import "CHChatroomController.h";
 
 @interface CHChatroomWindowController ()
 
@@ -33,36 +34,56 @@
 - (IBAction)startNetService:(id)sender
 {
     NSButton *button = (NSButton *) sender;
+    
     if (!_service) {
-        button.stringValue = @"Stop Net Service";
+        [button setTitle: @"Stop Net Service"];
         _service = [[NSNetService alloc] initWithDomain:@"" type:@"_ipp._tcp" name:@"Acsa's MBP" port:5555];
         _service.delegate = self;
+        [_service publish];
     } else {
         [_service stop];
-        button.stringValue = @"Start Net Service";
+        [button setTitle: @"Start Net Service"];
     }
 }
 
 - (IBAction)startBrowser:(id)sender
 {
     NSButton *button = (NSButton *) sender;
-    if (!_service) {
-        button.stringValue = @"Stop Browser";
+    if (!_browser) {
+        [button setTitle: @"Stop Browser"];
         _browser = [[NSNetServiceBrowser alloc] init];
         _browser.delegate = self;
         [_browser searchForServicesOfType:@"_ipp.tcp" inDomain:@""];
     } else {
         [_browser stop];
-        button.stringValue = @"Start Browser";
+        [button setTitle: @"Start Browser"];
     }
+}
+
+- (IBAction)inviteButtonClicked:(id)sender
+{
+    [self.popover showRelativeToRect:[sender bounds] ofView:sender preferredEdge:NSMaxXEdge];
+}
+
+- (IBAction)confirmInvite:(id)sender
+{
+    NSInteger row = [self.onlineUsersTableView selectedRow];
+    NSDictionary *content = @{@"client_id":((CHAppDelegate *) [NSApp delegate]).clientList[row][0], @"room_id":@(self.roomId)};
+    [[CHCommunicationAgent sharedAgent] send:content forAction:ACTION_INVITE];
+    [self.popover close];
+}
+
+- (IBAction)cancelInvite:(id)sender
+{
+    [self.popover close];
 }
 
 + (CHChatroomWindowController *)chatroomWindowControllerWithId:(int)roomId Name:(NSString *)roomName andType:(enum RoomType)roomType
 {
     CHChatroomWindowController *wc;
-    if (roomType == ROOM_TYPE_MESSAGE)
-        wc = [[CHChatroomWindowController alloc] initWithWindowNibName:@"MessageWindow"];
-    else
+    //if (roomType == ROOM_TYPE_MESSAGE)
+    //    wc = [[CHChatroomWindowController alloc] initWithWindowNibName:@"MessageWindow"];
+    //else
         wc = [[CHChatroomWindowController alloc] initWithWindowNibName:@"ChatroomWindow"];
     wc.roomId = roomId;
     wc.roomType = roomType;
@@ -185,7 +206,7 @@
 {
     if (tableView == self.userTableView) return self.userTableContents.count;
     else if (tableView == self.chatTableView) return self.chatTableContents.count;
-    else return 0;
+    else return ((CHAppDelegate *) [NSApp delegate]).clientList.count;
 }
 
 - (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
@@ -207,17 +228,25 @@
         NSLog(@"%@", self.chatTableContents);
         NSDictionary *chat = self.chatTableContents[row];
         NSInteger clientId = [chat[@"client_id"] integerValue];
-        cellView.textField.stringValue = chat[@"message"];
+        cellView.textField.stringValue = [NSString stringWithFormat:@"%@: %@", chat[@"client_name"], chat[@"message"]];
         cellView.imageView.image = [NSImage imageNamed:[NSString stringWithFormat:@"user_img_0%ld", [self profilePicIdxForClient:clientId]]];
+    } else {
+        cellView = [tableView makeViewWithIdentifier:@"OnlineUserCell" owner:self];
+        NSArray *user = ((CHAppDelegate *) [NSApp delegate]).clientList[row];
+        cellView.textField.stringValue = user[1];
+        cellView.imageView.image = [NSImage imageNamed:[NSString stringWithFormat:@"user_img_0%ld", [user[2] integerValue]]];
     }
     
-     return cellView;
+    return cellView;
 }
 
 # pragma mark - NSWindowDelegate methods
 
 - (void)windowWillClose:(NSNotification *)notification
 {
+    // remove self from windows
+    [((CHAppDelegate *) [NSApp delegate]).chatroomController.windowControllers removeObject:self];
+    
     NSDictionary *content = @{@"room_id":[NSNumber numberWithInteger:self.roomId]};
     [[CHCommunicationAgent sharedAgent] send:content forAction:ACTION_LEAVEROOM];
 }
@@ -436,6 +465,7 @@
 - (void)netServiceBrowser:(NSNetServiceBrowser *)browser didNotSearch:(NSDictionary *)errorInfo
 {
     NSLog(@"Bonjour search failed");
+    
 }
 
 - (void)netServiceBrowser:(NSNetServiceBrowser *)browser didFindService:(NSNetService *)service moreComing:(BOOL)more
