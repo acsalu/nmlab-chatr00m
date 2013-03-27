@@ -140,9 +140,15 @@
         int roomId = [content[@"room_id"] intValue];
         enum RoomType roomType = [content[@"room_type"] intValue];
         
-        CHChatroomWindowController *wc = [CHChatroomWindowController chatroomWindowControllerWithId:roomId
-                                                                                               Name:roomName
-                                                                                            andType:roomType];
+        
+//        CHChatroomWindowController *wc = [CHChatroomWindowController chatroomWindowControllerWithId:roomId
+//                                                                                               Name:roomName
+//                                                                                            andType:roomType];
+        
+        // for test file transfer
+        CHChatroomWindowController *wc = [CHChatroomWindowController chatroomWindowControllerWithId:100
+                                                                                               Name:@"File Transfer Test"
+                                                                                            andType:ROOM_TYPE_MESSAGE];
         [self.windowControllers addObject:wc];
         [wc showWindow:self];
         
