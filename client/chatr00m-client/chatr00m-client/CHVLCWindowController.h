@@ -7,17 +7,17 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import <VLCKit/VLCKit.h>
+//#import <VLCKit/VLCKit.h>
 
 @interface CHVLCWindowController : NSWindowController
-
-@property (weak) IBOutlet VLCVideoView *videoView;
-
-@property (strong, nonatomic) VLCMedia *media;
-@property (strong, nonatomic) VLCStreamSession *streamSession;
-@property (strong, nonatomic) VLCMediaPlayer *mediaPlayer;
-@property (strong, nonatomic) NSString *remoteURLAsString;
-
-- (IBAction)play:(id)sender;
+//
+//@property (weak) IBOutlet VLCVideoView *videoView;
+//
+//@property (strong, nonatomic) VLCMedia *media;
+//@property (strong, nonatomic) VLCStreamSession *streamSession;
+//@property (strong, nonatomic) VLCMediaPlayer *mediaPlayer;
+//@property (strong, nonatomic) NSString *remoteURLAsString;
+//
+//- (IBAction)play:(id)sender;
 
 @end

@@ -16,6 +16,7 @@ extern NSString *const ACTION_ROOMLIST;
 extern NSString *const ACTION_ENTERROOM;
 extern NSString *const ACTION_LEAVEROOM;
 extern NSString *const ACTION_ROOMINFO;
+extern NSString *const ACTION_NEWMESSAGE;
 
 @protocol CHCommunicationAgentDelegate;
 

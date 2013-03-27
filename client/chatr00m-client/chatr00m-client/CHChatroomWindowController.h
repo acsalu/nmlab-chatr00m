@@ -35,5 +35,6 @@
 - (void)initNetworkCommunication;
 - (void)stream:(NSStream *)aStream handleEvent:(NSStreamEvent)eventCode;
 - (void)messageReceived:(NSString *)message;
+- (IBAction)doubleClickedOnUser:(id)sender;
 
 @end

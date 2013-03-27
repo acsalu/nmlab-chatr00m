@@ -11,13 +11,13 @@
 		9017CDF016F1F49F005247A0 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9017CDEF16F1F49F005247A0 /* CoreAudio.framework */; };
 		901BF4D61701704C00135989 /* MessageWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 901BF4D51701704C00135989 /* MessageWindow.xib */; };
 		9050EF1716FDE39F00B6B216 /* NewRoomSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9050EF1616FDE39F00B6B216 /* NewRoomSheet.xib */; };
-		90599C861702CB5D003BD0CA /* VLCKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90599C841702C9B4003BD0CA /* VLCKit.framework */; };
 		90599C951702CC91003BD0CA /* CHVLCWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90599C931702CC91003BD0CA /* CHVLCWindowController.m */; };
 		90599C961702CC91003BD0CA /* CHVLCWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90599C941702CC91003BD0CA /* CHVLCWindowController.xib */; };
 		90599C9A1702E711003BD0CA /* user_img_01.gif in Resources */ = {isa = PBXBuildFile; fileRef = 90599C991702E711003BD0CA /* user_img_01.gif */; };
 		90599C9C1702E71B003BD0CA /* user_img_02.gif in Resources */ = {isa = PBXBuildFile; fileRef = 90599C9B1702E71B003BD0CA /* user_img_02.gif */; };
 		90599C9F1702E737003BD0CA /* user_img_03.gif in Resources */ = {isa = PBXBuildFile; fileRef = 90599C9D1702E737003BD0CA /* user_img_03.gif */; };
 		90599CA01702E737003BD0CA /* user_img_04.gif in Resources */ = {isa = PBXBuildFile; fileRef = 90599C9E1702E737003BD0CA /* user_img_04.gif */; };
+		90599CA117032010003BD0CA /* VLCKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90599C841702C9B4003BD0CA /* VLCKit.framework */; };
 		905FB99A16F01BE80068B1CD /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 905FB99916F01BE80068B1CD /* Cocoa.framework */; };
 		905FB9A416F01BE80068B1CD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 905FB9A216F01BE80068B1CD /* InfoPlist.strings */; };
 		905FB9A616F01BE80068B1CD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 905FB9A516F01BE80068B1CD /* main.m */; };
@@ -101,7 +101,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				90599C861702CB5D003BD0CA /* VLCKit.framework in Frameworks */,
+				90599CA117032010003BD0CA /* VLCKit.framework in Frameworks */,
 				0FDA97F517006E980036BDC0 /* CFNetwork.framework in Frameworks */,
 				9017CDF016F1F49F005247A0 /* CoreAudio.framework in Frameworks */,
 				905FB99A16F01BE80068B1CD /* Cocoa.framework in Frameworks */,

@@ -16,6 +16,13 @@
 
 @implementation CHChatroomWindowController
 
+- (void)awakeFromNib
+{
+    [self.userTableView setTarget:self];
+    [self.userTableView setDoubleAction:@selector(doubleClickedOnUser:)];
+}
+
+
 - (NSArray *) chatTableContents
 {
     if (!_chatTableContents) _chatTableContents = [[NSArray alloc] init];
@@ -54,6 +61,18 @@
     [[CHCommunicationAgent sharedAgent] send:content forAction:ACTION_TALK];
 }
 
+- (IBAction)doubleClickedOnUser:(id)sender
+{
+    NSInteger row = [self.userTableView clickedRow];
+    NSLog(@"double click on row %ld", row);
+    if (row < 0) {
+        NSLog(@"invalid row");
+        return;
+    }
+    NSArray *otherUser = self.userTableContents[row];
+    NSLog(@"private talk with %@[%ld]", otherUser[1], (long)[otherUser[0] integerValue]);
+    // check if the user is self
+}
 
 
 # pragma mark - NSTextFieldDelegate methods

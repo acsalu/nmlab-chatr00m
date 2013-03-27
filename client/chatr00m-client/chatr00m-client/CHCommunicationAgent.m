@@ -30,6 +30,7 @@ NSString *const ACTION_ROOMLIST = @"ROOM_LIST";
 NSString *const ACTION_ENTERROOM = @"ENTER_ROOM";
 NSString *const ACTION_LEAVEROOM = @"LEAVE_ROOM";
 NSString *const ACTION_ROOMINFO = @"ONE_ROOM_INFO";
+NSString *const ACTION_NEWMESSAGE = @"NEW_MESSAGE";
 
 const char *SERVER_IP = "54.249.234.231";
 //const char *SERVER_IP = "140.112.18.220";
