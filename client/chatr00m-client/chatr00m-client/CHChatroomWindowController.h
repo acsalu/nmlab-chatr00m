@@ -43,7 +43,7 @@
 - (void)startSendingFile:(NSString *)filePath;
 - (void)fileReceived:(NSString *)filePath;
 - (IBAction)declareReceiver:(id)sender;
-
+- (void) setUpStreamForFile;
 - (IBAction)doubleClickedOnUser:(id)sender;
 
 

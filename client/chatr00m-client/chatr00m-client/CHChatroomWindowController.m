@@ -46,24 +46,24 @@
 
 
 - (IBAction)sendFile:(id)sender {
-    NSOpenPanel *openDlg = [NSOpenPanel openPanel];
-    NSArray *fileTypesArray;
-    fileTypesArray = [NSArray arrayWithObjects:@"jpg",@"gif",@"png",nil];    
-    [openDlg setCanChooseFiles:YES];
-    [openDlg setAllowsOtherFileTypes:fileTypesArray];
-    [openDlg setAllowsMultipleSelection:TRUE];
-    
-    NSString *filepath;
-    if([openDlg runModal] == NSOKButton){
-        NSLog(@"file chose");
-        NSArray *files = [openDlg URLs];
-        //NSLog(@"array:%@",files);
-        NSLog(@"filename:%@",[[files objectAtIndex:0] path]);
-        filepath = [[files objectAtIndex:0] path];
-    }
+//    NSOpenPanel *openDlg = [NSOpenPanel openPanel];
+//    NSArray *fileTypesArray;
+//    fileTypesArray = [NSArray arrayWithObjects:@"jpg",@"gif",@"png",nil];    
+//    [openDlg setCanChooseFiles:YES];
+//    [openDlg setAllowsOtherFileTypes:fileTypesArray];
+//    [openDlg setAllowsMultipleSelection:TRUE];
+//    
+//    NSString *filepath;
+//    if([openDlg runModal] == NSOKButton){
+//        NSLog(@"file chose");
+//        NSArray *files = [openDlg URLs];
+//        //NSLog(@"array:%@",files);
+//        NSLog(@"filename:%@",[[files objectAtIndex:0] path]);
+//        filepath = [[files objectAtIndex:0] path];
+//    }
     
     NSString *userIp = [NSString stringWithFormat:@"140.112.18.221"];
-    NSDictionary *content = @{@"user_ip":userIp, @"file":filepath};
+    NSDictionary *content = @{@"user_ip":userIp, @"file":@"filepath"};
     [[CHCommunicationAgent sharedAgent] send:content forAction:ACTION_ASKTOSEND];
     
     //for testing
@@ -207,21 +207,44 @@
 {
     NSLog(@"stream event %li", eventCode);
 	
-    if (eventCode == NSStreamEventHasBytesAvailable) {
-        NSMutableData *data = [[NSMutableData alloc] init];
-        
-        //定義接收串流的大小
-        uint8_t buf[1024];
-        unsigned int len = 0;
-        len = [(NSInputStream *)aStream read:buf maxLength:1024];
-        [data appendBytes:(const void *)buf length:len];
-        
-        NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        NSLog(@"get string:%@",str);
-        //將得到得的結果輸出到TextView上
-        //textView.text = str;
-    }
-//	switch (eventCode) {
+    switch (eventCode) {
+        case NSStreamEventOpenCompleted:
+            NSLog(@"Output stream opened.");
+            break;
+            
+        case NSStreamEventHasSpaceAvailable: {
+            NSLog(@"has space");
+            break;
+        }
+            
+        case NSStreamEventEndEncountered: {
+            NSLog(@"output stream closed");
+            [aStream close];
+            [aStream removeFromRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+            break;
+        }
+            
+        case NSStreamEventHasBytesAvailable:
+        {
+            uint8_t *buffer;
+            NSUInteger length;
+            BOOL freeBuffer = NO;
+            // The stream has data. Try to get its internal buffer instead of creating one
+            if(![self.inputstream getBuffer:&buffer length:&length]) {
+                // The stream couldn't provide its internal buffer. We have to make one ourselves
+                buffer = malloc(1024 * sizeof(uint8_t));
+                freeBuffer = YES;
+                NSInteger result = [self.inputstream read:buffer maxLength:1024];
+                if(result < 0) {
+                    // error copying to buffer
+                    break;
+                }
+                length = result;
+            }
+        }
+        default:
+            break;
+    }//	switch (eventCode) {
 //			
 //		case NSStreamEventOpenCompleted:
 //			NSLog(@"Stream opened");
@@ -268,14 +291,13 @@
 //	}
 }
 
-- (void)messageReceived:(NSString *)message
-{
+- (void)messageReceived:(NSString *)message{
     NSLog(@"message received...");
 }
 
 - (void) startSendingFile:(NSString *)filePath
 {
-    //NSLog(@"start sending file");
+    NSLog(@"start sending file");
     //NSImage *image = [[NSImage alloc] initWithContentsOfFile:filePath];
     //NSLog(@"image:%@",image);
     //[image lockFocus];
@@ -284,11 +306,20 @@
     
     //NSString *response = [NSString stringWithFormat:@"testing"];
     //NSData *data = [[NSData alloc] initWithData:[response dataUsingEncoding:NSASCIIStringEncoding]];
-    NSString *str =@"iOS Login Success ...";
-    const uint8_t *nuit8Text;
-    nuit8Text = (uint8_t *) [str cStringUsingEncoding:NSASCIIStringEncoding];
-    [self.outputstream write:nuit8Text maxLength:strlen((char*)nuit8Text)];
+    //NSString *str =@"iOS Login Success ...";
+    //const uint8_t *nuit8Text;
+    //nuit8Text = (uint8_t *) [str cStringUsingEncoding:NSASCIIStringEncoding];
+    //[self.outputstream write:nuit8Text maxLength:strlen((char*)nuit8Text)];
     //[self.outputstream write:[data bytes] maxLength:[data length]];
+    //const char *buff	= “Hello World!”;
+    //NSUInteger buffLen = strlen(buff);
+    //NSInteger writtenLength = [self.outputstream write:(const uint8_t *)buff maxLength:strlen(buff)];
+    //if (writtenLength != buffLen) {
+    //    [NSException raise:@”WriteFailure” format:@””];
+    //}
+    NSString *response  = [NSString stringWithFormat:@"iam"];
+	NSData *data = [[NSData alloc] initWithData:[response dataUsingEncoding:NSASCIIStringEncoding]];
+	[self.outputstream write:[data bytes] maxLength:[data length]];
     NSLog(@"after sending file");
 }
 
@@ -301,7 +332,17 @@
 {
     NSLog(@"receiver got request...");
     NSString *senderIp = @"140.112.18.219";
-    [self initNetworkCommunicationWith:senderIp];
+    //[self initNetworkCommunicationWith:senderIp];
+    [self setUpStreamForFile];
+}
+
+- (void)setUpStreamForFile
+{
+    self.inputstream = [[NSInputStream alloc] initWithFileAtPath:@"./"];
+    [self.inputstream setDelegate:self];
+    [self.inputstream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+    [self.inputstream open];
+    
 }
 
 @end
