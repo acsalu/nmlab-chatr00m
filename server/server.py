@@ -20,6 +20,7 @@ JSON_HEADER = "#@$@#"
 ACTION_TALK = "TALK"
 ACTION_SETUSERNAME = "SET_USERNAME"
 ACTION_SETUSERPIC = "SET_USERPIC"
+ACTION_SENDFILE = "SEND_FILE"
 ACTION_NEWROOM = "NEW_ROOM"
 ACTION_INVITE = "INVITE"
 ACTION_ENTERROOM = "ENTER_ROOM"
@@ -66,6 +67,8 @@ class Server:
     def broadcast_new_room_list(self):
         all_rooms_info = []
         for r_id, room in self.room_list.items():
+            if room.get_num_of_client == 0:
+                del self.room_list[r_id]
             if room.type == ROOM_TYPE_PUBLIC:
                 all_rooms_info.append({"room_id"      :r_id, 
                                        "room_name"    :room.name, 
@@ -74,7 +77,7 @@ class Server:
         broadcast_msg = {"action" :ACTION_ROOMLIST, 
                          "content":{"room_list":all_rooms_info}}
         self.room_list[0].put_message(json.dumps(broadcast_msg).encode("UTF-8"))
-        self.timer_room_list = threading.Timer(1.0, self.broadcast_new_room_list)
+        self.timer_room_list = threading.Timer(1.5, self.broadcast_new_room_list)
         self.timer_room_list.start()
 
     def broadcast_new_clients_list(self):
@@ -84,7 +87,7 @@ class Server:
                                         "room_user_num"   :len(r.client_list),
                                         "room_client_info":r.get_clients_info()}}
             r.put_message(json.dumps(broadcast_msg).encode("UTF-8"))
-        self.timer_clients_list = threading.Timer(2.0, self.broadcast_new_clients_list)
+        self.timer_clients_list = threading.Timer(1.5, self.broadcast_new_clients_list)
         self.timer_clients_list.start()
         
     def serve(self):
@@ -127,7 +130,7 @@ class Server:
                 else:
                     # handle all other sockets
                     try:
-                        data = s.recv(1024)
+                        data = s.recv(2048)
                         if data:
                             print("[" + self.socket_client_map[s].address[0] + "] " + data.decode("UTF-8"))
                             data = data.split(b"\0",1)[0]
@@ -222,6 +225,18 @@ class Server:
 
                                 new_msg_room.put_message(json.dumps(secret_msg).encode("UTF-8"))
                            
+                            elif action == ACTION_SENDFILE:
+                                r = self.room_list[content["room_id"]] 
+                                sender = self.socket_client_map[s]
+                                receiver = r.get_the_other_client(sender)
+
+                                filestream = {"action" :ACTION_SENDFILE,
+                                              "content":{"room_id"  :r.id,
+                                                         "file_name":content["file_name"],
+                                                         "file_type":content["file_type"],
+                                                         "file_data":content["file_data"]}}
+
+                                receiver.put_message(json.dumps(filestream).encode("UTF-8"))
 
                             elif action == ACTION_ASKTOSEND:
                                 r = self.room_list[content["room_id"]]
