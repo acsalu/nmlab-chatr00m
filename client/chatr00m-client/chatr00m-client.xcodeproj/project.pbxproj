@@ -21,6 +21,8 @@
 		90599CDB170387AB003BD0CA /* a.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 90599CD8170387AB003BD0CA /* a.mp3 */; };
 		90599CDC170387AB003BD0CA /* b.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 90599CD9170387AB003BD0CA /* b.mp3 */; };
 		90599CDD170387AB003BD0CA /* c.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 90599CDA170387AB003BD0CA /* c.mp3 */; };
+		90599CE31703E48A003BD0CA /* images.icns in Resources */ = {isa = PBXBuildFile; fileRef = 90599CE21703E48A003BD0CA /* images.icns */; };
+		90599CE51703E4D7003BD0CA /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 90599CE41703E4D7003BD0CA /* icon.icns */; };
 		905FB99A16F01BE80068B1CD /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 905FB99916F01BE80068B1CD /* Cocoa.framework */; };
 		905FB9A416F01BE80068B1CD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 905FB9A216F01BE80068B1CD /* InfoPlist.strings */; };
 		905FB9A616F01BE80068B1CD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 905FB9A516F01BE80068B1CD /* main.m */; };
@@ -69,6 +71,8 @@
 		90599CD8170387AB003BD0CA /* a.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = a.mp3; sourceTree = "<group>"; };
 		90599CD9170387AB003BD0CA /* b.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = b.mp3; sourceTree = "<group>"; };
 		90599CDA170387AB003BD0CA /* c.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = c.mp3; sourceTree = "<group>"; };
+		90599CE21703E48A003BD0CA /* images.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = images.icns; sourceTree = "<group>"; };
+		90599CE41703E4D7003BD0CA /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
 		905FB99616F01BE80068B1CD /* chatr00m-client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "chatr00m-client.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		905FB99916F01BE80068B1CD /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		905FB99C16F01BE80068B1CD /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -138,6 +142,8 @@
 		905FB98D16F01BE70068B1CD = {
 			isa = PBXGroup;
 			children = (
+				90599CE41703E4D7003BD0CA /* icon.icns */,
+				90599CE21703E48A003BD0CA /* images.icns */,
 				905FB99F16F01BE80068B1CD /* chatr00m-client */,
 				905FB99816F01BE80068B1CD /* Frameworks */,
 				905FB99716F01BE80068B1CD /* Products */,
@@ -326,6 +332,8 @@
 				90599CDB170387AB003BD0CA /* a.mp3 in Resources */,
 				90599CDC170387AB003BD0CA /* b.mp3 in Resources */,
 				90599CDD170387AB003BD0CA /* c.mp3 in Resources */,
+				90599CE31703E48A003BD0CA /* images.icns in Resources */,
+				90599CE51703E4D7003BD0CA /* icon.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
