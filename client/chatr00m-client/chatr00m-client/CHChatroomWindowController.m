@@ -178,24 +178,34 @@
     NSDictionary *content = dic[@"content"];
 
     if ([action isEqualToString:ACTION_AGREETORECEIVE]) {
+        
         NSString *receiverIp = @"140.112.18.221";
         [self initNetworkCommunicationWith:receiverIp];
         [self startSendingFile:content[@"file"]];
+        
     } else if ([action isEqualToString:ACTION_TALK]) {
+        
         NSLog(@"%@:%@", content[@"client_name"], content[@"message"]);
         self.chatTableContents = [self.chatTableContents arrayByAddingObject:content];
         //NSLog(@"%@", self.chatTableContents);
         [self.chatTableView reloadData];
+        
     } else if ([action isEqualToString:ACTION_ROOMINFO] ) {
+        
         self.userTableContents = content[@"room_client_info"];
         [self.userTableView reloadData];
+        [self.chatTableView reloadData];
+
+        
     } else if([action isEqualToString:ACTION_ASKTOSEND]){
+        
         NSString *file = content[@"file"];
         NSString *ip = @"140.112.18.221";
         NSDictionary *content = @{@"receiver_ip":ip, @"file":file};
         [[CHCommunicationAgent sharedAgent] send:content forAction:ACTION_AGREETORECEIVE];
         NSString *senderIp = @"140.112.18.219";
         [self initNetworkCommunicationWith:senderIp];
+        
     }
     
 }
