@@ -89,36 +89,38 @@
     wc.roomType = roomType;
     wc.roomName = roomName;
     wc.window.title = [NSString stringWithFormat:@"chatroom[%d]-%@", roomId, roomName];
+    if (roomType != ROOM_TYPE_MESSAGE) [wc.sendFileButton setHidden:YES];
     return wc;
 }
 
 
+- (IBAction)sendFileButtonPressed:(id)sender
+{
+}
+    
 
-- (IBAction)sendFile:(id)sender {
-//    NSOpenPanel *openDlg = [NSOpenPanel openPanel];
-//    NSArray *fileTypesArray;
-//    fileTypesArray = [NSArray arrayWithObjects:@"jpg",@"gif",@"png",nil];    
-//    [openDlg setCanChooseFiles:YES];
-//    [openDlg setAllowsOtherFileTypes:fileTypesArray];
-//    [openDlg setAllowsMultipleSelection:TRUE];
 //    
-//    NSString *filepath;
-//    if([openDlg runModal] == NSOKButton){
+//    [openDlg beginSheetModalForWindow:self.window completionHandler:^(NSInteger result) {
+//        NSString *filepath;
 //        NSLog(@"file chose");
 //        NSArray *files = [openDlg URLs];
 //        //NSLog(@"array:%@",files);
 //        NSLog(@"filename:%@",[[files objectAtIndex:0] path]);
 //        filepath = [[files objectAtIndex:0] path];
-//    }
+//        NSString *fileName = [[filepath lastPathComponent] stringByDeletingPathExtension];
+//        NSString *fileType = [filepath pathExtension];
+//        NSLog(@"file [%@][%@]", fileName, fileType);
+//        NSData *data = [[NSFileManager defaultManager] contentsAtPath:filepath];
+//        NSDictionary *content = @{@"room_id":@(self.roomId), @"file_name":fileName, @"file_type":fileType, @"file_data":data};
+//        [[CHCommunicationAgent sharedAgent] send:content forAction:ACTION_SENDFILE];
+//    }];
+//    \
     
-    NSString *userIp = [NSString stringWithFormat:@"140.112.18.221"];
-    NSDictionary *content = @{@"user_ip":userIp, @"file":@"filepath", @"room_id":@(self.roomId)};
-    [[CHCommunicationAgent sharedAgent] send:content forAction:ACTION_ASKTOSEND];
     
-    //for testing
-    NSString *receiverIp = @"140.112.18.220";
-    [self initNetworkCommunicationWith:receiverIp];
-    [self startSendingFile:content[@"file"]];
+
+- (void)sendFile:(NSDictionary *)content
+{
+    [[CHCommunicationAgent sharedAgent] send:[[NSUserDefaults standardUserDefaults] objectForKey:@"file_to_send" ] forAction:ACTION_SENDFILE];
 }
 
 - (IBAction)sendMessage:(id)sender {

@@ -24,6 +24,8 @@ extern NSString *const ACTION_NEWMESSAGE;
 extern NSString *const ACTION_SETUSERPIC;
 extern NSString *const ACTION_INVITE;
 
+extern NSString *const ACTION_SENDFILE;
+
 @protocol CHCommunicationAgentDelegate;
 
 

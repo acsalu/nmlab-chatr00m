@@ -443,13 +443,13 @@
 							<string key="NSFrame">{{542, 79}, {144, 32}}</string>
 							<reference key="NSSuperview" ref="1006"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="13932162"/>
+							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="151092378">
 								<int key="NSCellFlags">67108864</int>
 								<int key="NSCellFlags2">134217728</int>
-								<string key="NSContents">Invite someone</string>
+								<string key="NSContents">Invite Someone</string>
 								<reference key="NSSupport" ref="59631673"/>
 								<string key="NSCellIdentifier">_NS:9</string>
 								<reference key="NSControlView" ref="227954571"/>
@@ -1836,7 +1836,7 @@
 								<float key="scoringTypeFloat">24</float>
 								<int key="contentType">3</int>
 							</object>
-							<object class="IBNSLayoutConstraint" id="406300125">
+							<object class="IBNSLayoutConstraint" id="50601060">
 								<reference key="firstItem" ref="120246813"/>
 								<int key="firstAttribute">5</int>
 								<int key="relation">0</int>
@@ -1852,7 +1852,7 @@
 								<float key="scoringTypeFloat">9</float>
 								<int key="contentType">3</int>
 							</object>
-							<object class="IBNSLayoutConstraint" id="427188705">
+							<object class="IBNSLayoutConstraint" id="974507161">
 								<reference key="firstItem" ref="638467068"/>
 								<int key="firstAttribute">4</int>
 								<int key="relation">0</int>
@@ -1868,7 +1868,7 @@
 								<float key="scoringTypeFloat">29</float>
 								<int key="contentType">3</int>
 							</object>
-							<object class="IBNSLayoutConstraint" id="827500944">
+							<object class="IBNSLayoutConstraint" id="400654214">
 								<reference key="firstItem" ref="120246813"/>
 								<int key="firstAttribute">10</int>
 								<int key="relation">0</int>
@@ -1884,7 +1884,7 @@
 								<float key="scoringTypeFloat">24</float>
 								<int key="contentType">2</int>
 							</object>
-							<object class="IBNSLayoutConstraint" id="388668488">
+							<object class="IBNSLayoutConstraint" id="852990923">
 								<reference key="firstItem" ref="120246813"/>
 								<int key="firstAttribute">3</int>
 								<int key="relation">0</int>
@@ -1910,7 +1910,7 @@
 						<reference key="object" ref="120246813"/>
 						<array class="NSMutableArray" key="children">
 							<reference ref="304412401"/>
-							<object class="IBNSLayoutConstraint" id="832571144">
+							<object class="IBNSLayoutConstraint" id="654452293">
 								<reference key="firstItem" ref="120246813"/>
 								<int key="firstAttribute">7</int>
 								<int key="relation">0</int>
@@ -1934,7 +1934,7 @@
 						<reference key="object" ref="884325275"/>
 						<array class="NSMutableArray" key="children">
 							<reference ref="409247390"/>
-							<object class="IBNSLayoutConstraint" id="134139636">
+							<object class="IBNSLayoutConstraint" id="29240777">
 								<reference key="firstItem" ref="884325275"/>
 								<int key="firstAttribute">7</int>
 								<int key="relation">0</int>
@@ -2527,27 +2527,27 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">333</int>
-						<reference key="object" ref="134139636"/>
+						<reference key="object" ref="29240777"/>
 						<reference key="parent" ref="884325275"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">339</int>
-						<reference key="object" ref="388668488"/>
+						<reference key="object" ref="852990923"/>
 						<reference key="parent" ref="638467068"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">345</int>
-						<reference key="object" ref="832571144"/>
+						<reference key="object" ref="654452293"/>
 						<reference key="parent" ref="120246813"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">346</int>
-						<reference key="object" ref="827500944"/>
+						<reference key="object" ref="400654214"/>
 						<reference key="parent" ref="638467068"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">347</int>
-						<reference key="object" ref="427188705"/>
+						<reference key="object" ref="974507161"/>
 						<reference key="parent" ref="638467068"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -2557,7 +2557,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">349</int>
-						<reference key="object" ref="406300125"/>
+						<reference key="object" ref="50601060"/>
 						<reference key="parent" ref="638467068"/>
 					</object>
 				</array>
@@ -2623,21 +2623,21 @@
 				</array>
 				<string key="2.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<array class="NSMutableArray" key="207.IBNSViewMetadataConstraints">
-					<reference ref="388668488"/>
-					<reference ref="827500944"/>
-					<reference ref="427188705"/>
-					<reference ref="406300125"/>
+					<reference ref="852990923"/>
+					<reference ref="400654214"/>
+					<reference ref="974507161"/>
+					<reference ref="50601060"/>
 					<reference ref="133944218"/>
 				</array>
 				<string key="207.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="207.userInterfaceItemIdentifier">ChatCell</string>
 				<array class="NSMutableArray" key="208.IBNSViewMetadataConstraints">
-					<reference ref="832571144"/>
+					<reference ref="654452293"/>
 				</array>
 				<boolean value="NO" key="208.IBNSViewMetadataTranslatesAutoresizingMaskIntoConstraints"/>
 				<string key="208.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<array key="209.IBNSViewMetadataConstraints">
-					<reference ref="134139636"/>
+					<reference ref="29240777"/>
 				</array>
 				<boolean value="NO" key="209.IBNSViewMetadataTranslatesAutoresizingMaskIntoConstraints"/>
 				<string key="209.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -2785,7 +2785,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">349</int>
+			<int key="maxID">368</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -2798,7 +2798,7 @@
 						<string key="declareReceiver:">id</string>
 						<string key="doubleClickedOnUser:">id</string>
 						<string key="inviteButtonClicked:">id</string>
-						<string key="sendFile:">id</string>
+						<string key="sendFileButtonPressed:">id</string>
 						<string key="sendMessage:">id</string>
 						<string key="startBrowser:">id</string>
 						<string key="startNetService:">id</string>
@@ -2824,8 +2824,8 @@
 							<string key="name">inviteButtonClicked:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-						<object class="IBActionInfo" key="sendFile:">
-							<string key="name">sendFile:</string>
+						<object class="IBActionInfo" key="sendFileButtonPressed:">
+							<string key="name">sendFileButtonPressed:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="sendMessage:">
@@ -2846,6 +2846,7 @@
 						<string key="messageTextField">NSTextField</string>
 						<string key="onlineUsersTableView">NSTableView</string>
 						<string key="popover">NSPopover</string>
+						<string key="sendFileButton">NSButton</string>
 						<string key="userTableView">NSTableView</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
@@ -2864,6 +2865,10 @@
 						<object class="IBToOneOutletInfo" key="popover">
 							<string key="name">popover</string>
 							<string key="candidateClassName">NSPopover</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="sendFileButton">
+							<string key="name">sendFileButton</string>
+							<string key="candidateClassName">NSButton</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="userTableView">
 							<string key="name">userTableView</string>

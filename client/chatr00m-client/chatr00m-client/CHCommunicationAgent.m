@@ -40,6 +40,8 @@ NSString *const ACTION_NEWMESSAGE = @"NEW_MESSAGE";
 NSString *const ACTION_SETUSERPIC = @"SET_USERPIC";
 NSString *const ACTION_INVITE = @"INVITE";
 
+NSString *const ACTION_SENDFILE = @"SEND_FILE";
+
 const char *SERVER_IP = "54.249.234.231";
 //const char *SERVER_IP = "140.112.18.220";
 
